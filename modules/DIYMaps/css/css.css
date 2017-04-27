@@ -1,0 +1,295 @@
+body {
+    background-color: aqua;
+    
+    
+    background: -webkit-linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+    background: -o-linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+    background: -moz-linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+    background: linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+    
+}
+
+.titrepageGros{
+    margin-right:10px;
+    color: #ffffff;
+    font-size: 28px;
+    font-family: 'calibri';
+    font-weight: bolder;
+    display: block;
+}
+.titrepagePetit{
+    margin-right:10px;
+    margin-top: -8px;
+    margin-bottom: 20px;
+    color: #ffffff;
+    font-size: 14px;
+    font-family: 'calibri';
+    display: block;
+}
+
+.titrepage{
+    margin-right:10px;
+    color: #000000;
+    font-size: 16px;
+    font-family: 'calibri';
+}
+
+#selectByDatePeriod:hover{
+    background-color: #ffffff;
+}
+
+/* MENU */
+.menuZoom{
+    position:absolute;
+    padding: 5px;
+    z-index:10;
+}.menu{
+    position:absolute;
+    padding: 5px;
+    z-index:10;
+    bottom: 0px;
+}
+
+.DateRange{
+    position:absolute;
+    z-index:10;
+    color:#ffffff;
+    margin-top:-20px;
+    width:200px;
+    font-size: 10px;
+    font-family: 'calibri';
+    margin-left:10px;
+}
+
+
+
+.menu img{
+    width:40px;
+    margin-left: 10px;
+}
+.zoomButton{
+    width:30px;
+    margin-left: 10px;
+}
+
+.logoUn{
+    height:100px;
+    margin-top:10px;
+}
+.zoomButton:hover{
+    cursor: pointer;
+}
+.imgMenu:hover{
+    cursor: pointer;
+}
+
+.pointer:hover{
+    cursor: pointer;
+}
+
+
+#closeMenuShow:hover{
+    cursor: pointer;
+}
+
+.memeLigne{
+    position:relative;
+    float: left;
+    margin-left: 5px;
+}
+
+#infoBloc{
+    text-align: center;
+    color:#ffffff;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.searchBar{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding-bottom: 10px;
+    z-index:10;
+    position:relative;
+    background-color: #ffffff;
+}
+
+#buttonPlay, #buttonPause,#buttonStop, .smallImage{
+    width:30px;
+}
+
+
+.menuItem{
+    font-size: 20px;
+    margin-top:3px;
+    margin-bottom:3px;
+    color:#cccccc;
+}
+
+.menuItem:hover{
+    color:#0059b3;
+}
+
+.EventDetail {
+    background-color: rgba(255,255,255, 1);
+    padding: .3em;
+    font-size: 12px;
+    font-family: 'calibri';
+    width:200px;
+    height:100px;
+    border-radius: 2px;
+    z-index: 10;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.EventsCountry {
+    font-size: 13px;
+    font-weight: bolder;
+    color: #333333;
+}
+.EventsDate {
+    
+    font-size: 10px;
+}
+.EventsTitle {
+    font-size: 13px;
+    font-style: italic;
+}
+.EventDetail:hover {
+    cursor: move;
+}
+
+.menuShow {
+    background-color: rgba(255,255,255, 1);
+    padding: .3em;
+    font-size: 12px;
+    font-family: Helvetica, Arial, sans-serif;
+    position: absolute;
+    border-radius: 5px;
+    z-index: 10;
+    bottom: 0px;
+}
+
+#alertDates{
+    color:red;
+    padding:5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 10px;
+}
+
+
+.zoneDetails{
+    background-color: white;
+    padding:10px;
+}
+
+.zoneCarte{
+    overflow: hidden;
+}
+
+
+
+
+
+
+
+/* LONGEURS */
+.lgPetit{
+    width:50px;
+    font-size: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* CARTE */
+#carte{
+    width:842px;
+    height: 595px;
+    /*position:fixed;*/
+}
+
+#carte polygon:hover{
+    cursor: move;
+}
+
+.pinImage:hover{
+    cursor: pointer;
+    
+}
+.pinImage{
+
+}
+
+.captureZone{
+    position:absolute;
+    z-index:0;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
+
+
+.cell{
+    padding: 5px;
+}
+
+.cell div{
+    padding: 5px;
+    background-color: #ffeecc;
+}
+
+.bubbleMenu{
+    position:absolute;
+    width:auto;
+    height: auto;
+    padding:5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-color: #ffffff;
+    z-index:10;
+}
+
+
+
+.bubbleMenu img{
+    margin-left: 5px;
+}
+
+
+.imgDetail{
+    width:40px;
+    float: left;
+}
+
+
+.info_panel {
+  background-color: rgba(255,255,255, .7);
+  padding: .3em;
+  font-size: 12px;
+  font-family: Helvetica, Arial, sans-serif;
+  position: absolute;
+    border-radius: 5px;
+}
+
+
+
+ text{
+    /*fill:#ffffff;text-shadow: 2px 2px 4px #000000;*/
+}
+
+

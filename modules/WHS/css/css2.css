@@ -1,0 +1,331 @@
+body {
+    background-color: #e1e8f6;
+    
+
+
+}
+
+
+
+
+/* TEXTE */
+.titrepageGros{
+    margin-top: 4px;
+    margin-right:10px;
+    color: #ffffff;
+    font-size: 28px;
+    font-family: 'calibri';
+    font-weight: bolder;
+    display: block;
+}
+.titrepagePetit{
+    margin-right:10px;
+    margin-top: -4px;
+    margin-bottom: 20px;
+    color: #ffffff;
+    font-size: 14px;
+    font-family: 'calibri';
+    display: block;
+}
+.titrepage{
+    margin-right:10px;
+    color: #ffffff;
+    font-size: 16px;
+    font-family: 'calibri';
+}
+.texteBlanc{
+    color:#ffffff;
+    font-size: 12px;
+}
+.EventsCountry {
+    font-size: 13px;
+    font-weight: bolder;
+    color: #333333;
+}
+.EventsDate {
+    
+    font-size: 10px;
+}
+.EventsTitle {
+    font-size: 13px;
+    font-style: italic;
+}
+
+
+/* TAILLE POLICE */
+
+
+
+/* BLOCS */
+.ligneDetail{
+
+}
+.detailAcutalite{
+    position:absolute;
+    background: #0099ff;
+    width:400px;
+    right:0px;
+    z-index: 10;
+    top:0px;
+    padding: 10px;
+    color:#ffffff;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    font-size: 11px;
+}
+.ligneDetail:hover{
+    
+    cursor: pointer;
+}
+#selectByDatePeriod:hover{
+    background-color: #ffffff;
+}
+.blocConnect{
+    margin:10px;
+    position: fixed;
+    top:0px;
+    right: 0px;
+}
+.memeLigne{
+    position:relative;
+    display: inline-block;
+    margin-left: 5px;
+}
+.EventDetail {
+    background-color: rgba(255,255,255, 1);
+    padding: .3em;
+    font-size: 12px;
+    font-family: 'calibri';
+    width:200px;
+    height:100px;
+    border-radius: 2px;
+    z-index: 10;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.EventDetail:hover {
+    cursor: move;
+}
+.menuShow {
+    background-color: rgba(255,255,255, 1);
+    padding: .3em;
+    font-size: 12px;
+    font-family: Helvetica, Arial, sans-serif;
+    position: absolute;
+    border-radius: 5px;
+    z-index: 10;
+    bottom: 0px;
+}
+#alertDates{
+    color:red;
+    padding:5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 10px;
+}
+.zoneDetails{
+    background-color: white;
+    padding:10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.zoneCarte{
+    /*overflow: hidden;*/
+}
+.lgPetit{
+    width:50px;
+    font-size: 10px;
+}
+#board{
+    /*overflow: hidden;*/
+}
+
+
+/* MENU */
+.menuZoom{
+    position:absolute;
+    padding: 5px;
+    z-index:10;
+}
+.menu{
+    position:absolute;
+    padding: 5px;
+    z-index:10;
+    bottom: 0px;
+}
+.zoneDetailsMenu{
+    margin: 5px;
+    margin-bottom: 10px;
+    text-align: right;
+}
+.searchBar{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding-bottom: 10px;
+    z-index:10;
+    position:relative;
+}
+.menuItem{
+    font-size: 20px;
+    margin-top:3px;
+    margin-bottom:3px;
+    color:#cccccc;
+}
+.menuItem:hover{
+    color:#0059b3;
+}
+
+
+
+/* IMAGES */
+.menu img{
+    width:40px;
+    margin-left: 10px;
+}
+.logoUn{
+    height:100px;
+    margin-top:10px;
+}
+.zoomButton{
+    width:30px;
+    margin-left: 10px;
+}
+.zoomButton:hover{
+    cursor: pointer;
+}
+.imgMenu:hover{
+    cursor: pointer;
+}
+.smallImage{
+    width:40px;
+}
+
+
+
+
+.DateRange{
+    position:absolute;
+    z-index:10;
+    color:#ffffff;
+    margin-top:-20px;
+    width:200px;
+    font-size: 10px;
+    font-family: 'calibri';
+    margin-left:10px;
+}
+
+
+
+
+
+
+.pointer:hover{
+    cursor: pointer;
+}
+
+
+#closeMenuShow:hover{
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* CARTE */
+#carte{
+    width:842px;
+    height: 595px;
+    /*position:fixed;*/
+}
+
+#carte polygon:hover{
+    cursor: move;
+}
+
+.pinImage:hover{
+    cursor: pointer;
+    
+}
+.pinImage{
+
+}
+
+.captureZone{
+    position:absolute;
+    z-index:0;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
+
+
+.cell{
+    padding: 5px;
+}
+
+.cell div{
+    padding: 5px;
+    background-color: #ffeecc;
+}
+
+.bubbleMenu{
+    position:absolute;
+    width:auto;
+    height: auto;
+    padding:5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-color: #ffffff;
+    z-index:10;
+}
+
+
+
+.bubbleMenu img{
+    margin-left: 5px;
+}
+
+
+.imgDetail{
+    width:40px;
+    float: left;
+}
+
+
+.info_panel {
+  background-color: rgba(255,255,255, .7);
+  padding: .3em;
+  font-size: 12px;
+  font-family: Helvetica, Arial, sans-serif;
+  position: absolute;
+    border-radius: 5px;
+}
+
+
+
+ text{
+    /*fill:#ffffff;text-shadow: 2px 2px 4px #000000;*/
+}
+
+
