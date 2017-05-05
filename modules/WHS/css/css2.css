@@ -150,6 +150,10 @@ body {
     z-index:10;
     bottom: 0px;
 }
+.zoneDetailsMenuTexte{
+    margin-top: 5px;
+    text-align: right;
+}
 .zoneDetailsMenu{
     margin: 5px;
     margin-bottom: 10px;

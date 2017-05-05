@@ -41,7 +41,7 @@ if(isset($_POST['dateDebut']) && isset($_POST['dateFin']))
         
         
         if($_POST['filtreTheme']!=""){
-            $filterTheme = " and ID_CATEG_ACTU in (";
+            $filterTheme = " and ID_TAG in (";
             for ($i = 0; $i < count($Themes); $i++){
                 if($i!=(count($Themes)-1)){
                     $filterTheme.=$Themes[$i].", ";
@@ -51,7 +51,7 @@ if(isset($_POST['dateDebut']) && isset($_POST['dateFin']))
             }
         }
         
-        $requete = "SELECT * FROM listeactualite where DATE_ACTUALITE BETWEEN ? and ? and ID_LANGUE=1 ".$filterPays.$filterTheme;
+        $requete = "SELECT distinct(ID_ACTUALITE), TYPE_CATEG_ACTU, TITRE_CATEG_ACTU, CODE_A0,CAPTION_A0, COORD_X_A0, COORD_Y_A0, CODE_A1, CAPTION_A1, COORD_X_A1, COORD_Y_A1, TITRE_ACTUALITE, DETAIL_ACTUALITE, DATE_ACTUALITE, ID_LANGUE, VALEUR, ID_A0, ID_CATEG_ACTU, CODE_MENACE, TITRE_MENACE,LIBELLE_LIEU,CAPTION_A0Lieu,COORD_X_A0Lieu,COORD_Y_A0Lieu,CODE_A1Lieu,CAPTION_A1Lieu,COORD_X_A1Lieu,COORD_Y_A1Lieu FROM listeactualite where DATE_ACTUALITE BETWEEN ? and ? and ID_LANGUE=1 ".$filterPays.$filterTheme;
         //echo $requete;
         $stmt = $db->prepare($requete);
         
@@ -62,7 +62,7 @@ if(isset($_POST['dateDebut']) && isset($_POST['dateFin']))
                 
                 while ($row = $stmt->fetch()) {
                     
-                    $actualite = array($row['TYPE_CATEG_ACTU'], $row['TITRE_CATEG_ACTU'], $row['CODE_A0'], $row['CAPTION_A0'], $row['COORD_X_A0'], $row['COORD_Y_A0'], $row['CODE_A1'], $row['CAPTION_A1'], $row['COORD_X_A1'], $row['COORD_Y_A1'], utf8_encode($row['TITRE_ACTUALITE']), utf8_encode($row['DETAIL_ACTUALITE']), $row['DATE_ACTUALITE'], $row['CODE_MENACE']);
+                    $actualite = array($row['TYPE_CATEG_ACTU'], $row['TITRE_CATEG_ACTU'], $row['CODE_A0'], $row['CAPTION_A0'], $row['COORD_X_A0'], $row['COORD_Y_A0'], $row['CODE_A1'], $row['CAPTION_A1'], $row['COORD_X_A1'], $row['COORD_Y_A1'], utf8_encode($row['TITRE_ACTUALITE']), utf8_encode($row['DETAIL_ACTUALITE']), $row['DATE_ACTUALITE'], $row['CODE_MENACE'],$row['LIBELLE_LIEU'], $row['CAPTION_A0Lieu'], $row['COORD_X_A0Lieu'], $row['COORD_Y_A0Lieu'], $row['CODE_A1Lieu'], $row['CAPTION_A1Lieu'], $row['COORD_X_A1Lieu'], $row['COORD_Y_A1Lieu']);
 
                     array_push($actualites,$actualite);
                 }
@@ -77,8 +77,6 @@ if(isset($_POST['dateDebut']) && isset($_POST['dateFin']))
         catch( PDOException $Exception ) {
              echo json_encode("erreur".$Exception->getMessage( ));
         }
-
-        
     }
     else
     {
