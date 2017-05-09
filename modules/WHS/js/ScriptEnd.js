@@ -144,16 +144,15 @@ $("#buttonExportTxt").click(function(){
     //COPIE DE LA CARTE
 	$('<canvas id="canvasCarte" class="captureZone" width="'+width+'px" height="'+height+'px" style="position:absolute;z-index:0"></canvas>').appendTo('body');
 	canvas = document.getElementById('canvasCarte');
-	console.log("1:"+canvas.height+" "+canvas.width);
+	// console.log("1:"+canvas.height+" "+canvas.width);
     canvg(document.getElementById('canvasCarte'),$('#carte')[0].outerHTML);
-	console.log("2:"+canvas.height+" "+canvas.width);
+	// console.log("2:"+canvas.height+" "+canvas.width);
     $('#carte').hide();
     $('.menuZoom').hide();
     //$('#canvasCarte').css({"width":width+'px',"height":height+'px'});
     //$('#canvasCarte').css({"left":$('#carte').css("left"),"top":$('#carte').css("top")});
     
-    ////console.log(listeActualites);
-    
+	
     
 	html2canvas(($("#canvasCarte")), {
         onrendered: function(canvas) {
@@ -383,6 +382,11 @@ $("#buttonExportTxt").click(function(){
         letterRendering:true
     });
 
+    
+	
+	
+	
+	
 });
 $("#buttonSearch").click(function(){
     FiltrerActualite();

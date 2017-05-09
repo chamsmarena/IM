@@ -202,18 +202,18 @@ function ShowActualiteOnMap(data){
 				if(actualiteCurrent==actualiteNext){
 					multiActualite.push(actualites[i]);
 					actualiteAncien = actualiteCurrent;
-					console.log("multi add:"+actualiteCurrent);
+					//console.log("multi add:"+actualiteCurrent);
 				}else{
 					if(actualiteAncien==actualiteCurrent){
 						multiActualite.push(actualites[i]);
-						console.log("multi2 add:"+actualiteCurrent);
+						///console.log("multi2 add:"+actualiteCurrent);
 					}else{
 						uniqueActualite.push(actualites[i]);
-						console.log("uni add:"+actualiteCurrent);
+						//console.log("uni add:"+actualiteCurrent);
 					}
 					
 				}
-				console.log("----");
+				//console.log("----");
 				n = n+1;
 			}
 			
@@ -260,11 +260,11 @@ function ShowActualiteOnMap(data){
             for(i=0; i < uniqueActualite.length; i++) {
                 
                 if(uniqueActualite[i][14]==undefined){
-                    coorX = parseFloat(uniqueActualite[i][8])-2;
-                    coorY = parseFloat(uniqueActualite[i][9])-22;
+                    coorX = parseFloat(uniqueActualite[i][8])-12;
+                    coorY = parseFloat(uniqueActualite[i][9])-42;
                 }else{
-                    coorX = parseFloat(uniqueActualite[i][20])-2;
-                    coorY = parseFloat(uniqueActualite[i][21])-22;
+                    coorX = parseFloat(uniqueActualite[i][20])-12;
+                    coorY = parseFloat(uniqueActualite[i][21])-42;
                 }
                 
 
@@ -272,8 +272,8 @@ function ShowActualiteOnMap(data){
                 var svgimg = document.createElementNS('http://www.w3.org/2000/svg','image');
 
                 //ATTRIBUTS
-                svgimg.setAttributeNS(null,'height','20');
-                svgimg.setAttributeNS(null,'width','13.35');
+                svgimg.setAttributeNS(null,'height','40');
+                svgimg.setAttributeNS(null,'width','33.35');
                 svgimg.setAttributeNS('http://www.w3.org/1999/xlink','href', 'images/events/'+uniqueActualite[i][0]+uniqueActualite[i][13]+'.svg');
                 svgimg.setAttributeNS(null,'x',coorX);
                 svgimg.setAttributeNS(null,'y',coorY);
@@ -310,19 +310,19 @@ function ShowActualiteOnMap(data){
                     arrayDetailGroup = [];
                     
                     if(multiActualite[i][14]==undefined){
-                        coorX = parseFloat(multiActualite[i][8])-2;
-                        coorY = parseFloat(multiActualite[i][9])-22;
+                        coorX = parseFloat(multiActualite[i][8])-12;
+                        coorY = parseFloat(multiActualite[i][9])-42;
                     }else{
-                        coorX = parseFloat(multiActualite[i][20])-2;
-                        coorY = parseFloat(multiActualite[i][21])-22;
+                        coorX = parseFloat(multiActualite[i][20])-12;
+                        coorY = parseFloat(multiActualite[i][21])-42;
                     }
 
                     var svgimg = document.createElementNS('http://www.w3.org/2000/svg','image');
 
                     //ATTRIBUTS
-                    svgimg.setAttributeNS(null,'height','20');
-                    svgimg.setAttributeNS(null,'width','13.35');
-                    svgimg.setAttributeNS('http://www.w3.org/1999/xlink','href', 'images/GroupEvents.svg');
+                    svgimg.setAttributeNS(null,'height','40');
+                    svgimg.setAttributeNS(null,'width','33.35');
+                    svgimg.setAttributeNS('http://www.w3.org/1999/xlink','href', 'images/events/GroupEvents.svg');
                     svgimg.setAttributeNS(null,'x',coorX);
                     svgimg.setAttributeNS(null,'y',coorY);
                     svgimg.setAttributeNS(null,'class',"pinImage");
@@ -354,41 +354,40 @@ function ShowActualiteOnMap(data){
                         //AFFICHER LES SOUS ICONES
                         for(j=0; j < arrayDetailGroup.length; j++) {
                             if(arrayDetailGroup.length==2){
-                                coorXss = parseFloat(arrayDetailGroup[j][8])+4.7-(j*6);
-                                coorYss = parseFloat(arrayDetailGroup[j][9]-18);
+                                coorXss = parseFloat(arrayDetailGroup[j][8])+4.7-(j*14);
+                                coorYss = parseFloat(arrayDetailGroup[j][9]-28);
                             }
                             
                             if(arrayDetailGroup.length==3){
                                 if(j<2){
-                                    coorXss = parseFloat(arrayDetailGroup[j][8])+4.7-(j*6);
-                                    coorYss = parseFloat(arrayDetailGroup[j][9]-20);
+                                    coorXss = parseFloat(arrayDetailGroup[j][8])+4.7-(j*14);
+                                    coorYss = parseFloat(arrayDetailGroup[j][9]-40);
                                 }else{
-                                    coorXss = parseFloat(arrayDetailGroup[j][8])+4.7-((j/3)*4.7);
-                                    coorYss = parseFloat(arrayDetailGroup[j][9]-15);
+                                    coorXss = parseFloat(arrayDetailGroup[j][8])+4.7-((j/3)*12.7);
+                                    coorYss = parseFloat(arrayDetailGroup[j][9]-30);
                                 }
                             }
                             
                             if(arrayDetailGroup.length==4){
                                 if(j<2){
-                                    coorXss = parseFloat(arrayDetailGroup[j][8])+4.7-(j*6);
-                                    coorYss = parseFloat(arrayDetailGroup[j][9]-20);
+                                    coorXss = parseFloat(arrayDetailGroup[j][8])+4.7-(j*14);
+                                    coorYss = parseFloat(arrayDetailGroup[j][9]-40);
                                 }else{
                                     
-                                    coorXss = parseFloat(arrayDetailGroup[j][8])+4.7-((j-2)*6);
-                                    coorYss = parseFloat(arrayDetailGroup[j][9]-14);
+                                    coorXss = parseFloat(arrayDetailGroup[j][8])+4.7-((j-2)*14);
+                                    coorYss = parseFloat(arrayDetailGroup[j][9]-29);
                                 }
                             }
                             if(arrayDetailGroup.length>4){
                                 if(j<=4){
                                     if(j<2){
-                                        coorXss = parseFloat(arrayDetailGroup[j][8])+4.7-(j*6);
-                                        coorYss = parseFloat(arrayDetailGroup[j][9]-20);
+                                        coorXss = parseFloat(arrayDetailGroup[j][8])+4.7-(j*14);
+                                        coorYss = parseFloat(arrayDetailGroup[j][9]-40);
                                     }else{
-                                        coorXss = parseFloat(arrayDetailGroup[j][8])+4.7-((j-2)*6);
-                                        coorYss = parseFloat(arrayDetailGroup[j][9]-14);
+                                        coorXss = parseFloat(arrayDetailGroup[j][8])+4.7-((j-2)*14);
+                                        coorYss = parseFloat(arrayDetailGroup[j][9]-29);
                                     }
                                 }
-                                
                             }
                             
                             /*
@@ -412,8 +411,8 @@ function ShowActualiteOnMap(data){
 
                                 //ATTRIBUTS
 
-                                svgimgDetail.setAttributeNS(null,'height','5.65');
-                                svgimgDetail.setAttributeNS(null,'width','5.87');
+                                svgimgDetail.setAttributeNS(null,'height','15.65');
+                                svgimgDetail.setAttributeNS(null,'width','15.87');
                                 svgimgDetail.setAttributeNS('http://www.w3.org/1999/xlink','href', 'images/events/'+arrayDetailGroup[j][0]+arrayDetailGroup[j][13]+'Group.svg');
                                 svgimgDetail.setAttributeNS(null,'x',coorXss);
                                 svgimgDetail.setAttributeNS(null,'y',coorYss);
@@ -425,14 +424,14 @@ function ShowActualiteOnMap(data){
                             }else{
                                 //SHOW ICONE MORE
                                 if(j==4){
-                                    coorXss = parseFloat(arrayDetailGroup[j][8])+5.7-(((j-2)/3)*4.7);
+                                    coorXss = parseFloat(arrayDetailGroup[j][8])+5.7-(((j-2)/3)*10.7);
                                     coorYss = parseFloat(arrayDetailGroup[j][9]-16);
                                     var svgimgMore = document.createElementNS('http://www.w3.org/2000/svg','image');
 
                                     //ATTRIBUTS
-                                    svgimgMore.setAttributeNS(null,'height','4');
-                                    svgimgMore.setAttributeNS(null,'width','4');
-                                    svgimgMore.setAttributeNS('http://www.w3.org/1999/xlink','href', 'images/More.svg');
+                                    svgimgMore.setAttributeNS(null,'height','14');
+                                    svgimgMore.setAttributeNS(null,'width','14');
+                                    svgimgMore.setAttributeNS('http://www.w3.org/1999/xlink','href', 'images/events/More.svg');
                                     svgimgMore.setAttributeNS(null,'x',coorXss);
                                     svgimgMore.setAttributeNS(null,'y',coorYss);
                                     svgimgMore.setAttributeNS(null,'class',"pinImage");
@@ -459,39 +458,39 @@ function ShowActualiteOnMap(data){
             //AFFICHER LES SOUS ICONES
             for(j=0; j < arrayDetailGroup.length; j++) {
                 if(arrayDetailGroup.length==2){
-                    coorXss = parseFloat(arrayDetailGroup[j][8])+4.7-(j*6);
-                    coorYss = parseFloat(arrayDetailGroup[j][9]-18);
+                    coorXss = parseFloat(arrayDetailGroup[j][8])+4.7-(j*14);
+                    coorYss = parseFloat(arrayDetailGroup[j][9]-32);
                 }
 
                 if(arrayDetailGroup.length==3){
                     if(j<2){
-                        coorXss = parseFloat(arrayDetailGroup[j][8])+4.7-(j*6);
+                        coorXss = parseFloat(arrayDetailGroup[j][8])+4.7-(j*14);
                         coorYss = parseFloat(arrayDetailGroup[j][9]-20);
                     }else{
-                        coorXss = parseFloat(arrayDetailGroup[j][8])+4.7-((j/3)*4.7);
-                        coorYss = parseFloat(arrayDetailGroup[j][9]-15);
+                        coorXss = parseFloat(arrayDetailGroup[j][8])+4.7-((j/3)*12.7);
+                        coorYss = parseFloat(arrayDetailGroup[j][9]-29);
                     }
                 }
 
                 if(arrayDetailGroup.length==4){
                     if(j<2){
-                        coorXss = parseFloat(arrayDetailGroup[j][8])+4.7-(j*6);
-                        coorYss = parseFloat(arrayDetailGroup[j][9]-20);
+                        coorXss = parseFloat(arrayDetailGroup[j][8])+4.7-(j*14);
+                        coorYss = parseFloat(arrayDetailGroup[j][9]-40);
                     }else{
 
-                        coorXss = parseFloat(arrayDetailGroup[j][8])+4.7-((j-2)*6);
-                        coorYss = parseFloat(arrayDetailGroup[j][9]-14);
+                        coorXss = parseFloat(arrayDetailGroup[j][8])+4.7-((j-2)*14);
+                        coorYss = parseFloat(arrayDetailGroup[j][9]-29);
                     }
                 }
                 
                 if(arrayDetailGroup.length>4){
                     if(j<=4){
                         if(j<2){
-                            coorXss = parseFloat(arrayDetailGroup[j][8])+4.7-(j*6);
-                            coorYss = parseFloat(arrayDetailGroup[j][9]-20);
+                            coorXss = parseFloat(arrayDetailGroup[j][8])+4.7-(j*14);
+                            coorYss = parseFloat(arrayDetailGroup[j][9]-40);
                         }else{
-                            coorXss = parseFloat(arrayDetailGroup[j][8])+4.7-((j-2)*6);
-                            coorYss = parseFloat(arrayDetailGroup[j][9]-14);
+                            coorXss = parseFloat(arrayDetailGroup[j][8])+4.7-((j-2)*14);
+                            coorYss = parseFloat(arrayDetailGroup[j][9]-29);
                         }
                     }
 
@@ -519,8 +518,8 @@ function ShowActualiteOnMap(data){
 
                     //ATTRIBUTS
 
-                    svgimgDetail.setAttributeNS(null,'height','5.65');
-                    svgimgDetail.setAttributeNS(null,'width','5.87');
+                    svgimgDetail.setAttributeNS(null,'height','15.65');
+                    svgimgDetail.setAttributeNS(null,'width','15.87');
                     svgimgDetail.setAttributeNS('http://www.w3.org/1999/xlink','href', 'images/events/'+arrayDetailGroup[j][0]+arrayDetailGroup[j][13]+'Group.svg');
                     svgimgDetail.setAttributeNS(null,'x',coorXss);
                     svgimgDetail.setAttributeNS(null,'y',coorYss);
@@ -539,7 +538,7 @@ function ShowActualiteOnMap(data){
                         //ATTRIBUTS
                         svgimgMore.setAttributeNS(null,'height','4');
                         svgimgMore.setAttributeNS(null,'width','4');
-                        svgimgMore.setAttributeNS('http://www.w3.org/1999/xlink','href', 'images/More.svg');
+                        svgimgMore.setAttributeNS('http://www.w3.org/1999/xlink','href', 'images/events/More.svg');
                         svgimgMore.setAttributeNS(null,'x',coorXss);
                         svgimgMore.setAttributeNS(null,'y',coorYss);
                         svgimgMore.setAttributeNS(null,'class',"pinImage");
@@ -611,16 +610,19 @@ function ShowActualiteDetails(data){
             $(".zoneDetailsTableau").append("</tbody></table>");
             $('#tableDetails').DataTable( {
                 "pageLength": nbLignes,
-                "searching": false,
                 "lengthChange": false,
                 "fnDrawCallback": function() {
                     $(".paginate_button").show();
                     $(".disabled").hide();
                     $("td").css({"padding":"0px"});
+                    $(".dataTables_paginate ").css({"position": "fixed","bottom": "10px","right": "10px"});
+                    $(".dataTables_filter ").css({"position": "absolute","top": "-135px","right": "0px","z-index":"10"});
+					$(".dataTables_filter label").html("Search <span class='glyphicon glyphicon-search' aria-hidden='true'></span> <input type='search class='' placeholder='' aria-controls='tableDetails'>");
+					$(".dataTables_filter label").css({"color": "#ffffff"});
                 }
             });
             $(".dataTables_info").hide();
-            $("#tableDetails").css({"height":(auteurDetail-20)});
+            //$("#tableDetails").css({"height":(auteurDetail-20)});
             
             
             
@@ -636,13 +638,14 @@ function ShowActualiteDetails(data){
             
             
             //REMPLISSAGE DU TABLEAU A EXPORTER EN FORMAT TXT
+			/*
             contenuTableau = "<table  hidden='hidden' class='table' id='ExportDetailsTxt'><thead><tr><th>Theme</th></tr></thead><tbody>";
             
             for(i=0; i < nbActualite; i++) {
                 contenuTableau+="<tr><td>"+actualites[i][1]+"</td></tr><tr><td>"+actualites[i][3]+"</td></tr><tr><td>"+actualites[i][7]+"</td></tr><tr><td>"+actualites[i][12]+"</td></tr><tr><td>"+actualites[i][10]+"</td></tr><td></td><tr></tr>";
             }
             contenuTableau+="</tbody></table>";
-            $(".zoneDetailsTableau").append(contenuTableau);
+            $(".zoneDetailsTableau").append(contenuTableau);*/
             
             
             
@@ -784,50 +787,71 @@ function RemoveFilterTheme(){
     FiltrerActualite();
 }
 function FiltrerPays(){
+
     Pays = $("#Pays").val();
-    LibellePays = $("#Pays option:selected").text();
-   
-    filtered = false;
-    
-    if(filtresPays.length>0){
-        for(i=0; i < filtresPays.length; i++) {
-            if(filtresPays[i]==Pays){
-                filtered=true;
-            }
-        }
-    }
-    
-    if(!filtered){
-        $(".filtrePays").append("<button type='button' id='"+Pays+"' class='buttonFiltrePays btn btn-default btn-xs'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span> "+LibellePays+"</button>");
-        fPays = document.getElementById(Pays)
-        fPays.addEventListener("click", RemoveFilterPays);
-        filtresPays.push(Pays);
-    }
-    
-    FiltrerActualite();
-    HoverPaysFiltred();
+	
+	if(Pays=="all"){
+		ColorierLesPays();
+		filtresPays = [];
+		$(".filtrePays button").remove();
+		
+	}else{
+		console.log(Pays);
+		LibellePays = $("#Pays option:selected").text();
+	   
+		filtered = false;
+		
+		if(filtresPays.length>0){
+			for(i=0; i < filtresPays.length; i++) {
+				if(filtresPays[i]==Pays){
+					filtered=true;
+				}
+			}
+		}
+		
+		if(!filtered){
+			$(".filtrePays").append("<button type='button' id='"+Pays+"' class='buttonFiltrePays btn btn-default btn-xs'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span> "+LibellePays+"</button>");
+			fPays = document.getElementById(Pays)
+			fPays.addEventListener("click", RemoveFilterPays);
+			filtresPays.push(Pays);
+		}
+		
+		
+		HoverPaysFiltred();
+	}
+	
+	FiltrerActualite();
+	
     
 }
 function FiltrerTheme(){
     theme = $("#typeActu").val();
-    LibelleTheme = $("#typeActu option:selected").text();
-    filtered = false;
-    
-    if(filtresThemes.length>0){
-        for(i=0; i < filtresThemes.length; i++) {
-            if(filtresThemes[i]==theme){
-                filtered=true;
-            }
-        }
-    }
-    
-    if(!filtered){
-        $(".filtreTheme").append("<button type='button' id='"+theme+"' class='btn btn-default btn-xs'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span> "+LibelleTheme+"</button>");
-        fTheme = document.getElementById(theme)
-        fTheme.addEventListener("click", RemoveFilterTheme);
-        filtresThemes.push(theme);
-    }
-    
+	
+	if(theme=="all"){
+		filtresThemes = [];
+		$(".filtreTheme button").remove();
+		
+	}else{
+		LibelleTheme = $("#typeActu option:selected").text();
+		filtered = false;
+		
+		if(filtresThemes.length>0){
+			for(i=0; i < filtresThemes.length; i++) {
+				if(filtresThemes[i]==theme){
+					filtered=true;
+				}
+			}
+		}
+		
+		if(!filtered){
+			$(".filtreTheme").append("<button type='button' id='"+theme+"' class='btn btn-default btn-xs'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span> "+LibelleTheme+"</button>");
+			fTheme = document.getElementById(theme)
+			fTheme.addEventListener("click", RemoveFilterTheme);
+			filtresThemes.push(theme);
+		}
+	}
+	
+	
     FiltrerActualite();
 }
 function FiltrerActualite(){
@@ -864,12 +888,12 @@ function HoverPaysFiltred(){
     // //console.log($('svg g g path'));
 }
 function ColorierLesPays(){
-	$('svg g polygon path').css({"fill":"#ffccaa"});
-	$('svg #Admin0 polygon').css({"fill":"#ffccaa"});
-	$('svg #Admin0 polyline').css({"fill":"#ffccaa"});
-	$('svg #Admin0 path').css({"fill":"#ffccaa"});
-	$('svg #Admin0 polygon polyline').css({"fill":"#ffccaa"});
-	$('svg #Admin0 polygon polygon').css({"fill":"#ffccaa"});
+	$('#carte g polygon path').css({"fill":"#ffccaa"});
+	$('#carte #Admin0 polygon').css({"fill":"#ffccaa"});
+	$('#carte #Admin0 polyline').css({"fill":"#ffccaa"});
+	$('#carte #Admin0 path').css({"fill":"#ffccaa"});
+	$('#carte #Admin0 polygon polyline').css({"fill":"#ffccaa"});
+	$('#carte #Admin0 polygon polygon').css({"fill":"#ffccaa"});
 }
 
 
@@ -888,16 +912,18 @@ function handle(delta) {
     ShowHideOnZooming();
 }
 function handle(delta,mouseX,mouseY) {
+	
 	if(delta<0){
-		zoom = zoom-0.5;
+		zoom = zoom-0.2;
 	}else{
-		zoom = zoom+0.5;
+		zoom = zoom+0.2;
 	}
 	if(zoom>0 && zoom<10){
 		console.log(zoom);
 		$( "#carte" ).css('transform', 'scale('+zoom+')');
 		ShowHideOnZooming();
 	}
+	//console.log("zoom"+zoom);
 }
 function wheel(event){
     var mouseX = event.pageX,mouseY = event.pageY;
