@@ -30,9 +30,11 @@ $(document).ready(function(){
     $("#Admin1").hide();
     $("#LabelsAdmin1").hide();
     $("#Admin1 polygon").css({"stroke":"#ccebff","stroke-width":0.2});
+	$("#carte").css('transform', 'scale(1)');
+
     $("#carte").fadeIn("slow");
     
-    
+    ColorierLesPays();
     //RECUPERATION DES VALEURS DE SELECT
     var x = document.getElementById("Pays").options;
     for(i=0; i < x.length; i++){
@@ -51,7 +53,7 @@ $(document).ready(function(){
 $("#selectByDatePeriod").click(function(e){
     valeur = $("#selectByDatePeriod").html();
     valeur = valeur.replace('<span class="glyphicon glyphicon-search"></span> ',"");
-    console.log(valeur);
+    //console.log(valeur);
     switch(valeur){
         case "By date":
             $("#selectByDatePeriod").html("<span class='glyphicon glyphicon-search'></span> By period");
@@ -127,28 +129,35 @@ $("#buttonExportExcel").click(function(){
 $("#buttonExportTxt").click(function(){
     var nbPages = 0;
     
-    $('<canvas id="canvas" class="captureZone" width="0px" height="0px" style="position:absolute;z-index:0"></canvas>').appendTo('#board');
     
-    //ZOOM CARTE
-    width = $('#carte').css("width").replace('px','');
+    
+    //ZOOM CARTE POUR AVOIR PLUS DE QUALITE
+	widthOrigin = $('#carte').css("width").replace('px','');
+    heightOrigin = $('#carte').css("height").replace('px','');
+	$("#carte").css('transform', 'scale(4)');
+	width = $('#carte').css("width").replace('px','');
     height = $('#carte').css("height").replace('px','');
-    width = width*4;
-    height = height*4;
-    $('#carte').css({"width":width+'px',"height":height+'px'});
+	$("#carte").attr({"width":width+"px","height":height+"px"});
+	$("#carte").attr({"viewBox":"0 0 "+width+" "+height});
+
     
     //COPIE DE LA CARTE
-    canvg(document.getElementById('canvas'),$('#carte')[0].outerHTML);
+	$('<canvas id="canvasCarte" class="captureZone" width="'+width+'px" height="'+height+'px" style="position:absolute;z-index:0"></canvas>').appendTo('body');
+	canvas = document.getElementById('canvasCarte');
+	console.log("1:"+canvas.height+" "+canvas.width);
+    canvg(document.getElementById('canvasCarte'),$('#carte')[0].outerHTML);
+	console.log("2:"+canvas.height+" "+canvas.width);
     $('#carte').hide();
     $('.menuZoom').hide();
-    $('#canvas').css({"width":width+'px',"height":height+'px'});
-    $('#canvas').css({"left":$('#carte').css("left"),"top":$('#carte').css("top")});
+    //$('#canvasCarte').css({"width":width+'px',"height":height+'px'});
+    //$('#canvasCarte').css({"left":$('#carte').css("left"),"top":$('#carte').css("top")});
     
-    console.log(listeActualites);
+    ////console.log(listeActualites);
     
     
-	html2canvas(($("#canvas")), {
+	html2canvas(($("#canvasCarte")), {
         onrendered: function(canvas) {
-            
+            console.log("3:"+canvas.height+" "+canvas.width);
             //EXPORT PDF
             
             
@@ -158,10 +167,11 @@ $("#buttonExportTxt").click(function(){
 			var extraSmallFontSite = 8;
 
             //AJOUT DE LA CARTE
-            // console.log(canvas.width);
+            // //console.log(canvas.width);
             heightCarte = (canvas.height/(canvas.width/210));
+			
 			imgData= canvas.toDataURL('image/png');
-            doc.addImage(imgData, 'png', 10, 45, 210,heightCarte );
+            doc.addImage(imgData, 'png', 10, 45, 210,heightCarte);
             pos = 40+heightCarte;
 
       
@@ -286,7 +296,7 @@ $("#buttonExportTxt").click(function(){
                     pos = pos+6;
 
                     var details = MakeToArray(listeActualites[i][11]);
-                    // console.log(details);
+                    // //console.log(details);
                     doc.text(10, pos, details);
 
                     pos = pos+(details.length * 4);
@@ -358,12 +368,16 @@ $("#buttonExportTxt").click(function(){
             
             //FIN EXPORT PDF
             
-            $('#canvas').remove();
+            $('#canvasCarte').remove();
             $('.menuZoom').show();
-            width = width/4;
-            height = height/4;
-            $('#carte').css({"width":width+'px',"height":height+'px'});
-            $('#carte').show();
+			
+			
+			//ZOOM RESTAURER LE ZOOM PAR DEFAUT
+			$( "#carte" ).css('transform', 'scale('+zoom+')');
+			$("#carte").attr({"width":widthOrigin+"px","height":heightOrigin+"px"});
+			$("#carte").attr({"viewBox":"0 0 "+widthOrigin+" "+heightOrigin});
+			
+			$('#carte').show();
         },
     background:"#ffffff",
         letterRendering:true
@@ -412,7 +426,7 @@ $("#cartevvvv").mousedown(function(e){
 
         topVal = topVal+((mouseY-origineY)*coef);
         leftVal = leftVal+((mouseX-origineX)*coef);
-        //console.log("OY:"+origineY+" - topVal:"+topVal+" - mouseY:"+mouseY);
+        ////console.log("OY:"+origineY+" - topVal:"+topVal+" - mouseY:"+mouseY);
         $("#carte").css({"top":topVal+"px","left":leftVal+"px"});
     }
     catch(err) {

@@ -151,16 +151,20 @@ function TwoDateToText(d1,d2) {
 		result = day1+" "+monthText1+" - "+day2+" "+monthText2+" "+year1;
 	}
     
-	//console.log( "+fff+"+monthText1+" "+monthText2);
+	////console.log( "+fff+"+monthText1+" "+monthText2);
     return result;
 }
 function ShowActualiteOnMap(data){
 
-    console.log("data");
-    console.log(data);
+    //console.log("data");
+    //console.log(data);
     var actualites=JSON.parse(data);
-
-    //console.log(actualites);
+	// console.log(actualites);
+    
+	// actualites.sort(function(a, b) { 
+		// return a[22] > b[22] ? 1 : -1;
+	// });
+    // console.log(actualites);
     
     
     $('.pinImage').remove();
@@ -172,8 +176,8 @@ function ShowActualiteOnMap(data){
             $("#alertDates").hide();
             
             //DETECTION DES REGIONS A PLUSIEURS ACTUALITES
-             array1 = actualites;
-             array2 = actualites;
+			 array1 = actualites;
+			 array2 = actualites;
             
             var tempArray = [];
             var arrayInit = ["found","found","found","found","found","found","found","found","0","0","found","found","0000-00-00","0"];
@@ -182,18 +186,56 @@ function ShowActualiteOnMap(data){
             var haveDuplicate = false;
             var isDetected = false;
             var indexSearched = 6;
-            
+			var n = 1;
+			var be = nbActualite-1;
+            var actualiteAncien="";
+			
+			for(i=0; i < (nbActualite-1); i++) {
+				
+				var actualiteCurrent = actualites[i][2]+actualites[i][6]+actualites[i][8]+actualites[i][9]+actualites[i][18]+actualites[i][20]+actualites[i][21];
+				var actualiteNext = actualites[n][2]+actualites[n][6]+actualites[n][8]+actualites[n][9]+actualites[n][18]+actualites[n][20]+actualites[n][21];
+				
+				//console.log(actualiteCurrent);
+				//console.log(actualiteNext);
+				
+				
+				if(actualiteCurrent==actualiteNext){
+					multiActualite.push(actualites[i]);
+					actualiteAncien = actualiteCurrent;
+					console.log("multi add:"+actualiteCurrent);
+				}else{
+					if(actualiteAncien==actualiteCurrent){
+						multiActualite.push(actualites[i]);
+						console.log("multi2 add:"+actualiteCurrent);
+					}else{
+						uniqueActualite.push(actualites[i]);
+						console.log("uni add:"+actualiteCurrent);
+					}
+					
+				}
+				console.log("----");
+				n = n+1;
+			}
+			
+			if(actualiteCurrent==actualiteNext){
+				multiActualite.push(actualites[be]);
+			}else{
+				uniqueActualite.push(actualites[be]);
+			}
+			
+			
+			/*
             for(i=0; i < nbActualite; i++) {
-                search = array1[i][indexSearched];
+                search = array1[i][6]+array1[i][8]+array1[i][9]+array1[i][18]+array1[i][20]+array1[i][21];
                 if(search!="found"){
                     for(j=0; j < nbActualite; j++) { 
-                        searchIn = array2[j][indexSearched];
+                        searchIn = array2[j][6]+array2[j][8]+array2[j][9]+array2[j][18]+array2[j][20]+array2[j][21];
 
                         if(search==searchIn){
                             tempArray.push(array2[j]);
-                            array2[j]= arrayInit;
+                            //array2[j]= arrayInit;
+							array2.splice(j,1);
                         }
-
                     }
 
                     if(tempArray.length>1){
@@ -208,9 +250,9 @@ function ShowActualiteOnMap(data){
 
                     tempArray = [];
                 }
-                
-            }
+            }*/
             
+			console.log(multiActualite);
 
 
             
@@ -257,6 +299,8 @@ function ShowActualiteOnMap(data){
             var arrayDetailGroup = [];
             var lastIndex = 0;
             var lastIndexDetail = 0;
+			
+
             
             for(i=0; i < multiActualite.length; i++) {
                 
@@ -410,7 +454,7 @@ function ShowActualiteOnMap(data){
                 
             }
             $("#pinImageGroup"+lastIndex).data('actualite', arrayDetailGroup);
-            //console.log(arrayDetailGroup);
+            ////console.log(arrayDetailGroup);
             
             //AFFICHER LES SOUS ICONES
             for(j=0; j < arrayDetailGroup.length; j++) {
@@ -537,7 +581,7 @@ function ShowActualiteDetails(data){
     
     var actualites=JSON.parse(data);
     listeActualites = actualites;
-    //console.log(actualites);
+    ////console.log(actualites);
     if(actualites!=null){
         nbActualite = actualites.length;
         if(nbActualite>0){
@@ -697,7 +741,7 @@ function ClickOnPinGroup(e){
 }
 function MouseOverkOnPinGroup(){
     var actualite = $(this).data("actualite");
-    //console.log(actualite);
+    ////console.log(actualite);
     //$('<div class="info_panel">'+actualite[12]+':'+actualite[0]+' in '+actualite[7]+'</div>').appendTo('body');
     
 }
@@ -808,115 +852,52 @@ function HoverPaysFiltred(){
     $('svg g path').css({"fill":"#ffffff"});
     //$('svg g path').css({"fill":"#ffffff"});
     
-    // console.log(filtresPays);
+    // //console.log(filtresPays);
     
     for(i=0; i < filtresPays.length; i++) {
         $('svg g #'+filtresPays[i]+' path').css({"fill":"#ffccaa"});
         $('svg #Admin0 #'+filtresPays[i]).css({"fill":"#ffccaa"});
         $('svg #Admin0 #'+filtresPays[i]+' polyline').css({"fill":"#ffccaa"});
         $('svg #Admin0 #'+filtresPays[i]+' polygon').css({"fill":"#ffccaa"});
-        /*
-        z = document.getElementById("CPV");
-        enfants = z.children;
-        
-        for(j=0; j < enfants.length; j++) {
-            
-            enfants[i].setAttribute("style","fill:ffccaa");
-            console.log(enfants[i]);
-        }*/
-        
     }
     
-    // console.log($('svg g g path'));
+    // //console.log($('svg g g path'));
+}
+function ColorierLesPays(){
+	$('svg g polygon path').css({"fill":"#ffccaa"});
+	$('svg #Admin0 polygon').css({"fill":"#ffccaa"});
+	$('svg #Admin0 polyline').css({"fill":"#ffccaa"});
+	$('svg #Admin0 path').css({"fill":"#ffccaa"});
+	$('svg #Admin0 polygon polyline').css({"fill":"#ffccaa"});
+	$('svg #Admin0 polygon polygon').css({"fill":"#ffccaa"});
 }
 
 
 function handle(delta) {
-    actualWidth = Math.round($("#carte").css("width").replace("px",""));
-    actualHeight = Math.round($("#carte").css("height").replace("px",""));
-    coef = 0.08;
-    if (delta < 0)
-    {
-        actualWidth = actualWidth-(actualWidth*coef);
-        actualHeight = actualHeight-(actualHeight*coef);
-    }
-    else
-    {
-        actualWidth = actualWidth+(actualWidth*coef);
-        actualHeight = actualHeight+(actualHeight*coef);
-    }
-    
-    //$("#carte").animate({"width":actualWidth+"px","height":actualHeight+"px"},5, function(){});
-    $( "#carte" ).animate({
-        width: actualWidth,
-        height: actualHeight
-      }, 50,"easeInQuad", function() {
-        // Animation complete.
-      });
+  
+	zoomx = zoomx+5;
+	zoomy = zoomy+5;
+	//console.log(zoomx);
+	$( "#carte" ).animate({
+			transform: "scale("+zoomx+", "+zoomy+")"
+		}, 50,"easeInQuad", function() {
+		// Animation complete.
+		});
     //$("#carte").css({"width":actualWidth+"px","height":actualHeight+"px"});
     
     ShowHideOnZooming();
 }
 function handle(delta,mouseX,mouseY) {
-    boardWidth = Math.round($("#board").css("width").replace("px",""));
-    boardHeight = Math.round($("#board").css("height").replace("px",""));
-    searchHeight = Math.round($(".searchBar").css("height").replace("px",""));
-    actualWidth = Math.round($("#carte").css("width").replace("px",""));
-    actualHeight = Math.round($("#carte").css("height").replace("px",""));
-    actualLeft = Math.round($("#carte").css("left").replace("px",""));
-    actualTop = Math.round($("#carte").css("top").replace("px",""));
-    halfWidth = boardWidth/2;
-    halfHeight = boardHeight/2;
-    coef = 0.08;
-    coefDirec = 0.08;
-    mouseY = mouseY - searchHeight;
-    
-    
-    //DIRECTION ZOOMING
-    if(mouseX>halfWidth)
-    {
-        actualLeft = actualLeft - (mouseX*coefDirec);
-        // console.log("move left : mouseX:"+mouseX+"-halfWidth:"+halfWidth+"-actualLeft:"+actualLeft);
-    }else{
-        actualLeft = actualLeft + (mouseX*coefDirec);
-        // console.log("move right : mouseX:"+mouseX+"-halfWidth:"+halfWidth+"-actualLeft:"+actualLeft);
-    }
-    if(mouseY>halfHeight)
-    {
-        actualTop = actualTop - (mouseY*coefDirec);
-        // console.log("move up : mouseY:"+mouseY+"-halfHeight:"+halfHeight+"-actualTop:"+actualTop);
-    }else{
-        actualTop = actualTop + (mouseY*coefDirec);
-        // console.log("move down : mouseY:"+mouseY+"-halfHeight:"+halfHeight+"-actualTop:"+actualTop);
-    }
-    
-    //actualTop -= (mouseY - halfHeight)*coef;
-        
-    
-    //ZOOMING
-    if (delta < 0)
-    {
-        actualWidth = actualWidth-(actualWidth*coef);
-        actualHeight = actualHeight-(actualHeight*coef);
-    }
-    else
-    {
-        actualWidth = actualWidth+(actualWidth*coef);
-        actualHeight = actualHeight+(actualHeight*coef);
-    }
-    
-    //$("#carte").animate({"width":actualWidth+"px","height":actualHeight+"px"},5, function(){});
-    $( "#carte" ).animate({
-        width: actualWidth,
-        height: actualHeight,
-        left: actualLeft,
-        top: actualTop
-      }, 50,"easeInQuad", function() {
-        // Animation complete.
-      });
-    //$("#carte").css({"width":actualWidth+"px","height":actualHeight+"px"});
-    
-    ShowHideOnZooming();
+	if(delta<0){
+		zoom = zoom-0.5;
+	}else{
+		zoom = zoom+0.5;
+	}
+	if(zoom>0 && zoom<10){
+		console.log(zoom);
+		$( "#carte" ).css('transform', 'scale('+zoom+')');
+		ShowHideOnZooming();
+	}
 }
 function wheel(event){
     var mouseX = event.pageX,mouseY = event.pageY;
@@ -943,17 +924,17 @@ function wheel(event){
 function ShowHideOnZooming(){
     actualWidth = Math.round($("#carte").css("width").replace("px",""));
     pourcZoom = Math.round((actualWidth/842)*100);
-    //console.log("Zoom: "+pourcZoom+"%");
+    ////console.log("Zoom: "+pourcZoom+"%");
     
     if(pourcZoom<350)
     {
         $("#LabelsAdmin1").fadeOut("slow");
         $("#LabelsAdmin0").fadeIn("slow");
-        $("#Admin0").fadeIn("slow");
+		$("#Admin0").css({ opacity: 1 });
         $("#Admin1").fadeOut("slow");
     }else{
         $("#Admin1").fadeIn("slow");
-        $("#Admin0").fadeOut("slow");
+        $("#Admin0").css({ opacity: 0.5 });
         $("#LabelsAdmin1").fadeIn("slow");
         $("#LabelsAdmin0").fadeOut("slow");
     }
@@ -1018,7 +999,7 @@ function postActualite() {
     var xhr = getXMLHttpRequest();
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-			// console.log("Post:"+this.responseText);
+			// //console.log("Post:"+this.responseText);
             var today = new Date();
             getActualite(today.getFullYear()+"/01/01",today.getFullYear()+"/12/31","","");
 			//******* fin affichage des filtre **********
@@ -1041,15 +1022,15 @@ function postActualite() {
     TitreEn = $("#PostTitreEn").val(); 
     DetailEn = $("#PostDetailEn").val();
     
-    /*console.log("TypeActu:"+TypeActu);
-    console.log("Region:"+Region);
-    console.log("Pays:"+Pays);
-    console.log("TitreFr:"+TitreFr);
-    console.log("DetailFr:"+DetailFr);
-    console.log("DateActualite:"+DateActualite);
-    console.log("Valeur:"+Valeur);
-    console.log("TitreEn:"+TitreEn);
-    console.log("DetailEn:"+DetailEn);*/
+    /*//console.log("TypeActu:"+TypeActu);
+    //console.log("Region:"+Region);
+    //console.log("Pays:"+Pays);
+    //console.log("TitreFr:"+TitreFr);
+    //console.log("DetailFr:"+DetailFr);
+    //console.log("DateActualite:"+DateActualite);
+    //console.log("Valeur:"+Valeur);
+    //console.log("TitreEn:"+TitreEn);
+    //console.log("DetailEn:"+DetailEn);*/
     
     
     
@@ -1145,8 +1126,8 @@ function MakeToArray(texte){
     var tmpArray = texte.split(" ");
     var finalArray= [];
     var finalLine = "";
-    //console.log("split tmpArray");
-    //console.log(tmpArray);
+    ////console.log("split tmpArray");
+    ////console.log(tmpArray);
     for(j=0; j < tmpArray.length; j++) {
         if((tmpArray[j].length + finalLine.length)<126){
             finalLine = finalLine+" "+tmpArray[j];
@@ -1160,8 +1141,8 @@ function MakeToArray(texte){
     }
     
     
-    //console.log("split finalArray");
-    //console.log(finalArray);
+    ////console.log("split finalArray");
+    ////console.log(finalArray);
     return finalArray;
 }
 function GetLabel(tableau,id){
@@ -1229,10 +1210,10 @@ arrayImages.push(['refugeeCampgris','data:image/jpeg;base64,/9j/4QV0RXhpZgAATU0A
     
     
     
-    console.log("nomImage");
-    console.log(nomImage);
+    //console.log("nomImage");
+    //console.log(nomImage);
     for(w=0; w < arrayImages.length; w++) {
-        //console.log(arrayImages[w][0]+'-'+nomImage);
+        ////console.log(arrayImages[w][0]+'-'+nomImage);
         if(arrayImages[w][0]==nomImage)
         {
             result= arrayImages[w][1];
@@ -1252,9 +1233,9 @@ function convertImageToCanvas(img) {
 
 	canvas.getContext("2d").drawImage(img, 0, 0);
 	
-	//console.log("img");
-	//console.log(img);
-	//sconsole.log(canvas);
+	////console.log("img");
+	////console.log(img);
+	//s//console.log(canvas);
 	return canvas;
 }
 function convertCanvasToImage(canvas) {
@@ -1269,7 +1250,7 @@ function DirectImgToData(src){
     tmpImage.setAttribute('alt', 'na');
     tmpImage.setAttribute('height', '50px');
     tmpImage.setAttribute('width', '50px');
-    //console.log(tmpImage);
+    ////console.log(tmpImage);
     
     canvas2 = document.createElement('canvas');
 	canvas2.width = tmpImage.width;
@@ -1289,7 +1270,7 @@ function DirectImgToCanvas(src){
     oImg.setAttribute('alt', 'na');
     oImg.setAttribute('height', '50px');
     oImg.setAttribute('width', '50px');
-    //console.log(oImg);
+    ////console.log(oImg);
     canvg(canvas, oImg);
 
     return canvas;
@@ -1425,7 +1406,7 @@ function convert(file){
     
     var doc = new jsPDF();
     var imgData = 'data:image/jpeg;base64,'+ Base64.encode(file);
-    console.log(imgData);
+    //console.log(imgData);
     /*
     doc.setFontSize(40);
     doc.text(30, 20, 'Hello world!');
@@ -1436,7 +1417,7 @@ function convert(file){
 
 
 function ImageTo(img){
-    console.log(img);
+    //console.log(img);
     $("#myCanvas").html("");
 	
     
@@ -1458,7 +1439,7 @@ function ImageTo(img){
     var img = document.getElementById("scream");
     ctx.drawImage(elem, 0, 0);
     img = "";
-    console.log(can1.toDataURL('image/png'));
+    //console.log(can1.toDataURL('image/png'));
     $("#myCanvas").html("");
     return can1.toDataURL('image/png');
     
