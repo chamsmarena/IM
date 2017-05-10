@@ -83,6 +83,26 @@ function formattedDate(d) {
 
   return `${year}/${month}/${day}`;
 }
+
+function DateFrToDateEn(d) {
+	d = d.replace("/","");
+	d = d.replace("/","");
+	var r = "";
+	var j = "";
+	var m = "";
+	var a = "";
+	if(d.length == 8){
+		j = d.substring(0, 2);
+		m = d.substring(2, 4);
+		a = d.substring(4, 8);
+		//console.log(d+"+++"+j+"-"+m+"-"+a);
+		
+		r = a+"/"+m+"/"+j;
+	}
+	
+  return r;
+}
+
 function formattedDateFrench(d) {
   let month = String(d.getMonth() + 1);
   let day = String(d.getDate());
@@ -154,7 +174,7 @@ function TwoDateToText(d1,d2) {
 	////console.log( "+fff+"+monthText1+" "+monthText2);
     return result;
 }
-function ShowActualiteOnMap(data){
+function ShowActualiteOnMap(){
 
     //console.log("data");
     //console.log(data);
@@ -172,8 +192,8 @@ function ShowActualiteOnMap(data){
     if(actualites!=null){
         nbActualite = actualites.length;
         if(nbActualite>0){
-            $("#alertDates").html("");
-            $("#alertDates").hide();
+            //$("#alertDates").html("");
+            //$("#alertDates").hide();
             
             //DETECTION DES REGIONS A PLUSIEURS ACTUALITES
 			 array1 = actualites;
@@ -189,73 +209,46 @@ function ShowActualiteOnMap(data){
 			var n = 1;
 			var be = nbActualite-1;
             var actualiteAncien="";
+			var actualiteCurrent="";
+			var actualiteNext="";
 			
-			for(i=0; i < (nbActualite-1); i++) {
-				
-				var actualiteCurrent = actualites[i][2]+actualites[i][6]+actualites[i][8]+actualites[i][9]+actualites[i][18]+actualites[i][20]+actualites[i][21];
-				var actualiteNext = actualites[n][2]+actualites[n][6]+actualites[n][8]+actualites[n][9]+actualites[n][18]+actualites[n][20]+actualites[n][21];
-				
-				//console.log(actualiteCurrent);
-				//console.log(actualiteNext);
-				
+			if(nbActualite==1){
+				uniqueActualite.push(actualites[0]);
+			}else{
+				for(i=0; i < (nbActualite-1); i++) {
+					actualiteCurrent = actualites[i][2]+actualites[i][6]+actualites[i][8]+actualites[i][9]+actualites[i][18]+actualites[i][20]+actualites[i][21];
+					actualiteNext = actualites[n][2]+actualites[n][6]+actualites[n][8]+actualites[n][9]+actualites[n][18]+actualites[n][20]+actualites[n][21];
+					
+					if(actualiteCurrent==actualiteNext){
+						multiActualite.push(actualites[i]);
+						actualiteAncien = actualiteCurrent;
+						//console.log("multi add:"+actualiteCurrent);
+					}else{
+						if(actualiteAncien==actualiteCurrent){
+							multiActualite.push(actualites[i]);
+							//console.log("multi2 add:"+actualiteCurrent);
+						}else{
+							uniqueActualite.push(actualites[i]);
+							//console.log("uni add:"+actualiteCurrent);
+						}
+						
+					}
+					//console.log("----");
+					n = n+1;
+				}
 				
 				if(actualiteCurrent==actualiteNext){
-					multiActualite.push(actualites[i]);
-					actualiteAncien = actualiteCurrent;
-					//console.log("multi add:"+actualiteCurrent);
+					multiActualite.push(actualites[be]);
 				}else{
-					if(actualiteAncien==actualiteCurrent){
-						multiActualite.push(actualites[i]);
-						///console.log("multi2 add:"+actualiteCurrent);
-					}else{
-						uniqueActualite.push(actualites[i]);
-						//console.log("uni add:"+actualiteCurrent);
-					}
-					
+					uniqueActualite.push(actualites[be]);
 				}
-				//console.log("----");
-				n = n+1;
 			}
 			
-			if(actualiteCurrent==actualiteNext){
-				multiActualite.push(actualites[be]);
-			}else{
-				uniqueActualite.push(actualites[be]);
-			}
-			
-			
-			/*
-            for(i=0; i < nbActualite; i++) {
-                search = array1[i][6]+array1[i][8]+array1[i][9]+array1[i][18]+array1[i][20]+array1[i][21];
-                if(search!="found"){
-                    for(j=0; j < nbActualite; j++) { 
-                        searchIn = array2[j][6]+array2[j][8]+array2[j][9]+array2[j][18]+array2[j][20]+array2[j][21];
-
-                        if(search==searchIn){
-                            tempArray.push(array2[j]);
-                            //array2[j]= arrayInit;
-							array2.splice(j,1);
-                        }
-                    }
-
-                    if(tempArray.length>1){
-                        for(k=0; k < tempArray.length; k++) {
-                            multiActualite.push(tempArray[k]);
-                        }
-                    }else{
-                        if(tempArray.length==1){
-                            uniqueActualite.push(tempArray[0]);
-                        }
-                    }
-
-                    tempArray = [];
-                }
-            }*/
             
-			console.log(multiActualite);
+			//console.log(multiActualite);
+			//console.log(uniqueActualite);
 
 
-            
             //SHOW UNIQUE INCIDENT ON REGION
             for(i=0; i < uniqueActualite.length; i++) {
                 
@@ -390,22 +383,6 @@ function ShowActualiteOnMap(data){
                                 }
                             }
                             
-                            /*
-                            var svgimgDetail = document.createElementNS('http://www.w3.org/2000/svg','image');
-                            //ATTRIBUTS
-                            
-                            svgimgDetail.setAttributeNS(null,'height','5.65');
-                            svgimgDetail.setAttributeNS(null,'width','5.87');
-                            svgimgDetail.setAttributeNS('http://www.w3.org/1999/xlink','href', 'images/'+arrayDetailGroup[j][0]+'Group.svg');
-                            svgimgDetail.setAttributeNS(null,'x',coorXss);
-                            svgimgDetail.setAttributeNS(null,'y',coorYss);
-                            svgimgDetail.setAttributeNS(null,'class',"pinImageGroup");
-                            svgimgDetail.setAttributeNS(null,'id',"pinImageGroupDetail"+j);
-                            svgimgDetail.setAttributeNS(null, 'visibility', 'visible');
-
-                            $('#Pins').append(svgimgDetail);
-                            */
-                            
                             if(j<4){
                                 var svgimgDetail = document.createElementNS('http://www.w3.org/2000/svg','image');
 
@@ -495,23 +472,6 @@ function ShowActualiteOnMap(data){
                     }
 
                 }
-
-                /*
-                    var svgimgDetail = document.createElementNS('http://www.w3.org/2000/svg','image');
-
-                    //ATTRIBUTS
-
-                    svgimgDetail.setAttributeNS(null,'height','5.65');
-                    svgimgDetail.setAttributeNS(null,'width','5.87');
-                    svgimgDetail.setAttributeNS('http://www.w3.org/1999/xlink','href', 'images/'+arrayDetailGroup[j][0]+'Group.svg');
-                    svgimgDetail.setAttributeNS(null,'x',coorXss);
-                    svgimgDetail.setAttributeNS(null,'y',coorYss);
-                    svgimgDetail.setAttributeNS(null,'class',"pinImage");
-                    svgimgDetail.setAttributeNS(null,'id',"pinImageGroupDetail"+(lastIndexDetail+j));
-                    svgimgDetail.setAttributeNS(null, 'visibility', 'visible');
-
-                    $('#Pins').append(svgimgDetail);
-                    */
                 
                 if(j<4){
                     var svgimgDetail = document.createElementNS('http://www.w3.org/2000/svg','image');
@@ -536,8 +496,8 @@ function ShowActualiteOnMap(data){
                         var svgimgMore = document.createElementNS('http://www.w3.org/2000/svg','image');
 
                         //ATTRIBUTS
-                        svgimgMore.setAttributeNS(null,'height','4');
-                        svgimgMore.setAttributeNS(null,'width','4');
+                        svgimgMore.setAttributeNS(null,'height','14');
+                        svgimgMore.setAttributeNS(null,'width','14');
                         svgimgMore.setAttributeNS('http://www.w3.org/1999/xlink','href', 'images/events/More.svg');
                         svgimgMore.setAttributeNS(null,'x',coorXss);
                         svgimgMore.setAttributeNS(null,'y',coorYss);
@@ -548,22 +508,19 @@ function ShowActualiteOnMap(data){
                         $('#Pins').append(svgimgMore);
                     }
                 }
-      
             }
             
             
         }else{
             var dateChoisi = new Date($("#dateStart").val()).getTime();
             if(!isNaN(dateChoisi)){
-                $("#alertDates").html("theres is not events àt this date");
-                $("#alertDates").show();
+				//$(".zoneDetailsTableau").html("There is not events àt this date");
             }else{
                 
             }
         }
     }else{
-        $("#alertDates").html("Error! can't get datas");
-        $("#alertDates").show();
+		$(".zoneDetailsTableau").html("Error! can't get datas!");
     }
     
 } 
@@ -572,7 +529,7 @@ function CloseDetails(){
     $(".ligneDetail").css({"background-color":"#ffffff","color":"#000000"});
     $(".EventsCountry").css({"color":"#000000"});
 }
-function ShowActualiteDetails(data){
+function ShowActualiteDetails(){
     auteurDetail = $(".zoneDetails").css("height").replace("px","");
     auteurDetail = auteurDetail - 100;
     nbLignes = Math.floor(auteurDetail/80);
@@ -585,9 +542,7 @@ function ShowActualiteDetails(data){
         nbActualite = actualites.length;
         if(nbActualite>0){
             
-            $("#buttonExportExcel").fadeIn();
-            $("#ExportDetailsTxt").fadeIn();
-            $("#menuPrint").fadeIn();
+            AfficherBoutons();
             
             
             //AFFICHAGE DES LIGNES DETAILS DES ACTUALITES
@@ -605,7 +560,7 @@ function ShowActualiteDetails(data){
             $(".zoneDetailsTableau").append("<table id='tableDetails' class='stripe' style='border-bottom:none;'><thead hidden='hidden'><tr><th>news</th></tr></thead><tbody>");   
             for(i=0; i < nbActualite; i++) {
                 //$("#tableDetails").append("<tr><td><div id='ligneDetailAcutalite"+i+"' class='ligneDetail' onclick='ShowDetailActualite("+i+")'><div class='memeLigne'><img src='images/"+actualites[i][0]+"Group.svg' class='imgDetail'/></div><div class='memeLigne'><span class='EventsCountry'>"+actualites[i][3]+" ("+actualites[i][7]+")</span> <span class='EventsDate'>"+actualites[i][12]+"</span></br><span class='EventsTitle'>"+actualites[i][10]+"</span></div></div></td></tr>");
-                $("#tableDetails").append("<tr><td><div class='panel panel-default'><div class='panel-heading' role='tab' id='heading"+i+"'><h4 class='panel-title'><a role='button' data-toggle='collapse' data-parent='#accordion' href='#collapse"+i+"' aria-expanded='true' aria-controls='collapse"+i+"'><div class='memeLigne'><img src='images/events/"+actualites[i][0]+actualites[i][13]+"Group.svg' class='imgDetail'/></div><div class='memeLigne'><span class='EventsCountry'>"+actualites[i][3]+" ("+actualites[i][7]+")</span> <span class='EventsDate'>"+actualites[i][12]+"</span></br><span class='EventsTitle'>"+actualites[i][10]+"</span></div></a></h4></div><div id='collapse"+i+"' class='panel-collapse collapse' role='tabpanel' aria-labelledby='heading"+i+"'><div class='panel-body'>"+actualites[i][11]+"</div></div></div></td></tr>");
+                $("#tableDetails").append("<tr><td><div class='panel panel-default'><div class='panel-heading' role='tab' id='heading"+i+"'><h4 class='panel-title'><a role='button' data-toggle='collapse' data-parent='#accordion' href='#collapse"+i+"' aria-expanded='true' aria-controls='collapse"+i+"'><div class='memeLigne'><img src='images/events/"+actualites[i][0]+actualites[i][13]+"Group.svg' class='imgDetail'/></div><div class='memeLigne'><span class='EventsCountry'>"+actualites[i][3]+"</span> <span class='EventsDate'>"+actualites[i][12]+"</span></br><span class='EventsTitle'>"+actualites[i][10]+"</span></div></a></h4></div><div id='collapse"+i+"' class='panel-collapse collapse' role='tabpanel' aria-labelledby='heading"+i+"'><div class='panel-body'>"+actualites[i][11]+"</div></div></div></td></tr>");
             }
             $(".zoneDetailsTableau").append("</tbody></table>");
             $('#tableDetails').DataTable( {
@@ -617,8 +572,9 @@ function ShowActualiteDetails(data){
                     $("td").css({"padding":"0px"});
                     $(".dataTables_paginate ").css({"position": "fixed","bottom": "10px","right": "10px"});
                     $(".dataTables_filter ").css({"position": "absolute","top": "-135px","right": "0px","z-index":"10"});
-					$(".dataTables_filter label").html("Search <span class='glyphicon glyphicon-search' aria-hidden='true'></span> <input type='search class='' placeholder='' aria-controls='tableDetails'>");
-					$(".dataTables_filter label").css({"color": "#ffffff"});
+					//$(".dataTables_filter label").html("Search <span class='glyphicon glyphicon-search' aria-hidden='true'></span> <input type='search class='' placeholder='' aria-controls='tableDetails'>");
+					$(".dataTables_filter label").css({"color": "#ffffff","font-size": "12px","font-family": "Helvetica,Arial,sans-serif","font-weight":"normal"});
+					$(".dataTables_filter label input").css({"color": "#000000"});
                 }
             });
             $(".dataTables_info").hide();
@@ -637,32 +593,15 @@ function ShowActualiteDetails(data){
             $("#zoneExportDetails").append(contenuTableau);
             
             
-            //REMPLISSAGE DU TABLEAU A EXPORTER EN FORMAT TXT
-			/*
-            contenuTableau = "<table  hidden='hidden' class='table' id='ExportDetailsTxt'><thead><tr><th>Theme</th></tr></thead><tbody>";
-            
-            for(i=0; i < nbActualite; i++) {
-                contenuTableau+="<tr><td>"+actualites[i][1]+"</td></tr><tr><td>"+actualites[i][3]+"</td></tr><tr><td>"+actualites[i][7]+"</td></tr><tr><td>"+actualites[i][12]+"</td></tr><tr><td>"+actualites[i][10]+"</td></tr><td></td><tr></tr>";
-            }
-            contenuTableau+="</tbody></table>";
-            $(".zoneDetailsTableau").append(contenuTableau);*/
-            
-            
-            
-            
-            
+
             
         }else{
             $(".zoneDetailsTableau").html("No result found.");
-            $("#buttonExportExcel").hide();
-            $("#ExportDetailsTxt").hide();
-            $("#menuPrint").hide();
+           CacherBoutons();
         }
     }else{
         $(".zoneDetailsTableau").html("Error! can't get datas contact the administrator.");
-        $("#buttonExportExcel").hide();
-        $("#ExportDetailsTxt").hide();
-        $("#menuPrint").hide();
+        CacherBoutons();
     }
 }
 function ShowDetailActualite(id){
@@ -694,10 +633,23 @@ function ResizeBlocs(){
     Winheight = $(window).height();
     $(".zoneCarte").css("height",(Winheight-auteurSearchBar));
     $("#board").css("height",(Winheight-auteurSearchBar));
-    $(".zoneDetails").css("height",(Winheight-auteurSearchBar));
+    $(".zoneDetails").css("height",(Winheight-auteurSearchBar-80));
     $("body").css("height",Winheight);
+	
+	
 }
-
+function CacherBoutons(){
+	$("#buttonExportExcel").hide();
+	$("#buttonExportPdf").hide();
+	$("#menuPrint").hide();
+	$(".zoneDetailsMenuTexte").hide();
+}
+function AfficherBoutons(){
+	$("#buttonExportExcel").fadeIn();
+	$("#buttonExportPdf").fadeIn();
+	$("#menuPrint").fadeIn();
+	$(".zoneDetailsMenuTexte").fadeIn();
+}
 
 //UNIQUE EVENT
 function ClickOnPin(e){
@@ -714,7 +666,7 @@ function ClickOnPin(e){
 }
 function MouseOverkOnPin(){
     var actualite = $(this).data("actualie");
-    $('<div class="info_panel">'+actualite[12]+':'+actualite[0]+' in '+actualite[7]+'</div>').appendTo('body');
+    $('<div class="info_panel">'+actualite[12]+': <span class="titreInfoPanel">'+actualite[10]+'</span></div>').appendTo('body');
     
 }
 function MouseLeaveOnPin(){
@@ -770,9 +722,16 @@ function RemoveFilterPays(){
             $(".filtrePays #"+id).remove();
         }
     }
+	HoverPaysFiltred();
+	
+	if(filtresPays.length==0){
+		var dd = document.getElementById('Pays');
+		dd.selectedIndex = 0;
+		ColorierLesPays();
+	}
     
     FiltrerActualite();
-    HoverPaysFiltred();
+    
 }
 function RemoveFilterTheme(){
     id=$(this).attr("id");
@@ -783,6 +742,12 @@ function RemoveFilterTheme(){
             $(".filtreTheme #"+id).remove();
         }
     }
+	
+	if(filtresThemes.length==0){
+		var dd = document.getElementById('typeActu');
+		dd.selectedIndex = 0;
+
+	}
     
     FiltrerActualite();
 }
@@ -855,20 +820,37 @@ function FiltrerTheme(){
     FiltrerActualite();
 }
 function FiltrerActualite(){
+	//alert($("#dateStart").val());
     var dateDebut= new Date($("#dateStart").val());
     var dateFin= new Date($("#dateEnd").val());
-    var dateDebutFormat = formattedDate(dateDebut);
-    var dateFinFormat = formattedDate(dateFin);
+    var dateDebutFormat = DateFrToDateEn($("#dateStart").val());
+    var dateFinFormat = DateFrToDateEn($("#dateEnd").val());
     
-    if(!isNaN(dateDebut.getTime())&&!isNaN(dateFin.getTime())){    
-        getActualite($("#dateStart").val(),$("#dateEnd").val(),filtresPays, filtresThemes);
-        $("#alertDates").html("");
-        $("#alertDates").hide();
-        $(".DateRange").html("Events from "+dateDebutFormat+" to "+dateFinFormat+"");
-    }else{
-        $("#alertDates").html("Please select two dates");
-        $("#alertDates").show();
+	console.log(dateDebutFormat);
+	console.log(dateFinFormat);
+	var ValdateDebut = new Date(dateDebutFormat).getTime();
+    var ValdateEnd = new Date(dateFinFormat).getTime();
+	
+    $("#carte").show();
+	ZoomParDefaut();
+	CacherBoutons();
+    
+    if( (ValdateDebut > ValdateEnd))
+    {
+        //DATES INCORRECTS
+		$(".zoneDetailsTableau").html("First date must be before second date!");
+		$("#carte").hide();
     }
+    else
+    {
+        if(!isNaN(dateDebut.getTime())&&!isNaN(dateFin.getTime())){    
+			getActualite($("#dateStart").val(),$("#dateEnd").val(),filtresPays, filtresThemes);
+			AfficherBoutons();
+		}else{
+			$(".zoneDetailsTableau").html("Please select two dates!");
+			$("#carte").hide();
+		}
+    }   
 }
 function HoverPaysFiltred(){
     $('svg g polygon').css({"fill":"#ffffff"});
@@ -965,7 +947,11 @@ function ShowHideOnZooming(){
         $("#LabelsAdmin0").fadeOut("slow");
     }
 }
+function ZoomParDefaut(){
 
+	$("#carte").css('transform', 'scale(1)');
+	$('#carte').css({"left":"0px","top":"0px"});
+}
 
 //AJAX
 function getXMLHttpRequest() {
@@ -1008,8 +994,9 @@ function getActualite(datestart,dateend, filtrePays, filtreTheme) {
     var xhr = getXMLHttpRequest();
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-			ShowActualiteOnMap(this.responseText);
-			ShowActualiteDetails(this.responseText);
+			data = this.responseText;
+			ShowActualiteOnMap();
+			ShowActualiteDetails();
 			//******* fin affichage des filtre **********
 		} else if (xhr.readyState < 4) {
 			
@@ -1019,6 +1006,12 @@ function getActualite(datestart,dateend, filtrePays, filtreTheme) {
     
 	xhr.open("POST", "scripts/GetActualite.php", true);
 	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	
+	
+	//datestart = formattedDate(new Date(datestart));
+	//dateend = formattedDate(new Date(dateend));
+	
+	console.log(formattedDate(new Date(datestart)));
 	xhr.send("dateDebut="+datestart+"&dateFin="+dateend+"&filtrePays="+ArrayToVar(filtresPays)+"&filtreTheme="+ArrayToVar(filtreTheme)+"");
 }
 function postActualite() {

@@ -7,7 +7,14 @@ body {
 
 
 
-
+.filtrePays{
+	margin-left:5px;
+	margin-top:-3px;
+}
+.filtreTheme{
+	margin-top:3px;
+	margin-left:5px;
+}
 /* TEXTE */
 .titrepageGros{
     margin-top: 4px;
@@ -19,11 +26,11 @@ body {
     display: block;
 }
 .titrepagePetit{
-    margin-right:10px;
+    margin-left:4px;
     margin-top: -4px;
     margin-bottom: 20px;
     color: #ffffff;
-    font-size: 14px;
+    font-size: 20px;
     font-family: 'calibri';
     display: block;
 }
@@ -121,13 +128,18 @@ body {
     margin-right: 10px;
     font-size: 10px;
 }
-.zoneDetails{
+.fondDetails{
     background-color: white;
-    padding:10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	overflow:auto;
+}
+.zoneDetails{
+    padding:10px;
+	margin-bottom:0px;
+	overflow:auto;
 }
 .zoneCarte{
-    /*overflow: hidden;*/
+    overflow: hidden;
 }
 .lgPetit{
     width:50px;
@@ -319,12 +331,19 @@ body {
 
 
 .info_panel {
-  background-color: rgba(255,255,255, .7);
+  background-color: rgba(255,255,255, 1);
   padding: .3em;
-  font-size: 12px;
+  font-size: 14px;
   font-family: Helvetica, Arial, sans-serif;
   position: absolute;
     border-radius: 5px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.titreInfoPanel {
+  font-size: 14px;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight:bolder;
+  color:#0099ff;
 }
 
 
