@@ -95,13 +95,13 @@ function DateFrToDateEn(d) {
 		j = d.substring(0, 2);
 		m = d.substring(2, 4);
 		a = d.substring(4, 8);
-		//console.log(d+"+++"+j+"-"+m+"-"+a);
+		////console.log(d+"+++"+j+"-"+m+"-"+a);
 		
 		r = a+"/"+m+"/"+j;
 	}
-	
   return r;
 }
+
 
 function formattedDateFrench(d) {
   let month = String(d.getMonth() + 1);
@@ -111,7 +111,7 @@ function formattedDateFrench(d) {
   if (month.length < 2) month = '0' + month;
   if (day.length < 2) day = '0' + day;
 
-  return `${day}-${month}-${year}`;
+  return `${day}/${month}/${year}`;
 }
 
 
@@ -171,20 +171,20 @@ function TwoDateToText(d1,d2) {
 		result = day1+" "+monthText1+" - "+day2+" "+monthText2+" "+year1;
 	}
     
-	////console.log( "+fff+"+monthText1+" "+monthText2);
+	//////console.log( "+fff+"+monthText1+" "+monthText2);
     return result;
 }
 function ShowActualiteOnMap(){
 
-    //console.log("data");
-    //console.log(data);
+    ////console.log("data");
+    ////console.log(data);
     var actualites=JSON.parse(data);
-	// console.log(actualites);
+	// //console.log(actualites);
     
 	// actualites.sort(function(a, b) { 
 		// return a[22] > b[22] ? 1 : -1;
 	// });
-    // console.log(actualites);
+    // //console.log(actualites);
     
     
     $('.pinImage').remove();
@@ -222,18 +222,18 @@ function ShowActualiteOnMap(){
 					if(actualiteCurrent==actualiteNext){
 						multiActualite.push(actualites[i]);
 						actualiteAncien = actualiteCurrent;
-						//console.log("multi add:"+actualiteCurrent);
+						console.log("multi add:"+actualiteCurrent);
 					}else{
 						if(actualiteAncien==actualiteCurrent){
 							multiActualite.push(actualites[i]);
-							//console.log("multi2 add:"+actualiteCurrent);
+							console.log("multi2 add:"+actualiteCurrent);
 						}else{
 							uniqueActualite.push(actualites[i]);
-							//console.log("uni add:"+actualiteCurrent);
+							console.log("uni add:"+actualiteCurrent);
 						}
 						
 					}
-					//console.log("----");
+					console.log("----");
 					n = n+1;
 				}
 				
@@ -245,8 +245,8 @@ function ShowActualiteOnMap(){
 			}
 			
             
-			//console.log(multiActualite);
-			//console.log(uniqueActualite);
+			////console.log(multiActualite);
+			////console.log(uniqueActualite);
 
 
             //SHOW UNIQUE INCIDENT ON REGION
@@ -430,7 +430,7 @@ function ShowActualiteOnMap(){
                 
             }
             $("#pinImageGroup"+lastIndex).data('actualite', arrayDetailGroup);
-            ////console.log(arrayDetailGroup);
+            //////console.log(arrayDetailGroup);
             
             //AFFICHER LES SOUS ICONES
             for(j=0; j < arrayDetailGroup.length; j++) {
@@ -531,13 +531,13 @@ function CloseDetails(){
 }
 function ShowActualiteDetails(){
     auteurDetail = $(".zoneDetails").css("height").replace("px","");
-    auteurDetail = auteurDetail - 100;
+    auteurDetail = auteurDetail-80;
     nbLignes = Math.floor(auteurDetail/80);
     
     
     var actualites=JSON.parse(data);
     listeActualites = actualites;
-    ////console.log(actualites);
+    //////console.log(actualites);
     if(actualites!=null){
         nbActualite = actualites.length;
         if(nbActualite>0){
@@ -548,19 +548,19 @@ function ShowActualiteDetails(){
             //AFFICHAGE DES LIGNES DETAILS DES ACTUALITES
             $(".zoneDetailsTableau").html("");
             //GESTION DES DETAILS
+			/*
             for(i=0; i < nbActualite; i++) {
                 $(".zoneDetailsTableau").append("<div hidden='hidden' id='detailAcutalite"+i+"' class='detailAcutalite'><div><span class='glyphicon pointer glyphicon-remove' aria-hidden='true' onclick='CloseDetails()'></span></div><div>"+actualites[i][11]+"</div></div>");
-            }
+            }*/
             
             
             
             
             
             //AFFICHAGE DU TABLEAU DES ACTUALITES
-            $(".zoneDetailsTableau").append("<table id='tableDetails' class='stripe' style='border-bottom:none;'><thead hidden='hidden'><tr><th>news</th></tr></thead><tbody>");   
+            $(".zoneDetailsTableau").append("<table id='tableDetails'  style='border-bottom:none;'><thead hidden='hidden'><tr><th>news</th></tr></thead><tbody>");   
             for(i=0; i < nbActualite; i++) {
-                //$("#tableDetails").append("<tr><td><div id='ligneDetailAcutalite"+i+"' class='ligneDetail' onclick='ShowDetailActualite("+i+")'><div class='memeLigne'><img src='images/"+actualites[i][0]+"Group.svg' class='imgDetail'/></div><div class='memeLigne'><span class='EventsCountry'>"+actualites[i][3]+" ("+actualites[i][7]+")</span> <span class='EventsDate'>"+actualites[i][12]+"</span></br><span class='EventsTitle'>"+actualites[i][10]+"</span></div></div></td></tr>");
-                $("#tableDetails").append("<tr><td><div class='panel panel-default'><div class='panel-heading' role='tab' id='heading"+i+"'><h4 class='panel-title'><a role='button' data-toggle='collapse' data-parent='#accordion' href='#collapse"+i+"' aria-expanded='true' aria-controls='collapse"+i+"'><div class='memeLigne'><img src='images/events/"+actualites[i][0]+actualites[i][13]+"Group.svg' class='imgDetail'/></div><div class='memeLigne'><span class='EventsCountry'>"+actualites[i][3]+"</span> <span class='EventsDate'>"+actualites[i][12]+"</span></br><span class='EventsTitle'>"+actualites[i][10]+"</span></div></a></h4></div><div id='collapse"+i+"' class='panel-collapse collapse' role='tabpanel' aria-labelledby='heading"+i+"'><div class='panel-body'>"+actualites[i][11]+"</div></div></div></td></tr>");
+                $("#tableDetails").append("<tr><td><div class='panel panel-default'><div class='panel-heading' role='tablist' id='heading"+i+"'><h4 class='panel-title'><a role='button' data-toggle='collapse' data-parent='#accordion' href='#collapse"+i+"' aria-expanded='true' aria-controls='collapse"+i+"'><div class='memeLigne'><img src='images/events/"+actualites[i][0]+actualites[i][13]+"Group.svg' class='imgDetail'/></div><div class='memeLigne'><span class='EventsCountry'>"+actualites[i][3]+"</span> <span class='EventsDate'>"+formattedDateFrench(new Date(actualites[i][12]))+"</span></br><span class='EventsTitle'>"+actualites[i][10]+"</span></div></a></h4></div><div id='collapse"+i+"' class='panel-collapse collapse' role='tabpanel' aria-labelledby='heading"+i+"'><div class='panel-body'>"+actualites[i][11]+"</div></div></div></td></tr>");
             }
             $(".zoneDetailsTableau").append("</tbody></table>");
             $('#tableDetails').DataTable( {
@@ -571,10 +571,10 @@ function ShowActualiteDetails(){
                     $(".disabled").hide();
                     $("td").css({"padding":"0px"});
                     $(".dataTables_paginate ").css({"position": "fixed","bottom": "10px","right": "10px"});
-                    $(".dataTables_filter ").css({"position": "absolute","top": "-135px","right": "0px","z-index":"10"});
+                    //$(".dataTables_filter ").css({"position": "absolute","top": "0px","right": "10px","z-index":"10"});
 					//$(".dataTables_filter label").html("Search <span class='glyphicon glyphicon-search' aria-hidden='true'></span> <input type='search class='' placeholder='' aria-controls='tableDetails'>");
-					$(".dataTables_filter label").css({"color": "#ffffff","font-size": "12px","font-family": "Helvetica,Arial,sans-serif","font-weight":"normal"});
-					$(".dataTables_filter label input").css({"color": "#000000"});
+					$(".dataTables_filter label").css({"color": "#000000","font-size": "14px","font-family": "'calibri','arial'","font-weight":"normal"});
+					$(".dataTables_filter label input").css({"color": "#000000","font-size": "14px","font-family": "'calibri','arial'","font-weight":"normal"});
                 }
             });
             $(".dataTables_info").hide();
@@ -631,9 +631,13 @@ function ResizeBlocs(){
     
     auteurSearchBar = $(".searchBar").css("height").replace("px","");
     Winheight = $(window).height();
+	
+	console.log(Winheight+" "+auteurSearchBar);
+	
     $(".zoneCarte").css("height",(Winheight-auteurSearchBar));
     $("#board").css("height",(Winheight-auteurSearchBar));
-    $(".zoneDetails").css("height",(Winheight-auteurSearchBar-80));
+    $(".zoneDetails").css("height",(Winheight-auteurSearchBar-100));
+    $(".fondDetails").css("height",(Winheight-auteurSearchBar));
     $("body").css("height",Winheight);
 	
 	
@@ -696,7 +700,7 @@ function ClickOnPinGroup(e){
 }
 function MouseOverkOnPinGroup(){
     var actualite = $(this).data("actualite");
-    ////console.log(actualite);
+    //////console.log(actualite);
     //$('<div class="info_panel">'+actualite[12]+':'+actualite[0]+' in '+actualite[7]+'</div>').appendTo('body');
     
 }
@@ -731,6 +735,7 @@ function RemoveFilterPays(){
 	}
     
     FiltrerActualite();
+	
     
 }
 function RemoveFilterTheme(){
@@ -761,7 +766,7 @@ function FiltrerPays(){
 		$(".filtrePays button").remove();
 		
 	}else{
-		console.log(Pays);
+		//console.log(Pays);
 		LibellePays = $("#Pays option:selected").text();
 	   
 		filtered = false;
@@ -820,14 +825,17 @@ function FiltrerTheme(){
     FiltrerActualite();
 }
 function FiltrerActualite(){
-	//alert($("#dateStart").val());
-    var dateDebut= new Date($("#dateStart").val());
-    var dateFin= new Date($("#dateEnd").val());
-    var dateDebutFormat = DateFrToDateEn($("#dateStart").val());
+	var dateDebutFormat = DateFrToDateEn($("#dateStart").val());
     var dateFinFormat = DateFrToDateEn($("#dateEnd").val());
+	
+	var dateDebut= new Date(dateDebutFormat);
+    var dateFin= new Date(dateFinFormat);
+	
+	
     
-	console.log(dateDebutFormat);
-	console.log(dateFinFormat);
+	////console.log(dateDebutFormat+' '+dateDebut);
+	////console.log(dateFinFormat+' '+dateFin);
+	
 	var ValdateDebut = new Date(dateDebutFormat).getTime();
     var ValdateEnd = new Date(dateFinFormat).getTime();
 	
@@ -844,13 +852,16 @@ function FiltrerActualite(){
     else
     {
         if(!isNaN(dateDebut.getTime())&&!isNaN(dateFin.getTime())){    
-			getActualite($("#dateStart").val(),$("#dateEnd").val(),filtresPays, filtresThemes);
+			getActualite(dateDebutFormat,dateFinFormat,filtresPays, filtresThemes);
 			AfficherBoutons();
 		}else{
 			$(".zoneDetailsTableau").html("Please select two dates!");
 			$("#carte").hide();
 		}
-    }   
+    }  
+
+
+ResizeBlocs();	
 }
 function HoverPaysFiltred(){
     $('svg g polygon').css({"fill":"#ffffff"});
@@ -858,7 +869,7 @@ function HoverPaysFiltred(){
     $('svg g path').css({"fill":"#ffffff"});
     //$('svg g path').css({"fill":"#ffffff"});
     
-    // //console.log(filtresPays);
+    // ////console.log(filtresPays);
     
     for(i=0; i < filtresPays.length; i++) {
         $('svg g #'+filtresPays[i]+' path').css({"fill":"#ffccaa"});
@@ -867,7 +878,7 @@ function HoverPaysFiltred(){
         $('svg #Admin0 #'+filtresPays[i]+' polygon').css({"fill":"#ffccaa"});
     }
     
-    // //console.log($('svg g g path'));
+    // ////console.log($('svg g g path'));
 }
 function ColorierLesPays(){
 	$('#carte g polygon path').css({"fill":"#ffccaa"});
@@ -883,7 +894,7 @@ function handle(delta) {
   
 	zoomx = zoomx+5;
 	zoomy = zoomy+5;
-	//console.log(zoomx);
+	////console.log(zoomx);
 	$( "#carte" ).animate({
 			transform: "scale("+zoomx+", "+zoomy+")"
 		}, 50,"easeInQuad", function() {
@@ -905,7 +916,7 @@ function handle(delta,mouseX,mouseY) {
 		$( "#carte" ).css('transform', 'scale('+zoom+')');
 		ShowHideOnZooming();
 	}
-	//console.log("zoom"+zoom);
+	////console.log("zoom"+zoom);
 }
 function wheel(event){
     var mouseX = event.pageX,mouseY = event.pageY;
@@ -930,11 +941,12 @@ function wheel(event){
 	event.returnValue = false;
 }
 function ShowHideOnZooming(){
-    actualWidth = Math.round($("#carte").css("width").replace("px",""));
-    pourcZoom = Math.round((actualWidth/842)*100);
+    // actualWidth = Math.round($("#carte").css("width").replace("px",""));
+    // scale = Math.round($("#carte").css("width").replace("px",""));
+    // pourcZoom = Math.round((actualWidth/842)*100);
     ////console.log("Zoom: "+pourcZoom+"%");
     
-    if(pourcZoom<350)
+    if(zoom<3)
     {
         $("#LabelsAdmin1").fadeOut("slow");
         $("#LabelsAdmin0").fadeIn("slow");
@@ -951,6 +963,9 @@ function ZoomParDefaut(){
 
 	$("#carte").css('transform', 'scale(1)');
 	$('#carte').css({"left":"0px","top":"0px"});
+	$("#LabelsAdmin1").fadeOut("slow");
+	$("#LabelsAdmin0").fadeIn("slow");
+	$("#Admin0").css({ opacity: 1 });
 }
 
 //AJAX
@@ -1011,14 +1026,14 @@ function getActualite(datestart,dateend, filtrePays, filtreTheme) {
 	//datestart = formattedDate(new Date(datestart));
 	//dateend = formattedDate(new Date(dateend));
 	
-	console.log(formattedDate(new Date(datestart)));
+	//console.log(formattedDate(new Date(datestart)));
 	xhr.send("dateDebut="+datestart+"&dateFin="+dateend+"&filtrePays="+ArrayToVar(filtresPays)+"&filtreTheme="+ArrayToVar(filtreTheme)+"");
 }
 function postActualite() {
     var xhr = getXMLHttpRequest();
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-			// //console.log("Post:"+this.responseText);
+			// ////console.log("Post:"+this.responseText);
             var today = new Date();
             getActualite(today.getFullYear()+"/01/01",today.getFullYear()+"/12/31","","");
 			//******* fin affichage des filtre **********
@@ -1041,15 +1056,15 @@ function postActualite() {
     TitreEn = $("#PostTitreEn").val(); 
     DetailEn = $("#PostDetailEn").val();
     
-    /*//console.log("TypeActu:"+TypeActu);
-    //console.log("Region:"+Region);
-    //console.log("Pays:"+Pays);
-    //console.log("TitreFr:"+TitreFr);
-    //console.log("DetailFr:"+DetailFr);
-    //console.log("DateActualite:"+DateActualite);
-    //console.log("Valeur:"+Valeur);
-    //console.log("TitreEn:"+TitreEn);
-    //console.log("DetailEn:"+DetailEn);*/
+    /*////console.log("TypeActu:"+TypeActu);
+    ////console.log("Region:"+Region);
+    ////console.log("Pays:"+Pays);
+    ////console.log("TitreFr:"+TitreFr);
+    ////console.log("DetailFr:"+DetailFr);
+    ////console.log("DateActualite:"+DateActualite);
+    ////console.log("Valeur:"+Valeur);
+    ////console.log("TitreEn:"+TitreEn);
+    ////console.log("DetailEn:"+DetailEn);*/
     
     
     
@@ -1145,8 +1160,8 @@ function MakeToArray(texte){
     var tmpArray = texte.split(" ");
     var finalArray= [];
     var finalLine = "";
-    ////console.log("split tmpArray");
-    ////console.log(tmpArray);
+    //////console.log("split tmpArray");
+    //////console.log(tmpArray);
     for(j=0; j < tmpArray.length; j++) {
         if((tmpArray[j].length + finalLine.length)<126){
             finalLine = finalLine+" "+tmpArray[j];
@@ -1160,8 +1175,8 @@ function MakeToArray(texte){
     }
     
     
-    ////console.log("split finalArray");
-    ////console.log(finalArray);
+    //////console.log("split finalArray");
+    //////console.log(finalArray);
     return finalArray;
 }
 function GetLabel(tableau,id){
@@ -1229,10 +1244,10 @@ arrayImages.push(['refugeeCampgris','data:image/jpeg;base64,/9j/4QV0RXhpZgAATU0A
     
     
     
-    //console.log("nomImage");
-    //console.log(nomImage);
+    ////console.log("nomImage");
+    ////console.log(nomImage);
     for(w=0; w < arrayImages.length; w++) {
-        ////console.log(arrayImages[w][0]+'-'+nomImage);
+        //////console.log(arrayImages[w][0]+'-'+nomImage);
         if(arrayImages[w][0]==nomImage)
         {
             result= arrayImages[w][1];
@@ -1252,9 +1267,9 @@ function convertImageToCanvas(img) {
 
 	canvas.getContext("2d").drawImage(img, 0, 0);
 	
-	////console.log("img");
-	////console.log(img);
-	//s//console.log(canvas);
+	//////console.log("img");
+	//////console.log(img);
+	//s////console.log(canvas);
 	return canvas;
 }
 function convertCanvasToImage(canvas) {
@@ -1269,7 +1284,7 @@ function DirectImgToData(src){
     tmpImage.setAttribute('alt', 'na');
     tmpImage.setAttribute('height', '50px');
     tmpImage.setAttribute('width', '50px');
-    ////console.log(tmpImage);
+    //////console.log(tmpImage);
     
     canvas2 = document.createElement('canvas');
 	canvas2.width = tmpImage.width;
@@ -1289,7 +1304,7 @@ function DirectImgToCanvas(src){
     oImg.setAttribute('alt', 'na');
     oImg.setAttribute('height', '50px');
     oImg.setAttribute('width', '50px');
-    ////console.log(oImg);
+    //////console.log(oImg);
     canvg(canvas, oImg);
 
     return canvas;
@@ -1425,7 +1440,7 @@ function convert(file){
     
     var doc = new jsPDF();
     var imgData = 'data:image/jpeg;base64,'+ Base64.encode(file);
-    //console.log(imgData);
+    ////console.log(imgData);
     /*
     doc.setFontSize(40);
     doc.text(30, 20, 'Hello world!');
@@ -1436,7 +1451,7 @@ function convert(file){
 
 
 function ImageTo(img){
-    //console.log(img);
+    ////console.log(img);
     $("#myCanvas").html("");
 	
     
@@ -1458,7 +1473,7 @@ function ImageTo(img){
     var img = document.getElementById("scream");
     ctx.drawImage(elem, 0, 0);
     img = "";
-    //console.log(can1.toDataURL('image/png'));
+    ////console.log(can1.toDataURL('image/png'));
     $("#myCanvas").html("");
     return can1.toDataURL('image/png');
     

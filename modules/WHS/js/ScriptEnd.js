@@ -154,7 +154,7 @@ $("#buttonExportPdf").click(function(){
     
 	html2canvas(($("#canvasCarte")), {
         onrendered: function(canvas) {
-            console.log("3:"+canvas.height+" "+canvas.width);
+            //console.log("3:"+canvas.height+" "+canvas.width);
             //EXPORT PDF
             
             
@@ -162,6 +162,10 @@ $("#buttonExportPdf").click(function(){
             var pos = 0;
 			var smallFontSite = 9;
 			var extraSmallFontSite = 8;
+			var tmpAcutalite = [];
+			var tmpActualiteDetails = [];
+			var tmpLineIndexToWrite = 0;
+			var tmpActualiteExist = false;
 
             //AJOUT DE LA CARTE
             // //console.log(canvas.width);
@@ -213,21 +217,24 @@ $("#buttonExportPdf").click(function(){
             //AFFICHAGE DES FILTRES
 			doc.setTextColor("#000000");
 			doc.setFontSize(smallFontSite);
+			doc.text(10, 34, "Countries");
+			doc.text(10, 38, "Themes");
+			doc.text(10, 42, "Period");
             if(filtresPays.length==0){
-                doc.text(10, 34, "Countries: All");
+                doc.text(24, 34, ": All");
             }else{
-                doc.text(10, 34, "Countries: "+ArrayToVar2(filtresPays,listePays,", "));
+                doc.text(24, 34, ": "+ArrayToVar2(filtresPays,listePays,", "));
             }
             if(filtresThemes.length==0){
-                doc.text(10, 38, "Themes: All");
+                doc.text(24, 38, ": All");
             }else{
-                doc.text(10, 38, "Themes: "+ArrayToVar2(filtresThemes,listeThemes,", "));
+                doc.text(24, 38, ": "+ArrayToVar2(filtresThemes,listeThemes,", "));
             }
 
-			var date1 = new Date($("#dateStart").val());
-			var date2 = new Date($("#dateEnd").val());
+			var date1 = new Date(DateFrToDateEn($("#dateStart").val()));
+			var date2 = new Date(DateFrToDateEn($("#dateEnd").val()));
 			var period = TwoDateToText(date1,date2);
-            doc.text(10, 42, "Period: "+period+"");
+            doc.text(24, 42, ": "+period+"");
 
 
 
@@ -247,8 +254,25 @@ $("#buttonExportPdf").click(function(){
 			
 			
             for(i=0; i < listeActualites.length; i++) {
-                if(pos<250){
+                if(pos<260){
                     
+					//ECRITURE SUITE PARAGRAPHE EN LIGNE BREAK SUITE SUR PAGE SUIVANTE
+					if(tmpActualiteExist){
+						for(q=tmpLineIndexToWrite; q < tmpActualiteDetails.length; q++) {
+							if((pos+4)<280){
+								doc.text(10, pos, tmpActualiteDetails[q]);
+								tmpLineIndexToWrite++;
+							}
+							pos = pos+4;
+						}
+						
+						tmpActualiteExist = false;
+						tmpActualiteDetails = [];
+						tmpLineIndexToWrite = 0;
+					}
+					
+					
+					
 					
                     //PAYS ET REGION
 					doc.setFontSize(12)
@@ -301,11 +325,68 @@ $("#buttonExportPdf").click(function(){
 					if(writeCountry){
 						pos = pos + 8;
                     }else{
-						pos = pos - 3
+						pos = pos - 3;
                     }
                 }else{
+					
+					//ECRITURES D'UNE ACTUALITE AVEC UNE SUITE SUR LA PAGE SUIVANTE
+					tmpAcutalite = listeActualites[i+1];
+					if(tmpAcutalite != undefined){
+						
+					
+						//console.log("tmp actv "+pos);
+						//console.log(tmpAcutalite);
+						
+						
+						//ECRITURE DU TITRE
+						if((pos+6)<280){
+							//console.log("tmp act:write:"+tmpAcutalite[10]);
+							if(writeCountry){
+								doc.setFontSize(12);
+								doc.text(10, pos, tmpAcutalite[3]);
+								writeCountry = false;
+							}
+							
+							pos = pos+6;
+							doc.setFontSize(smallFontSite);
+							var vDate = formattedDateFrench(new Date(tmpAcutalite[12]));
+							doc.text(20, pos, vDate);
+							doc.setFontSize(10);
+							doc.setTextColor("#0099ff");
+							
+							doc.text(38, pos, tmpAcutalite[10]);
+							
+							var imgData = GetImage(tmpAcutalite[0]+tmpAcutalite[13]);
+							doc.addImage(imgData, 'JPEG', 10, (pos-5), 7, 7);
+							doc.setTextColor("#000000");
+							doc.setFontSize(smallFontSite);
+							pos = pos+6;
+							
+							//ECRITURE DES DETAILS
+							tmpActualiteDetails = MakeToArray(tmpAcutalite[11]);
+							for(q=0; q < tmpActualiteDetails.length; q++) {
+								if((pos+4)<280){
+									doc.text(10, pos, tmpActualiteDetails[q]);
+									tmpLineIndexToWrite++;
+								}
+								pos = pos+4;
+							}
+							
+							tmpActualiteExist = true;
+							i++;
+						}
+					}
+					
+					
+					
+					
+					
                     doc.addPage();
-
+					
+					
+					
+					
+					
                     //ECRITURE DE L'ENTETE
                     /*
                     doc.setTextColor("#ffffff");
@@ -357,7 +438,7 @@ $("#buttonExportPdf").click(function(){
             //ECRITURES DES NUMEROS DE PAGES
             for(i=1; i <= nbPages; i++) {
                 doc.setPage(i);
-                doc.text(180, 294, "Page "+i+" of "+nbPages);
+                doc.text(185, 294, "Page "+i+" of "+nbPages);
             }
 
             doc.save('autoprint.pdf');
