@@ -8,7 +8,7 @@ $myJSON = json_encode($cars);*/
 
 //
 
-
+header('Content-type: text/plain; charset=iso-8859-15');
 $actualites = array();
 
 if(isset($_POST['dateDebut']) && isset($_POST['dateFin']))

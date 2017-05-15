@@ -463,7 +463,7 @@ $("#buttonExportPdf").click(function(){
 
     
 	
-	
+	ZoomParDefautKeepingAdmin();
 	
 	
 });

@@ -58,9 +58,9 @@ body {
 }
 .EventsTitle {
     font-size: 15px;
-    font-style: italic;
+    font-style: normal;
 	font-family: 'calibri','arial';
-	color:#0f6bb6;
+	color:#0099ff;
 }
 .panel-body{
 	font-family: 'calibri','arial';
@@ -206,6 +206,9 @@ body {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     z-index:10;
     position:relative;
+	background-image: url("../images/Headerbackground.png");
+	background-position: right;
+	background-repeat: no-repeat;
 }
 .menuItem{
     font-size: 20px;
@@ -215,6 +218,11 @@ body {
 }
 .menuItem:hover{
     color:#0059b3;
+}
+.BlocDetail{
+	border-bottom-style: solid;
+	border-width: 1px;
+	border-color: #999999;
 }
 
 
