@@ -1,5 +1,5 @@
 body {
-    background-color: #e1e8f6;
+    background-color: #ffffff;
     
 
 
@@ -11,59 +11,75 @@ body {
 	margin-left:5px;
 	margin-top:-3px;
 }
+.filtrePays button,.filtreTheme button{
+	background-color:#0a7eca;
+	color:#ffffff;
+	text-shadow:none;
+}
 .filtreTheme{
 	margin-top:3px;
 	margin-left:5px;
+}
+.filtre{
+height:50px;
+margin-top:5px;
 }
 /* TEXTE */
 .titrepageGros{
     margin-top: 4px;
     margin-right:10px;
-    color: #ffffff;
-    font-size: 28px;
-    font-family: 'calibri','arial';
-    font-weight: bolder;
+    color: #0a7eca;
+    font-size: 26px;
+    font-family: 'Avenir Next','arial';
     display: block;
 }
 .titrepagePetit{
-    margin-left:4px;
-    margin-top: -4px;
-    margin-bottom: 20px;
-    color: #ffffff;
-    font-size: 20px;
-    font-family: 'calibri','arial';
+    margin-left:6px;
+    margin-top: -6px;
+    margin-bottom: 0px;
+    color: #969696;
+    font-size: 14px;
+    font-family: 'Avenir Next','arial';
     display: block;
+}
+.textFiltre{
+    color: #000000;
+    font-size: 16px;
+    font-family: 'Avenir Next','arial';
+	text-align:center;
+	margin-right:5px;
+	margin-top:6px;
 }
 .titrepage{
     margin-right:10px;
     color: #ffffff;
     font-size: 16px;
-    font-family: 'calibri','arial';
+    font-family: 'Avenir Next','arial';
 }
 .texteBlanc{
     color:#ffffff;
     font-size: 14px;
-	font-family: 'calibri','arial';
+	font-family: 'Avenir Next','arial';
 }
 .EventsCountry {
     font-size: 18px;
     font-weight: bolder;
-    color: #333333;
-	font-family: 'calibri','arial';
+    color: #000000;
+	font-family: 'Avenir Next','arial';
 }
 .EventsDate {
-    
+    float:right;
     font-size: 14px;
-	font-family: 'calibri','arial';
+	font-family: 'Avenir Next','arial';
 }
 .EventsTitle {
-    font-size: 15px;
+    font-size: 12px;
     font-style: normal;
-	font-family: 'calibri','arial';
-	color:#0099ff;
+	font-family: 'Avenir Next','arial';
+	color:#969696;
 }
 .panel-body{
-	font-family: 'calibri','arial';
+	font-family: 'Avenir Next','arial';
 }
 
 
@@ -96,9 +112,7 @@ body {
 }
 .blocConnect{
     margin:10px;
-    position: fixed;
-    top:0px;
-    right: 0px;
+	float:right;
 }
 .memeLigne{
     position:relative;
@@ -113,7 +127,7 @@ body {
     background-color: rgba(255,255,255, 1);
     padding: .3em;
     font-size: 12px;
-    font-family: 'calibri','arial';
+    font-family: 'Avenir Next','arial';
     width:200px;
     height:100px;
     border-radius: 2px;
@@ -127,7 +141,7 @@ body {
     background-color: rgba(255,255,255, 1);
     padding: .3em;
     font-size: 12px;
-    font-family: 'calibri','arial';
+    font-family: 'Avenir Next','arial';
     position: absolute;
     border-radius: 5px;
     z-index: 10;
@@ -141,17 +155,22 @@ body {
     font-size: 10px;
 }
 .fondDetails{
+	margin:15px;
+	padding:5px;
+	position:absolute;
+	width:40%;
+	right:0px;
     background-color: white;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-	overflow:auto;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	overflow:hidden;
+	border-radius:5px;
 }
 .zoneDetails{
-    padding:10px;
-	margin-bottom:0px;
 	overflow:auto;
 }
 .zoneCarte{
     overflow: hidden;
+	background-color: #ebf6fc;
 }
 .lgPetit{
     width:50px;
@@ -171,12 +190,19 @@ body {
     background-color: #ffffff;
 	border-radius: 5px;
 	padding: 5px;
-	font-size: 12px;
-    font-family: 'calibri','arial';
+	font-size: 11px;
+    font-family: 'Avenir Next','arial';
+	padding-right:100px;
 }
 
 .legende span{
 	margin-top:2px;
+	margin-left:10px;
+	position:relative;
+}
+.legende div{
+	margin-top:7px;
+	margin-bottom:7px;
 	position:relative;
 }
 
@@ -194,21 +220,18 @@ body {
     bottom: 0px;
 }
 .zoneDetailsMenuTexte{
-    margin-top: 5px;
+    color:#000000;
 }
 .zoneDetailsMenu{
-    margin: 5px;
-    margin-bottom: 10px;
-	font-size: 18px;
-    font-family: 'calibri','arial';
+	font-size: 20px;
+    font-family: 'Avenir Next','arial';
 }
 .searchBar{
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    z-index:10;
+ z-index:10;
     position:relative;
-	background-image: url("../images/Headerbackground.png");
 	background-position: right;
 	background-repeat: no-repeat;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .menuItem{
     font-size: 20px;
@@ -219,12 +242,26 @@ body {
 .menuItem:hover{
     color:#0059b3;
 }
-.BlocDetail{
-	border-bottom-style: solid;
-	border-width: 1px;
-	border-color: #999999;
-}
+.linkBlocDetail:hover{
 
+}
+.BlocDetailText{
+	margin-left:45px;
+}
+.BlocDetailImage{
+	position:absolute;
+	float:left;
+}
+.BlocDetail{
+	margin-bottom:10px;
+}
+.blocNbResult{
+	font-size:14px;
+	position:absolute;
+	color:#969696;
+	margin-top:5px;
+	margin-left:10px;
+}
 
 
 /* IMAGES */
@@ -233,8 +270,9 @@ body {
     margin-left: 10px;
 }
 .logoUn{
-    height:170px;
+    height:60px;
 	vertical-align: baseline;
+	margin-top:10px;
 }
 .zoomButton{
     width:30px;
@@ -245,6 +283,9 @@ body {
 }
 .imgMenu:hover{
     cursor: pointer;
+}
+.mediumImage{
+    width:50px;
 }
 .smallImage{
     width:40px;
@@ -263,12 +304,16 @@ body {
     margin-top:-20px;
     width:200px;
     font-size: 10px;
-    font-family: 'calibri','arial';
+    font-family: 'Avenir Next','arial';
     margin-left:10px;
 }
 
 
-
+.enteteDetail{
+	height:50px;
+}.piedDetail{
+	height:50px;
+}
 
 
 
@@ -276,9 +321,23 @@ body {
     cursor: pointer;
 }
 
+.lien{
+	font-size:30px;
+	font-weight:normal;
+	color:#0a7eca;
+	margin:5px;
+}
+.lien:hover{
+	color:#969696;
+}
 .pointerText:hover{
     cursor: pointer;
-	color:#ff0000;
+}
+
+.textDownload{
+	color:#f57523;
+	font-size:20px;
+	font-weight:bolder;
 }
 
 
@@ -371,7 +430,7 @@ body {
 
 
 .imgDetail{
-    width:40px;
+    width:30px;
     float: left;
 }
 
@@ -380,14 +439,14 @@ body {
   background-color: rgba(255,255,255, 1);
   padding: .3em;
   font-size: 14px;
-  font-family: 'calibri','arial';
+  font-family: 'Avenir Next','arial';
   position: absolute;
     border-radius: 5px;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .titreInfoPanel {
   font-size: 14px;
-  font-family: 'calibri','arial';
+  font-family: 'Avenir Next','arial';
   font-weight:bolder;
   color:#0099ff;
 }

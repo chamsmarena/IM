@@ -533,7 +533,7 @@ function ShowActualiteDetails(){
     auteurDetail = $(".zoneDetails").css("height").replace("px","");
     auteurDetail = auteurDetail-40;
     nbLignes = Math.floor(auteurDetail/80);
-    
+    nbLignes = 20;
     
     var actualites=JSON.parse(data);
     listeActualites = actualites;
@@ -547,6 +547,8 @@ function ShowActualiteDetails(){
             
             //AFFICHAGE DES LIGNES DETAILS DES ACTUALITES
             $(".zoneDetailsTableau").html("");
+			$(".enteteDetail").html("");
+			$(".enteteDetail").append("<div class='blocNbResult'>"+listeActualites.length+" entries found</div>");
             //GESTION DES DETAILS
 			/*
             for(i=0; i < nbActualite; i++) {
@@ -560,7 +562,7 @@ function ShowActualiteDetails(){
             //AFFICHAGE DU TABLEAU DES ACTUALITES
             $(".zoneDetailsTableau").append("<table id='tableDetails'  style='border-bottom:none;'><thead hidden='hidden'><tr><th>news</th></tr></thead><tbody>");   
             for(i=0; i < nbActualite; i++) {
-                $("#tableDetails").append("<tr><td><div class='BlocDetail'><div class='panel-heading' role='tablist' id='heading"+i+"'><h4 class='panel-title'><a role='button' data-toggle='collapse' data-parent='#accordion' href='#collapse"+i+"' aria-expanded='true' aria-controls='collapse"+i+"'><div class='memeLigne'><img src='images/events/"+actualites[i][0]+actualites[i][13]+"Group.svg' class='imgDetail'/></div><div class='memeLigne'><span class='EventsCountry'>"+actualites[i][3]+"</span> <span class='EventsDate'>"+formattedDateFrench(new Date(actualites[i][12]))+"</span></br><span class='EventsTitle'>"+actualites[i][10]+"</span></div></a></h4></div><div id='collapse"+i+"' class='panel-collapse collapse' role='tabpanel' aria-labelledby='heading"+i+"'><div class='panel-body'>"+actualites[i][11]+"</div></div></div></td></tr>");
+                $("#tableDetails").append("<tr><td><div class='BlocDetail'><div class='panel-heading' role='tablist' id='heading"+i+"'><h4 class='panel-title'><a role='button' data-toggle='collapse' data-parent='#accordion' href='#collapse"+i+"' aria-expanded='true' aria-controls='collapse"+i+"'><div class='BlocDetailImage'><img src='images/events/"+actualites[i][0]+actualites[i][13]+"Group.svg' class='imgDetail'/></div><div class='BlocDetailText'><span class='EventsCountry'>"+actualites[i][3]+"</span> <span class='EventsDate'>"+formattedDateFrench(new Date(actualites[i][12]))+"</span></br><span class='EventsTitle'>"+actualites[i][10]+"</span></div></a></h4></div><div id='collapse"+i+"' class='panel-collapse collapse' role='tabpanel' aria-labelledby='heading"+i+"'><div class='panel-body'>"+actualites[i][11]+"</div></div></div></td></tr>");
             }
             $(".zoneDetailsTableau").append("</tbody></table>");
             $('#tableDetails').DataTable( {
@@ -570,14 +572,23 @@ function ShowActualiteDetails(){
                     $(".paginate_button").show();
                     $(".disabled").hide();
                     $("td").css({"padding":"0px"});
-                    $(".dataTables_paginate ").css({"position": "fixed","bottom": "10px","right": "10px"});
-                    //$(".dataTables_filter ").css({"position": "absolute","top": "0px","right": "10px","z-index":"10"});
-					//$(".dataTables_filter label").html("Search <span class='glyphicon glyphicon-search' aria-hidden='true'></span> <input type='search class='' placeholder='' aria-controls='tableDetails'>");
-					$(".dataTables_filter label").css({"color": "#000000","font-size": "14px","font-family": "'calibri','arial'","font-weight":"normal"});
-					$(".dataTables_filter label input").css({"color": "#000000","font-size": "14px","font-family": "'calibri','arial'","font-weight":"normal"});
+                    $(".dataTables_paginate ").css({"position": "fixed","bottom": "24px","right": "30px"});
+                    $(".dataTables_filter ").css({"float": "right"});
+					$("#glypSearch").remove();
+					$(".dataTables_filter label").append("  <span id='glypSearch' class='glyphicon glyphicon-search' aria-hidden='true'></span>");
+					$("#glypSearch").css({"color": "#000000"});
+					$(".dataTables_filter label").css({"color": "#ffffff","font-size": "14px","font-family": "'arial'","font-weight":"normal"});
+					$(".dataTables_filter label input").css({"color": "#000000","font-size": "16px","border":"none","border-bottom-style":"solid","border-width":"1px","font-family": "'arial'","font-weight":"normal"});
+					
                 }
             });
             $(".dataTables_info").hide();
+			
+			$(".current").css({"color": "#0a7eca"});
+			
+			$(".dataTables_filter").detach().appendTo('.enteteDetail');
+			//$(".dataTables_paginate").detach().appendTo('.piedDetail');
+			//$(".dataTables_paginate ").css({"position": "fixed","bottom": "10px","right": "10px"});
             //$("#tableDetails").css({"height":(auteurDetail-20)});
             
             
@@ -636,8 +647,8 @@ function ResizeBlocs(){
 	
     $(".zoneCarte").css("height",(Winheight-auteurSearchBar));
     $("#board").css("height",(Winheight-auteurSearchBar));
-    $(".zoneDetails").css("height",(Winheight-auteurSearchBar-100));
-    $(".fondDetails").css("height",(Winheight-auteurSearchBar));
+    $(".zoneDetails").css("height",(Winheight-auteurSearchBar-140));
+    $(".fondDetails").css("height",(Winheight-auteurSearchBar-35));
     $("body").css("height",Winheight);
 	
 	
@@ -867,6 +878,12 @@ function HoverPaysFiltred(){
     $('svg g polygon').css({"fill":"#ffffff"});
     $('svg g polyline').css({"fill":"#ffffff"});
     $('svg g path').css({"fill":"#ffffff"});
+	
+	$('svg #Afrique polygon').css({"fill":"#cccccc"});
+	$('svg #Afrique polyline').css({"fill":"#cccccc"});
+	$('svg #Afrique path').css({"fill":"#cccccc"});
+	$('svg #Afrique polygon polyline').css({"fill":"#cccccc"});
+	$('svg #Afrique polygon polygon').css({"fill":"#cccccc"});
     //$('svg g path').css({"fill":"#ffffff"});
     
     // ////console.log(filtresPays);
@@ -887,6 +904,10 @@ function ColorierLesPays(){
 	$('#carte #Admin0 path').css({"fill":"#ffccaa"});
 	$('#carte #Admin0 polygon polyline').css({"fill":"#ffccaa"});
 	$('#carte #Admin0 polygon polygon').css({"fill":"#ffccaa"});
+	
+	
+
+	
 }
 
 
@@ -920,8 +941,6 @@ function handle(delta,mouseX,mouseY) {
 }
 function wheel(event){
     var mouseX = event.pageX,mouseY = event.pageY;
-    
-
 
     var delta = 0;
 

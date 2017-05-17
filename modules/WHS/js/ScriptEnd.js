@@ -5,11 +5,21 @@ $(document).ready(function(){
     ResizeBlocs();
     
 
-    if (window.addEventListener)
-        window.addEventListener('DOMMouseScroll', wheel, false);
+   // if (window.addEventListener)
+       // window.addEventListener('DOMMouseScroll', wheel, false);
 
     
-    $("#carte").onmousewheel = document.onmousewheel = wheel;
+	
+	var carte = document.getElementById("carte");
+	if (carte.addEventListener) {
+		// IE9, Chrome, Safari, Opera
+		carte.addEventListener("mousewheel", wheel, false);
+		// Firefox
+		carte.addEventListener("DOMMouseScroll", wheel, false);
+	}
+	// IE 6/7/8
+	else carte.attachEvent("onmousewheel", wheel);
+    //$("#carte").onmousewheel = document.onmousewheel = wheel;
 
     
     var today = new Date();
@@ -30,7 +40,7 @@ $(document).ready(function(){
     $("#Admin1").hide();
     $("#LabelsAdmin1").hide();
     $("#Admin1 polygon").css({"stroke":"#ccebff","stroke-width":0.2});
-	$("#carte").css('transform', 'scale(1)');
+	$("#carte").css('transform', 'scale(2)');
 
     $("#carte").fadeIn("slow");
     
@@ -133,14 +143,19 @@ $("#buttonExportPdf").click(function(){
 	widthOrigin = $('#carte').css("width").replace('px','');
     heightOrigin = $('#carte').css("height").replace('px','');
 	$("#carte").css('transform', 'scale(4)');
+	vbY = 90*4;
+	vbW = 842*4;
+	vbH = 595*4;
 	width = $('#carte').css("width").replace('px','');
     height = $('#carte').css("height").replace('px','');
-	$("#carte").attr({"width":width+"px","height":height+"px"});
-	$("#carte").attr({"viewBox":"0 0 "+width+" "+height});
+	$("#carte").attr({"width":vbW+"px","height":vbH+"px"});
+	$("#carte").attr({"viewBox":"0 180 "+vbW+" "+vbH+""});
 
+	
+	
     
     //COPIE DE LA CARTE
-	$('<canvas id="canvasCarte" class="captureZone" width="'+width+'px" height="'+height+'px" style="position:absolute;z-index:0"></canvas>').appendTo('body');
+	$('<canvas id="canvasCarte" class="captureZone" width="'+vbW+'px" height="'+vbH+'px" style="position:absolute;z-index:0"></canvas>').appendTo('body');
 	canvas = document.getElementById('canvasCarte');
 	// console.log("1:"+canvas.height+" "+canvas.width);
     canvg(document.getElementById('canvasCarte'),$('#carte')[0].outerHTML);
@@ -169,10 +184,10 @@ $("#buttonExportPdf").click(function(){
 
             //AJOUT DE LA CARTE
             // //console.log(canvas.width);
-            heightCarte = (canvas.height/(canvas.width/210));
+            heightCarte = (canvas.height/(canvas.width/190));
 			
 			imgData= canvas.toDataURL('image/png');
-            doc.addImage(imgData, 'png', 10, 45, 210,heightCarte);
+            doc.addImage(imgData, 'png', 10, 45, 190,heightCarte);
             pos = 40+heightCarte;
 
       
@@ -377,56 +392,7 @@ $("#buttonExportPdf").click(function(){
 						}
 					}
 					
-					
-					
-					
-					
                     doc.addPage();
-					
-					
-					
-					
-					
-                    //ECRITURE DE L'ENTETE
-                    /*
-                    doc.setTextColor("#ffffff");
-                    doc.setFillColor(0, 153, 255);
-                    doc.rect(10, 10, 190, 10, "F");
-                    doc.setFontSize(12);
-                    doc.text(15, 17, "Weekly humanitarian snapshot West and Central Africa");
-                    doc.text(182, 17, "OCHA");
-                    var imgData = DirectImgToData('images/un.png');
-                    doc.addImage(imgData, 'png', 174, 12, 7, 7);
-                    doc.setFontSize(smallFontSite);
-                    doc.text(120, 17, $("#dateStart").val()+" to "+$("#dateEnd").val());
-                    */
-
-                    //AFFICHAGE DES FILTRES
-                    /*
-                    doc.setTextColor("#000000");
-
-                    if(filtresPays.length==0){
-                        doc.text(10, 24, "Countries: All");
-                    }else{
-                        doc.text(10, 24, "Countries: "+ArrayToVar2(filtresPays,listePays,", "));
-                    }
-                    if(filtresThemes.length==0){
-                        doc.text(10, 28, "Tags: All");
-                    }else{
-                        doc.text(10, 28, "Tags: "+ArrayToVar2(filtresThemes,listeThemes,", "));
-                    }*/
-
-                    //ECRITURE DU PIED DE PAGE
-                    /*
-					doc.setTextColor("#a0a0a0");
-                    doc.setFontSize(extraSmallFontSite);
-                    var today = new Date();
-                    doc.text(10, 283, "Map data sources: UNCS, DevInfo, OCHA. Feedback: ocharowca@un.org Twitter: @OCHAROWCA");
-					doc.setFontStyle("italic");
-					doc.text(10, 286, "The boundaries and names shown and the designations used on this map do not imply official endorsement or acceptance by the United Nations.");
-					doc.setFontStyle("normal");
-					doc.setTextColor("#000000");
-                    */
                     nbPages++;
                     pos = 10;
                 }
@@ -464,8 +430,6 @@ $("#buttonExportPdf").click(function(){
     
 	
 	ZoomParDefautKeepingAdmin();
-	
-	
 });
 $("#buttonSearch").click(function(){
     FiltrerActualite();
@@ -480,7 +444,12 @@ $(window).resize(function() {
 	ResizeBlocs();
 	ShowActualiteDetails();
 });
-
+$("#carte").mouseover(function(){
+	//$("#carte").onmousewheel = document.onmousewheel = wheel;
+});
+$("#carte").onwheel(function(){
+	alert("ok");
+});
 
 
 
