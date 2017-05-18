@@ -1,0 +1,493 @@
+body {
+    background-color: #ffffff;
+    
+
+
+}
+
+
+
+.filtrePays{
+	margin-left:5px;
+	margin-top:-3px;
+}
+.filtrePays button,.filtreTheme button{
+	background-color:#0a7eca;
+	color:#ffffff;
+	text-shadow:none;
+}
+.filtreTheme{
+	margin-top:3px;
+	margin-left:5px;
+}
+.filtre{
+height:50px;
+margin-top:5px;
+}
+/* TEXTE */
+.titrepageGros{
+    margin-top: 4px;
+    margin-right:10px;
+    color: #0a7eca;
+    font-size: 26px;
+    font-family: 'Avenir Next','arial';
+    display: block;
+}
+
+.infoBulle{
+	color:#ff6600;
+	font-size:16px;
+	font-family: 'Avenir Next','arial';
+}
+.titrepagePetit{
+    margin-left:6px;
+    margin-top: -6px;
+    margin-bottom: 0px;
+    color: #969696;
+    font-size: 14px;
+    font-family: 'Avenir Next','arial';
+    display: block;
+}
+.textFiltre{
+    color: #000000;
+    font-size: 14px;
+    font-family: 'Avenir Next','arial';
+	margin-right:5px;
+	margin-top:6px;
+}
+.titrepage{
+    margin-right:10px;
+    color: #ffffff;
+    font-size: 16px;
+    font-family: 'Avenir Next','arial';
+}
+.texteBlanc{
+    color:#ffffff;
+    font-size: 14px;
+	font-family: 'Avenir Next','arial';
+}
+.EventsCountry {
+    font-size: 18px;
+    font-weight: bolder;
+    color: #000000;
+	font-family: 'Avenir Next','arial';
+}
+.EventsDate {
+    float:right;
+    font-size: 14px;
+	font-family: 'Avenir Next','arial';
+}
+.EventsTitle {
+    font-size: 12px;
+    font-style: normal;
+	font-family: 'Avenir Next','arial';
+	color:#969696;
+}
+.panel-body{
+	font-family: 'Avenir Next','arial';
+}
+
+
+/* TAILLE POLICE */
+
+#results{
+    margin-top: 5px;
+    position: absolute;
+    width: 100px;
+    z-index: 10;
+    background-color: #ffffff;
+    padding:5px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+/* BLOCS */
+.ligneDetail{
+
+}
+.detailAcutalite{
+    position:absolute;
+    background: #0099ff;
+    width:400px;
+    right:0px;
+    z-index: 10;
+    top:0px;
+    padding: 10px;
+    color:#ffffff;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    font-size: 11px;
+}
+.ligneDetail:hover{
+    
+    cursor: pointer;
+}
+#selectByDatePeriod:hover{
+    background-color: #ffffff;
+}
+.blocConnect{
+    margin:10px;
+	float:right;
+}
+.memeLigne{
+    position:relative;
+    display: inline-block;
+    margin-left: 5px;
+}
+.blocSurMemeLigne{
+    float:left;
+	margin-left:0px;
+}
+.EventDetail {
+    background-color: rgba(255,255,255, 1);
+    padding: .3em;
+    font-size: 12px;
+    font-family: 'Avenir Next','arial';
+    width:200px;
+    height:100px;
+    border-radius: 2px;
+    z-index: 10;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.EventDetail:hover {
+    cursor: move;
+}
+.menuShow {
+    background-color: rgba(255,255,255, 1);
+    padding: .3em;
+    font-size: 12px;
+    font-family: 'Avenir Next','arial';
+    position: absolute;
+    border-radius: 5px;
+    z-index: 10;
+    bottom: 0px;
+}
+#alertDates{
+    color:red;
+    padding:5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 10px;
+}
+.fondDetails{
+	margin:15px;
+	padding:5px;
+	position:absolute;
+	width:40%;
+	right:0px;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	overflow:hidden;
+	border-radius:5px;
+}
+.zoneDetails{
+	overflow:auto;
+}
+.zoneCarte{
+    overflow: hidden;
+	background-color: #ebf6fc;
+}
+.lgPetit{
+    width:50px;
+    font-size: 10px;
+}
+#board{
+    /*overflow: hidden;*/
+}
+.adroite{
+	float:right;
+}
+.legende{
+	position:fixed;
+	bottom:13px;
+	z-index:10;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-color: #ffffff;
+	border-radius: 5px;
+	padding: 5px;
+	font-size: 11px;
+    font-family: 'Avenir Next','arial';
+	padding-right:100px;
+}
+
+.legende span{
+	margin-top:2px;
+	margin-left:10px;
+	position:relative;
+}
+.legende div{
+	margin-top:7px;
+	margin-bottom:7px;
+	position:relative;
+}
+
+
+/* MENU */
+.menuZoom{
+    position:absolute;
+    padding: 5px;
+    z-index:10;
+}
+.menu{
+    position:absolute;
+    padding: 5px;
+    z-index:10;
+    bottom: 0px;
+}
+.zoneDetailsMenuTexte{
+    color:#000000;
+}
+.zoneDetailsMenu{
+	font-size: 14px;
+    font-family: 'Avenir Next','arial';
+}
+.searchBar{
+ z-index:10;
+    position:relative;
+	background-position: right;
+	background-repeat: no-repeat;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.menuItem{
+    font-size: 20px;
+    margin-top:3px;
+    margin-bottom:3px;
+    color:#cccccc;
+}
+.menuItem:hover{
+    color:#0059b3;
+}
+.linkBlocDetail:hover{
+
+}
+.BlocDetailText{
+	margin-left:45px;
+}
+.BlocDetailImage{
+	position:absolute;
+	float:left;
+}
+.BlocDetail{
+	margin-bottom:10px;
+}
+.blocNbResult{
+	font-size:14px;
+	position:absolute;
+	color:#969696;
+	margin-top:5px;
+	margin-left:10px;
+}
+
+
+/* IMAGES */
+.menu img{
+    width:40px;
+    margin-left: 10px;
+}
+.logoUn{
+    height:60px;
+	vertical-align: baseline;
+	margin-top:10px;
+}
+.zoomButton{
+    width:30px;
+    margin-left: 10px;
+}
+.zoomButton:hover{
+    cursor: pointer;
+}
+.imgMenu:hover{
+    cursor: pointer;
+}
+.mediumImage{
+    width:50px;
+}
+.smallImage{
+    width:40px;
+}
+.VerySmallImageX1{
+    width:25px;
+}
+.VerySmallImage{
+    width:15px;
+}
+
+.smallIconText{
+	font-size:20px;
+	color:#0a7eca;
+	font-family: 'Avenir Next','arial';
+}
+.smallTextTitre{
+	font-size:20px;
+	color:#0a7eca;
+	font-family: 'Avenir Next','arial';
+}
+.inputLabel{
+	font-size:10px;
+	color:#969696;
+	font-family: 'Avenir Next','arial';
+}
+
+
+
+
+.DateRange{
+    position:absolute;
+    z-index:10;
+    color:#ffffff;
+    margin-top:-20px;
+    width:200px;
+    font-size: 10px;
+    font-family: 'Avenir Next','arial';
+    margin-left:10px;
+}
+
+
+.enteteDetail{
+	height:50px;
+}.piedDetail{
+	height:50px;
+}
+
+
+
+.pointer:hover{
+    cursor: pointer;
+}
+
+.lien{
+	font-size:30px;
+	font-weight:normal;
+	color:#0a7eca;
+	margin:5px;
+}
+.lien:hover{
+	color:#969696;
+}
+.pointerText:hover{
+    cursor: pointer;
+}
+
+.textDownload{
+	color:#f57523;
+	font-size:20px;
+	font-weight:bolder;
+}
+
+
+#closeMenuShow:hover{
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* CARTE */
+#carte{
+   /*width:842px;
+    height: 595px;*/
+	transform: scale(1, 1);
+    /*position:fixed;*/
+}
+
+#carte polygon:hover{
+    cursor: move;
+}
+
+.pinImage:hover{
+    cursor: pointer;
+    
+}
+.pinImage{
+
+}
+
+.captureZone{
+    position:absolute;
+    z-index:0;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
+
+
+.cell{
+    padding: 5px;
+}
+
+.cell div{
+    padding: 5px;
+    background-color: #ffeecc;
+}
+
+.bubbleMenu{
+    position:absolute;
+    width:auto;
+    height: auto;
+    padding:5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-color: #ffffff;
+    z-index:10;
+}
+
+
+
+.bubbleMenu img{
+    margin-left: 5px;
+}
+
+
+.imgDetail{
+    width:30px;
+    float: left;
+}
+
+
+.info_panel {
+  background-color: rgba(255,255,255, 1);
+  padding: .3em;
+  font-size: 14px;
+  font-family: 'Avenir Next','arial';
+  position: absolute;
+    border-radius: 5px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.titreInfoPanel {
+  font-size: 14px;
+  font-family: 'Avenir Next','arial';
+  font-weight:bolder;
+  color:#0099ff;
+}
+
+
+
+ text{
+    /*fill:#ffffff;text-shadow: 2px 2px 4px #000000;*/
+}
+
+
