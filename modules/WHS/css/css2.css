@@ -21,12 +21,9 @@ body {
 	margin-left:5px;
 }
 .filtre{
-height:50px;
-margin-top:5px;
 }
 /* TEXTE */
 .titrepageGros{
-    margin-top: 4px;
     margin-right:10px;
     color: #0a7eca;
     font-size: 26px;
@@ -44,11 +41,11 @@ margin-top:5px;
 }
 .textFiltre{
     color: #000000;
-    font-size: 16px;
+    font-size: 11px;
     font-family: 'Avenir Next','arial';
 	text-align:center;
 	margin-right:5px;
-	margin-top:6px;
+	margin-top:3px;
 }
 .titrepage{
     margin-right:10px;
@@ -270,9 +267,8 @@ margin-top:5px;
     margin-left: 10px;
 }
 .logoUn{
-    height:60px;
+    height:40px;
 	vertical-align: baseline;
-	margin-top:10px;
 }
 .zoomButton{
     width:30px;
@@ -293,7 +289,9 @@ margin-top:5px;
 .VerySmallImage{
     width:15px;
 }
-
+.VerySmallImageX1{
+    width:25px;
+}
 
 
 
@@ -336,7 +334,7 @@ margin-top:5px;
 
 .textDownload{
 	color:#f57523;
-	font-size:20px;
+	font-size:15px;
 	font-weight:bolder;
 }
 

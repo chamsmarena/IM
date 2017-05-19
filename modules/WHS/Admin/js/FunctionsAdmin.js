@@ -140,20 +140,13 @@ function ShowActualiteDetails(){
             $(".zoneDetailsTableau").html("");
 			$(".enteteDetail").html("");
 			$(".enteteDetail").append("<div class='blocNbResult'>"+listeActualites.length+" entries found</div>");
-            //GESTION DES DETAILS
-			/*
-            for(i=0; i < nbActualite; i++) {
-                $(".zoneDetailsTableau").append("<div hidden='hidden' id='detailAcutalite"+i+"' class='detailAcutalite'><div><span class='glyphicon pointer glyphicon-remove' aria-hidden='true' onclick='CloseDetails()'></span></div><div>"+actualites[i][11]+"</div></div>");
-            }*/
-            
-            
-            
+
             
             
             //AFFICHAGE DU TABLEAU DES ACTUALITES
             $(".zoneDetailsTableau").append("<table id='tableDetails'  style='border-bottom:none;'><thead hidden='hidden'><tr><th>news</th></tr></thead><tbody>");   
             for(i=0; i < nbActualite; i++) {
-                $("#tableDetails").append("<tr><td><div class='BlocDetail'><div class='panel-heading' role='tablist' id='heading"+i+"'><h4 class='panel-title'><a role='button' data-toggle='collapse' data-parent='#accordion' href='#collapse"+i+"' aria-expanded='true' aria-controls='collapse"+i+"'><div class='BlocDetailImage'><img src='../images/events/"+actualites[i][0]+actualites[i][13]+"Group.svg' class='imgDetail'/></div><div class='BlocDetailText'><span class='EventsCountry'>"+actualites[i][3]+"</span> <span class='EventsDate'>"+formattedDateFrench(new Date(actualites[i][12]))+"</span></br><span class='EventsTitle'>"+actualites[i][10]+"</span></div></a></h4></div><div id='collapse"+i+"' class='panel-collapse collapse' role='tabpanel' aria-labelledby='heading"+i+"'><div class='panel-body'>"+actualites[i][11]+"</div></div></div></td></tr>");
+                $("#tableDetails").append("<tr><td><a href='#'><span class='ion-edit smallIconText' ></span></a></td><td><a href='#'><span class='ion-ios-trash smallIconText' ></span></a></td><td><div class='BlocDetail'><div class='panel-heading' role='tablist' id='heading"+i+"'><h4 class='panel-title'><a role='button' data-toggle='collapse' data-parent='#accordion' href='#collapse"+i+"' aria-expanded='true' aria-controls='collapse"+i+"'><div class='BlocDetailImage'><img src='../images/events/"+actualites[i][0]+actualites[i][13]+"Group.svg' class='imgDetail'/></div><div class='BlocDetailText'><span class='EventsCountry'>"+actualites[i][3]+"</span> <span class='EventsDate'>"+formattedDateFrench(new Date(actualites[i][12]))+"</span></br><span class='EventsTitle'>"+actualites[i][10]+"</span></div></a></h4></div><div id='collapse"+i+"' class='panel-collapse collapse' role='tabpanel' aria-labelledby='heading"+i+"'><div class='panel-body'>"+actualites[i][11]+"</div></div></div></td></tr>");
             }
             $(".zoneDetailsTableau").append("</tbody></table>");
             $('#tableDetails').DataTable( {
