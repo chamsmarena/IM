@@ -146,7 +146,7 @@ function ShowActualiteDetails(){
             //AFFICHAGE DU TABLEAU DES ACTUALITES
             $(".zoneDetailsTableau").append("<table id='tableDetails' class='table' ><thead ><tr><th></th><th></th><th></th><th>Country</th><th>Date</th><th>Title</th><th>Content</th></tr></thead><tbody>");   
             for(i=0; i < nbActualite; i++) {
-                $("#tableDetails").append("<tr><td><a href='editWeekly.php?id="+actualites[i][23]+"'><span class='ion-edit smallIconText' ></span></a></td><td><a href='#'><span class='ion-ios-trash smallIconText' ></span></a></td><td><img src='../images/events/"+actualites[i][0]+actualites[i][13]+"Group.svg' class='imgDetail'/></td><td>"+actualites[i][3]+"</td><td>"+formattedDateFrench(new Date(actualites[i][12]))+"</td><td>"+actualites[i][10]+"</td><td>"+actualites[i][11]+"</td></tr>");
+                $("#tableDetails").append("<tr><td><a href='editWeekly.php?id="+actualites[i][23]+"'><span class='ion-edit smallIconText' ></span></a></td><td><a href='#' onclick='ConfirmDeleteActualite(\""+actualites[i][23]+"\")'><span class='ion-ios-trash smallIconText' ></span></a></td><td><img src='../images/events/"+actualites[i][0]+actualites[i][13]+"Group.svg' class='imgDetail'/></td><td>"+actualites[i][3]+"</td><td>"+formattedDateFrench(new Date(actualites[i][12]))+"</td><td>"+actualites[i][10]+"</td><td>"+actualites[i][11]+"</td></tr>");
             }
             $(".zoneDetailsTableau").append("</tbody></table>");
             $('#tableDetails').DataTable( {
@@ -155,8 +155,8 @@ function ShowActualiteDetails(){
                 "fnDrawCallback": function() {
                     $(".paginate_button").show();
                     $(".disabled").hide();
-                    $("td").css({"padding":"0px"});
-                    $(".dataTables_paginate ").css({"position": "fixed","bottom": "24px","right": "30px"});
+                    //$("td").css({"padding":"0px"});
+                    //$(".dataTables_paginate ").css({"position": "fixed","bottom": "24px","right": "30px"});
                     $(".dataTables_filter ").css({"float": "right"});
 					$("#glypSearch").remove();
 					$(".dataTables_filter label").append("  <span id='glypSearch' class='glyphicon glyphicon-search' aria-hidden='true'></span>");
@@ -212,10 +212,9 @@ function ResizeBlocs(){
 	
 	console.log(Winheight+" "+auteurSearchBar);
 	
-    $(".zoneCarte").css("height",(Winheight-auteurSearchBar));
-    $("#board").css("height",(Winheight-auteurSearchBar));
-    $(".zoneDetails").css("height",(Winheight-auteurSearchBar-140));
-    $(".fondDetails").css("height",(Winheight-auteurSearchBar-35));
+    $(".dataBar").css("height",(Winheight-auteurSearchBar));
+   // $(".zoneDetails").css("height",(Winheight-auteurSearchBar-140));
+    //$(".fondDetails").css("height",(Winheight-auteurSearchBar-35));
     $("body").css("height",Winheight);
 	
 	
@@ -233,6 +232,15 @@ function AfficherBoutons(){
 	$(".zoneDetailsMenuTexte").fadeIn();
 }
 
+
+//ACTIONS
+function ConfirmDeleteActualite(id){
+	var r = confirm("Will be deleted !Are you sure?");
+	if (r == true) {
+		deleteActualite(id);
+		FiltrerActualite();
+	}
+}
 
 
 //FILTRES
@@ -696,20 +704,24 @@ function postActualite() {
     TitreEn = $("#PostTitreEn").val(); 
     DetailEn = $("#PostDetailEn").val();
     
-    /*////console.log("TypeActu:"+TypeActu);
-    ////console.log("Region:"+Region);
-    ////console.log("Pays:"+Pays);
-    ////console.log("TitreFr:"+TitreFr);
-    ////console.log("DetailFr:"+DetailFr);
-    ////console.log("DateActualite:"+DateActualite);
-    ////console.log("Valeur:"+Valeur);
-    ////console.log("TitreEn:"+TitreEn);
-    ////console.log("DetailEn:"+DetailEn);*/
-    
-    
-    
-    
 	xhr.send("TypeActu="+TypeActu+"&Region="+Region+"&Pays="+Pays+"&TitreFr="+TitreFr+"&DetailFr="+DetailFr+"&DateActualite="+DateActualite+"&Valeur="+Valeur+"&TitreEn="+TitreEn+"&DetailEn="+DetailEn);
+}
+function deleteActualite(id) {
+    var xhr = getXMLHttpRequest();
+	
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+		alert(this.responseText);
+			//******* fin affichage des filtre **********
+		} else if (xhr.readyState < 4) {
+			
+		}
+	};
+	
+	xhr.open("POST", "scripts/DeleteActualite.php", true);
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+	xhr.send("idActualite="+id);
 }
 function logOut() {
     var xhr = getXMLHttpRequest();

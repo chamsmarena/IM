@@ -5,6 +5,23 @@ session_start();
 
 if(isset($_SESSION["USER"])){
     
+	//RECUPERATION ACTUALITE ANGLAISE
+	$requete = "SELECT ID_LIEU, CODE_A0, LIBELLE_LIEU FROM lieuxsansadmin1";
+	$lieuxSansAdmin1 = array();
+	$stmt = $db->prepare($requete);
+	try{
+		if ($stmt->execute()){
+			while ($row = $stmt->fetch()) {
+				$lieu = array($row['ID_LIEU'],$row['CODE_A0'],$row['LIBELLE_LIEU']);
+				array_push($lieuxSansAdmin1,$lieu);
+			}
+		}else{
+			echo "noLines";
+		}
+	}
+	catch( PDOException $Exception ) {
+		 echo json_encode("erreur".$Exception->getMessage( ));
+	}
 }
 ?>
 <!DOCTYPE html>
@@ -25,6 +42,7 @@ if(isset($_SESSION["USER"])){
     <link rel="stylesheet" href="../datatable/jquery.dataTables.css"/>
     
     <link rel="stylesheet" href="../jqueryUI/jquery-ui.min.css"/>
+    <link rel="stylesheet" href="../css/css2.css"/>
     <link rel="stylesheet" href="css/css.css"/>
     <link rel="stylesheet" href="../ionIcons/css/ionicons.css"/>
 
@@ -131,15 +149,38 @@ if(isset($_SESSION["USER"])){
         
 		
 		<!-- DATAS -->
-        <div class="row">
-			<div class='col-lg-12'>
-				<div class='zoneDetails'>
-					<div class='zoneDetailsTableau'>
+        <div class="row dataBar">
+			
+			<div class='col-lg-8'>
+				<div class='blocData'>
+					<div>
+						<span class="texteMoyen blocDanger"><span class='ion-social-rss' ></span> Events</span>
+					</div>
+					<div class='zoneDetails'>
+						<div class='zoneDetailsTableau'>
+						</div>
 					</div>
 				</div>
-				<div class='piedDetail'></div>
 			</div>
-			
+			<div class='col-lg-4'>
+				<div class='blocData'>
+					<div>
+						<span class="texteMoyen blocDanger"><span class='ion-ios-location' ></span> Places with unknown Admin1</span>
+					</div>
+					<div class='blocData'>
+						<table class="table table-striped">
+							<tr>
+								<th></th><th>Place</th><th>Country</th>
+							<tr>
+								<?php
+									for ($i = 0; $i < count($lieuxSansAdmin1); $i++) {
+										echo "<tr><td><a href='editWeekly.php?id=".$lieuxSansAdmin1[$i][0]."'><span class='ion-edit smallIconText' ></span></a></td><td>".$lieuxSansAdmin1[$i][2]."</td><td>".$lieuxSansAdmin1[$i][1]."</td><tr>";
+									}
+								?>
+						</table>
+					</div>
+				</div>
+			</div>
         </div>
         
         

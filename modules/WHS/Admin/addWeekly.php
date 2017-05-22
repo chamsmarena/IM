@@ -25,6 +25,7 @@ if(isset($_SESSION["USER"])){
     <link rel="stylesheet" href="../datatable/jquery.dataTables.css"/>
     
     <link rel="stylesheet" href="../jqueryUI/jquery-ui.min.css"/>
+    <link rel="stylesheet" href="../css/css2.css"/>
     <link rel="stylesheet" href="css/css.css"/>
     <link rel="stylesheet" href="../ionIcons/css/ionicons.css"/>
 
@@ -69,76 +70,21 @@ if(isset($_SESSION["USER"])){
             </div>
 		
 			
-			<div class='col-lg-12 noselect' >
-				<div class='col-lg-3 noselect'>
-					<span class='blocSurMemeLigne textFiltre'>COUNTRY</span>
-					<div class='blocSurMemeLigne'>
-						<select name='Pays' id='Pays' class='form-control pointer' onchange="FiltrerPays()" style='font-size:14px;font-family: "Avenir Next","arial";'>
-						  <option value='all'>All</option>
-							<?php
-								
-								$stmt = $db->prepare("SELECT CODE_A0,CAPTION_A0 FROM admin_0 order by CAPTION_A0 asc");
-								$id = 0;
-								if ($stmt->execute()) {
-									while ($row = $stmt->fetch()) {
-										echo "<option value='".$row['CODE_A0']."'>".$row['CAPTION_A0']."</option>";
-									}
-								}
-							?>
-						</select>
-					</div>
-					
-                </div>
-				<div class='col-lg-3 noselect'>
-					<span class='blocSurMemeLigne textFiltre'>THEME</span>
-					<div class='blocSurMemeLigne'>
-						<select name='TypeActu' id='typeActu' class='form-control pointer'  onchange="FiltrerTheme()" style='font-size:14px;font-family: "Avenir Next","arial";'>
-							<option value='all'>All</option>
-							<?php
-								$stmt = $db->prepare("SELECT ID_TAG, LIBELLE_TAG FROM tag  order by LIBELLE_TAG asc");
-								$id = 0;
-								if ($stmt->execute()) {
-									while ($row = $stmt->fetch()) {
-										echo "<option value='".$row['ID_TAG']."'>".$row['LIBELLE_TAG']."</option>";
-									}
-								}
-							?>
-						</select>
-					</div>
-                </div>
-				<div class='col-lg-3 noselect'>
-					<span class='blocSurMemeLigne textFiltre'>FROM</span>
-					<div class='blocSurMemeLigne'>
-						<input type="text" class="form-control pointer" id="dateStart"  style="font-size:14px;font-family: 'arial';">					
-					</div>
-                </div>
-				<div class='col-lg-3 noselect'>
-					<span class='blocSurMemeLigne textFiltre'>TO</span>
-					<div class='blocSurMemeLigne'>
-						<input type="text"  class="form-control pointer" id="dateEnd" style="font-size:14px;font-family: 'arial';">						
-					</div>
-                </div>
-				<div class='col-lg-12 noselect' style="border-bottom-style: dotted;border-width: 1px;border-color: #969696;margin-top:7px;">
-				</div>
-			</div>
-			<div class='col-lg-12 noselect' style="margin-bottom:5px;margin-top:5px;">
-				<div class='blocSurMemeLigne zoneDetailsMenu'>
-					Search results
-				</div>
-				<div class='filtre blocSurMemeLigne'>
-					<div class='filtrePays'></div><div class='filtreTheme'></div>
-				</div>
-			</div>
         </div>
         
 		
 		<!-- DATAS -->
-        <div class="row">
-			<div class='col-lg-12'>
-                <span class="titrepageGros noselect">Create news</span>
+        <div class="row dataBar">
+			<div class='col-lg-2'>
+			</div>
+			<div class='col-lg-8'>
+				<div class='zoneDetails'>
+				<div>
+					<span class="texteMoyen blocDanger"><span class='ion-ios-plus' ></span> Creating news</span>
+				</div>
                 <form class="form-horizontal" action="scripts/PostActualite.php" method="post">
                     
-                    <div class="row">
+                    <div class="col-lg-12">
 					
                         <div class="col-xs-12" style='margin-top:15px;' data-toggle="tooltip" data-placement="top" title="Select a country, type the location and select date"><span class='ion-ios-location smallIconText' ></span><span class='smallTextTitre' > Location</span> <span class='ion-ios-information-outline infoBulle' ></span></div>
                         <div class="col-xs-4">
@@ -199,7 +145,7 @@ if(isset($_SESSION["USER"])){
 							</table>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="col-lg-12">
                         <div class="col-xs-4">
 							<table>
 								<tr>
@@ -261,7 +207,7 @@ if(isset($_SESSION["USER"])){
 							</table>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="col-lg-12">
 						<div class="col-xs-12"  data-toggle="tooltip" data-placement="top" title="Select one or more tags" style='margin-top:15px;'><span class='ion-pricetags smallIconText' ></span><span class='smallTextTitre' > Tags </span><span class='ion-ios-information-outline infoBulle' ></span></div>
                         <div class="col-xs-3">
                             <select name='PostTag' id='PostTag' class='form-control' onchange="FiltrerTag()" data-toggle="tooltip" data-placement="top" title="Add one or more tags" style='font-size:10px;height:27px;font-family: "Avenir Next","arial";'>
@@ -284,7 +230,7 @@ if(isset($_SESSION["USER"])){
 							<input type="text" hidden='hidden' name='PostFilreTags'   id="PostFilreTags"/>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="col-lg-12">
 						<div class="col-xs-12" style='margin-top:15px;' data-toggle="tooltip" data-placement="top" title="Enter english and french content"><span class='ion-document-text smallIconText' ></span> <span class='smallTextTitre' > Content</span> <span class='ion-ios-information-outline infoBulle' ></span></div>
 						<div class="col-md-6">
 							<span class='inputLabel' >English</span>
@@ -297,13 +243,13 @@ if(isset($_SESSION["USER"])){
 							<textarea name='PostDetailFr' style='margin-top:5px;' class="form-control" placeholder="Détail de l'actualité"  style='font-size:10px;font-family: "Avenir Next","arial";'   id="PostDetailFr"></textarea>
 						</div>
 					</div>
-                    <div class="row">
+                    <div class="col-lg-12">
 						<div class="col-xs-12"  data-toggle="tooltip" data-placement="top" title="Add images" style='margin-top:15px;'><span class='ion-images smallIconText' ></span><span class='smallTextTitre' > Images </span><span class='ion-ios-information-outline infoBulle' ></span></div>
                     </div>
-                    <div class="row">
+                    <div class="col-lg-12">
 						<div class="col-xs-12"  data-toggle="tooltip" data-placement="top" title="Insert external links" style='margin-top:15px;'><span class='ion-link smallIconText' ></span><span class='smallTextTitre' > Links </span><span class='ion-ios-information-outline infoBulle' ></span></div>
                     </div>
-                    <div class="row">
+                    <div class="col-lg-12">
                         <button type="submit" class="btn btn-default">Submit</button>
                     </div>
                 </form>
@@ -313,7 +259,10 @@ if(isset($_SESSION["USER"])){
 
                 
 			</div>
-        </div>
+			</div>
+			<div class='col-lg-2'>
+			</div>
+		</div>
         
         
         <!-- MODALS -->
@@ -355,6 +304,6 @@ if(isset($_SESSION["USER"])){
 
 		
     </script>
-    <script src="js/ScriptEndAdmin.js"></script>
+    <script src="js/ScriptEndAdminAddPage.js"></script>
     
 </body>

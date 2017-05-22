@@ -33,15 +33,7 @@ $(document).ready(function(){
     });
 
 
-    //RECUPERATION DES VALEURS DE SELECT
-    var x = document.getElementById("Pays").options;
-    for(i=0; i < x.length; i++){
-        listePays.push([x[i].value,x[i].label]);
-    }
-    var x = document.getElementById("typeActu").options;
-    for(i=0; i < x.length; i++){
-        listeThemes.push([x[i].value,x[i].label]);
-    }
+	ResizeBlocs();
 });
 
 $("#PostTypeActu,#PostMenace").change(function(){
