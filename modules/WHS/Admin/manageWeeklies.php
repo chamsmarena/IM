@@ -48,8 +48,6 @@ if(isset($_SESSION["USER"])){
 
     <div class="container-fluid">
 	
-	
-	
         <!-- SEARCH BAR -->
         <div class='row searchBar'>
             <div class='col-lg-12 noselect'>
@@ -63,13 +61,7 @@ if(isset($_SESSION["USER"])){
 				</div>
 				<div class="blocConnect">
 					<?php
-						if(isset($_SESSION["USER"])){
-							
-							echo "<a class='lien' href='../index.php'><span class='ion-easel' ></span></a>";
-							echo "<a class='lien' id='menulogOut'><span class='ion-log-out'></span></a>";
-						}else{
-							echo "<a class='lien' ><span class='ion-log-in'  data-toggle='modal' data-target='#ModalConnexion'></span></a>";
-						}
+						include("menu.php");
 					?>
 				</div>
             </div>
@@ -140,192 +132,14 @@ if(isset($_SESSION["USER"])){
 		
 		<!-- DATAS -->
         <div class="row">
-			<div class='col-lg-6'>
+			<div class='col-lg-12'>
 				<div class='zoneDetails'>
 					<div class='zoneDetailsTableau'>
 					</div>
 				</div>
 				<div class='piedDetail'></div>
 			</div>
-			<div class='col-lg-6'>
-                <span class="titrepageGros noselect">Create news</span>
-                <form class="form-horizontal" action="scripts/PostActualite.php" method="post">
-                    
-                    <div class="row">
-					
-                        <div class="col-xs-12" style='margin-top:15px;' data-toggle="tooltip" data-placement="top" title="Select a country, type the location and select date"><span class='ion-ios-location smallIconText' ></span><span class='smallTextTitre' > Location</span> <span class='ion-ios-information-outline infoBulle' ></span></div>
-                        <div class="col-xs-4">
-							<table>
-								<tr>
-									<td>
-										<span class='inputLabel' >Country</span>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<select name='PostPays' id='PostPays' class='form-control' style='font-size:10px;height:27px;font-family: "Avenir Next","arial";'>
-											<option value=''>---</option>
-											<?php
-											if(isset($_SESSION["USER"])){
-												$stmt = $db->prepare("SELECT ID_A0,CAPTION_A0 FROM admin_0");
-												$id = 0;
-												if ($stmt->execute()) {
-													while ($row = $stmt->fetch()) {
-														echo "<option value='".$row['ID_A0']."'>".$row['CAPTION_A0']."</option>";
-													}
-												}
-											}
-											?>
-										</select>
-									</td>
-								</tr>
-							</table>
-                            
-                        </div>
-                        <div class="col-xs-4">
-							<table>
-								<tr>
-									<td>
-										<span class='inputLabel' >Location</span>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<input name='PostLocation' autocomplete="off" spellcheck="false" id="PostLocation" type="text"  class="form-control" placeholder="---" style='font-size:10px;height:27px;font-family: "Avenir Next","arial";'/>
-										<div id="results"></div>
-									</td>
-								</tr>
-							</table>
-                        </div>
-                        <div class="col-xs-4">
-							<table>
-								<tr>
-									<td>
-										<span class='inputLabel' >Date</span>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<input  name='dateActualite' id="dateActualite" type="text"  class="form-control" aria-label="Date" style='font-size:10px;height:27px;font-family: "Avenir Next","arial";'/>
-									</td>
-								</tr>
-							</table>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-4">
-							<table>
-								<tr>
-									<td>
-										<span class='inputLabel' >Icon</span>
-									</td>
-								</tr>
-								<tr>
-									
-									<td>
-										<select name='PostTypeActu'  id='PostTypeActu' class='form-control'  style='font-size:10px;height:27px;font-family: "Avenir Next","arial";'>
-											<option value=''>---</option>
-											<?php
-											if(isset($_SESSION["USER"])){
-												$stmt = $db->prepare("SELECT TYPE_CATEG_ACTU, TITRE_CATEG_ACTU FROM categorie_actualite");
-												$id = 0;
-												if ($stmt->execute()) {
-													while ($row = $stmt->fetch()) {
-														echo "<option value='".$row['TYPE_CATEG_ACTU']."'>".$row['TITRE_CATEG_ACTU']."</option>";
-													}
-												}
-											}
-											?>
-										</select>
-									</td>
-								</tr>
-							</table>
-                        </div>
-						<div class="col-xs-8">
-							<table>
-								<tr>
-									<td>
-										<span class='inputLabel' >Icon color</span>
-									</td>
-									<td>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<select name='PostMenace' id='PostMenace' class='form-control'  style='font-size:10px;height:27px;font-family: "Avenir Next","arial";'>
-											<option value=''>---</option>
-											<?php
-											if(isset($_SESSION["USER"])){
-												$stmt = $db->prepare("SELECT CODE_MENACE, TITRE_MENACE FROM menaces");
-												$id = 0;
-												if ($stmt->execute()) {
-													while ($row = $stmt->fetch()) {
-														echo "<option value='".$row['CODE_MENACE']."'>".$row['TITRE_MENACE']."</option>";
-													}
-												}
-											}
-											?>
-										</select>
-									</td>
-									<td>
-										<img class='VerySmallImageX1' id='iconPreview' src='../images/events/affectedPopulationbleu.svg'/>
-									</td>
-								</tr>
-							</table>
-                        </div>
-                    </div>
-                    <div class="row">
-						<div class="col-xs-12"  data-toggle="tooltip" data-placement="top" title="Select one or more tags" style='margin-top:15px;'><span class='ion-pricetags smallIconText' ></span><span class='smallTextTitre' > Tags </span><span class='ion-ios-information-outline infoBulle' ></span></div>
-                        <div class="col-xs-3">
-                            <select name='PostTag' id='PostTag' class='form-control' onchange="FiltrerTag()" data-toggle="tooltip" data-placement="top" title="Add one or more tags" style='font-size:10px;height:27px;font-family: "Avenir Next","arial";'>
-                                <option value=''>---</option>
-                                <?php
-                                if(isset($_SESSION["USER"])){
-                                    $stmt = $db->prepare("SELECT ID_TAG,LIBELLE_TAG FROM tag");
-                                    $id = 0;
-                                    if ($stmt->execute()) {
-                                        while ($row = $stmt->fetch()) {
-                                            echo "<option value='".$row['ID_TAG']."'>".$row['LIBELLE_TAG']."</option>";
-                                        }
-                                    }
-                                }
-                                ?>
-                            </select>
-                        </div>
-                        <div class="col-xs-8">
-                            <div class='filtreTag'></div>
-							<input type="text" hidden='hidden' name='PostFilreTags'   id="PostFilreTags"/>
-                        </div>
-                    </div>
-                    <div class="row">
-						<div class="col-xs-12" style='margin-top:15px;' data-toggle="tooltip" data-placement="top" title="Enter english and french content"><span class='ion-document-text smallIconText' ></span> <span class='smallTextTitre' > Content</span> <span class='ion-ios-information-outline infoBulle' ></span></div>
-						<div class="col-md-6">
-							<span class='inputLabel' >English</span>
-							<input type="text"  name='PostTitreEn'  class="form-control" placeholder="Title" style='font-size:10px;height:27px;font-family: "Avenir Next","arial";'   id="PostTitreEn"/>
-							<textarea style='margin-top:5px;' name='PostDetailEn' class="form-control" placeholder="News details"  style='font-size:10px;font-family: "Avenir Next","arial";'  id="PostDetailEn"></textarea>
-						</div>
-						<div class="col-md-6">
-							<span class='inputLabel' >Français</span>
-							<input name='PostTitreFr' type="text" class="form-control" placeholder="Titre" style='font-size:10px;height:27px;font-family: "Avenir Next","arial";'  id="PostTitreFr" />
-							<textarea name='PostDetailFr' style='margin-top:5px;' class="form-control" placeholder="Détail de l'actualité"  style='font-size:10px;font-family: "Avenir Next","arial";'   id="PostDetailFr"></textarea>
-						</div>
-					</div>
-                    <div class="row">
-						<div class="col-xs-12"  data-toggle="tooltip" data-placement="top" title="Add images" style='margin-top:15px;'><span class='ion-images smallIconText' ></span><span class='smallTextTitre' > Images </span><span class='ion-ios-information-outline infoBulle' ></span></div>
-                    </div>
-                    <div class="row">
-						<div class="col-xs-12"  data-toggle="tooltip" data-placement="top" title="Insert external links" style='margin-top:15px;'><span class='ion-link smallIconText' ></span><span class='smallTextTitre' > Links </span><span class='ion-ios-information-outline infoBulle' ></span></div>
-                    </div>
-                    <div class="row">
-                        <button type="submit" class="btn btn-default">Submit</button>
-                    </div>
-                </form>
-                
-                
-                
-
-                
-			</div>
+			
         </div>
         
         

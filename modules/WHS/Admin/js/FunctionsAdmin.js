@@ -141,12 +141,12 @@ function ShowActualiteDetails(){
 			$(".enteteDetail").html("");
 			$(".enteteDetail").append("<div class='blocNbResult'>"+listeActualites.length+" entries found</div>");
 
-            
-            
+            //console.log(actualites);
+			
             //AFFICHAGE DU TABLEAU DES ACTUALITES
-            $(".zoneDetailsTableau").append("<table id='tableDetails'  style='border-bottom:none;'><thead hidden='hidden'><tr><th>news</th></tr></thead><tbody>");   
+            $(".zoneDetailsTableau").append("<table id='tableDetails' class='table' ><thead ><tr><th></th><th></th><th></th><th>Country</th><th>Date</th><th>Title</th><th>Content</th></tr></thead><tbody>");   
             for(i=0; i < nbActualite; i++) {
-                $("#tableDetails").append("<tr><td><a href='#'><span class='ion-edit smallIconText' ></span></a></td><td><a href='#'><span class='ion-ios-trash smallIconText' ></span></a></td><td><div class='BlocDetail'><div class='panel-heading' role='tablist' id='heading"+i+"'><h4 class='panel-title'><a role='button' data-toggle='collapse' data-parent='#accordion' href='#collapse"+i+"' aria-expanded='true' aria-controls='collapse"+i+"'><div class='BlocDetailImage'><img src='../images/events/"+actualites[i][0]+actualites[i][13]+"Group.svg' class='imgDetail'/></div><div class='BlocDetailText'><span class='EventsCountry'>"+actualites[i][3]+"</span> <span class='EventsDate'>"+formattedDateFrench(new Date(actualites[i][12]))+"</span></br><span class='EventsTitle'>"+actualites[i][10]+"</span></div></a></h4></div><div id='collapse"+i+"' class='panel-collapse collapse' role='tabpanel' aria-labelledby='heading"+i+"'><div class='panel-body'>"+actualites[i][11]+"</div></div></div></td></tr>");
+                $("#tableDetails").append("<tr><td><a href='editWeekly.php?id="+actualites[i][23]+"'><span class='ion-edit smallIconText' ></span></a></td><td><a href='#'><span class='ion-ios-trash smallIconText' ></span></a></td><td><img src='../images/events/"+actualites[i][0]+actualites[i][13]+"Group.svg' class='imgDetail'/></td><td>"+actualites[i][3]+"</td><td>"+formattedDateFrench(new Date(actualites[i][12]))+"</td><td>"+actualites[i][10]+"</td><td>"+actualites[i][11]+"</td></tr>");
             }
             $(".zoneDetailsTableau").append("</tbody></table>");
             $('#tableDetails').DataTable( {
@@ -166,26 +166,9 @@ function ShowActualiteDetails(){
 					
                 }
             });
-            //$(".dataTables_info").hide();
-			
-			//$(".current").css({"color": "#0a7eca"});
-			
-			//$(".dataTables_filter").detach().appendTo('.enteteDetail');
-			//$(".dataTables_paginate").detach().appendTo('.piedDetail');
-			//$(".dataTables_paginate ").css({"position": "fixed","bottom": "10px","right": "10px"});
-            //$("#tableDetails").css({"height":(auteurDetail-20)});
+
             
-            
-            
-            //REMPLISSAGE DU TABLEAU A EXPORTER EN FORMAT EXCEL
-            $("#zoneExportDetails").html("");
-            var contenuTableau = "<table hidden='hidden' id='ExportDetails'><thead><tr><th>Theme</th><th>Country</th><th>Region</th><th>Date</th><th>Title</th><th>Details</th></tr></thead><tbody>";
-            
-            for(i=0; i < nbActualite; i++) {
-                contenuTableau+="<tr><td>"+actualites[i][1]+"</td><td>"+actualites[i][3]+"</td><td>"+actualites[i][7]+"</td><td>"+actualites[i][12]+"</td><td>"+actualites[i][10]+"</td><td>"+actualites[i][11]+"</td></tr>";
-            }
-            contenuTableau+="</tbody></table>";
-            $("#zoneExportDetails").append(contenuTableau);
+
             
             
 
@@ -467,9 +450,22 @@ function FiltrerTag(){
 			$("#PostFilreTags").val(filtrestagsText);
 		}
 	}
+}
+function initFiltrerTag(filtres){
 	
-	
-    FiltrerActualite();
+		Tmpfiltrestags = JSON.parse(filtres);
+		
+		if(Tmpfiltrestags.length>0){
+			for(i=0; i < Tmpfiltrestags.length; i++) {
+				$(".filtreTag").append("<button type='button' id='"+Tmpfiltrestags[i][0]+"' class='btn btn-default btn-xs'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span> "+Tmpfiltrestags[i][1]+"</button>");
+				ftag = document.getElementById(Tmpfiltrestags[i][0])
+				ftag.addEventListener("click", RemoveFiltertag);
+				filtrestags.push(Tmpfiltrestags[i][0]);
+				filtrestagsText= filtrestagsText+"_"+Tmpfiltrestags[i][0];
+				$("#PostFilreTags").val(filtrestagsText);
+			}
+		}
+
 }
 function RemoveFiltertag(){
     id=$(this).attr("id");
@@ -492,6 +488,10 @@ function RemoveFiltertag(){
 		var dd = document.getElementById('PostTag');
 		dd.selectedIndex = 0;
 	}
+}
+function FilterTagsOneActualite(){
+	var idActualite = decodeURI( $_GET( 'id' ) );
+	getTagsActualite(idActualite);
 }
 
 
@@ -579,7 +579,23 @@ function ZoomParDefautKeepingAdmin(){
 	$("#carte").attr({"viewBox":"0 0 "+widthOrigin+" "+heightOrigin});
 }
 
+
+
 //AJAX
+function $_GET(param) {
+	var vars = {};
+	window.location.href.replace( location.hash, '' ).replace( 
+		/[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
+		function( m, key, value ) { // callback
+			vars[key] = value !== undefined ? value : '';
+		}
+	);
+
+	if ( param ) {
+		return vars[param] ? vars[param] : null;	
+	}
+	return vars;
+}
 function getXMLHttpRequest() {
 	var xhr = null;
 	if (window.XMLHttpRequest || window.ActiveXObject) {
@@ -610,10 +626,24 @@ function getActualite(datestart,dateend) {
 		}
 	};
 	
-
 	xhr.open("POST", "scripts/GetActualite.php", true);
 	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	xhr.send("dateDebut="+datestart+"&dateFin="+dateend+"");
+}
+function getTagsActualite(idActualite) {
+    var xhr = getXMLHttpRequest();
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+			initFiltrerTag(this.responseText);
+			//******* fin affichage des filtre **********
+		} else if (xhr.readyState < 4) {
+			
+		}
+	};
+	
+	xhr.open("POST", "scripts/GetTagsActualiteAdmin.php", true);
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	xhr.send("idActualite="+idActualite+"");
 }
 function getActualite(datestart,dateend, filtrePays, filtreTheme) {
     

@@ -1,6 +1,7 @@
 <?php
 if
 	(
+        isset($_POST["idActualite"])&&
         isset($_POST["PostPays"])&&
         isset($_POST["PostLocation"])&&
         isset($_POST["dateActualite"])&&
@@ -17,6 +18,7 @@ if
 	include("../scripts/connectDB.php");
     session_start();
 
+	$idActualite=$_POST["idActualite"];
 	$PostPays=$_POST["PostPays"];
 	$PostLocation=$_POST["PostLocation"];
 	$dateActualite=$_POST["dateActualite"];
@@ -29,9 +31,9 @@ if
 	$PostTitreEn=$_POST["PostTitreEn"];
 	$PostDetailEn=$_POST["PostDetailEn"];
 	
-	$idAcutaliteTmp = date('YmdHis').rand (0, 9999);
-	$IdActualiteFR = 'FR'.$idAcutaliteTmp;
-	$IdActualiteEN = 'EN'.$idAcutaliteTmp;
+
+	$IdActualiteFR = 'FR'.$idActualite;
+	$IdActualiteEN = 'EN'.$idActualite;
 	$arrayDateActualite = explode('/', $dateActualite);
 	$dateActualite = $arrayDateActualite[2]."".$arrayDateActualite[1]."".$arrayDateActualite[0];
 	
@@ -113,7 +115,20 @@ if
 	}
 	
 	
-	//INSERTION DES TAGS
+	//UPDATE DES TAGS
+	//SUPRESSION DES ANCIENNES
+	$requete = "DELETE FROM r_actualite_avoir_tag WHERE ID_ACTUALITE = ? OR ID_ACTUALITE = ?";
+	$stmt = $db->prepare($requete);
+	$stmt->bindParam(1, $IdActualiteFR);
+	$stmt->bindParam(2, $IdActualiteEN);
+	
+	try {
+		$result = $stmt->execute();
+	} catch (PDOException $e) {
+		echo 'Suppressions des anciens tags erreur insert : ' . $e->getMessage();
+	}
+	
+	//CREATION DES NOUVELLES
 	$arrayTags = explode('_',$PostFilreTags);
 	var_dump ($arrayTags);
 	for ($i = 1; $i < count($arrayTags); $i++) {
@@ -141,24 +156,24 @@ if
 		}
 	}
 	
-	//INSERER LA NEWS FRANCAISE
+	//UPDATE LA NEWS FRANCAISE
 	$ID_LANGUE =1;
 	$ID_actualite = $IdActualiteFR;
 	$TITRE_ACTUALITE = $PostTitreFr;
     $DETAIL_ACTUALITE = $PostDetailFr;
 	
-    $stmt = $db->prepare("INSERT INTO actualite(ID_ACTUALITE, ID_LANGUE, ID_LIEU, IDUSER, ID_A1, ID_MENACE, ID_CATEG_ACTU, TITRE_ACTUALITE, DETAIL_ACTUALITE, DATE_ACTUALITE) VALUES ( ?,?,?,?,?,?,?,?,?,?)");
+    $stmt = $db->prepare("UPDATE actualite SET ID_LANGUE=?, ID_LIEU=?, IDUSER=?, ID_A1=?, ID_MENACE=?, ID_CATEG_ACTU=?, TITRE_ACTUALITE=?, DETAIL_ACTUALITE=?, DATE_ACTUALITE=? WHERE ID_ACTUALITE=?");
 	
-    $stmt->bindParam(1, $ID_actualite);
-    $stmt->bindParam(2, $ID_LANGUE);
-    $stmt->bindParam(3, $idLieu);
-    $stmt->bindParam(4, $_SESSION["USER"]);
-    $stmt->bindParam(5, $idAdmin1);
-    $stmt->bindParam(6, $idMenace);
-    $stmt->bindParam(7, $idCategActualite);
-    $stmt->bindParam(8, $TITRE_ACTUALITE);
-    $stmt->bindParam(9, $DETAIL_ACTUALITE);
-    $stmt->bindParam(10, $dateActualite);
+    $stmt->bindParam(1, $ID_LANGUE);
+    $stmt->bindParam(2, $idLieu);
+    $stmt->bindParam(3, $_SESSION["USER"]);
+    $stmt->bindParam(4, $idAdmin1);
+    $stmt->bindParam(5, $idMenace);
+    $stmt->bindParam(6, $idCategActualite);
+    $stmt->bindParam(7, $TITRE_ACTUALITE);
+    $stmt->bindParam(8, $DETAIL_ACTUALITE);
+    $stmt->bindParam(9, $dateActualite);
+	$stmt->bindParam(10, $ID_actualite);
 
 	$result = false;
 
@@ -175,19 +190,15 @@ if
 		$result = $stmt->execute();
 		
 	} catch (PDOException $e) {
-		echo 'Creation des actualites erreur insert : ' . $e->getMessage();
+		echo 'UPDATE des actualites erreur insert : ' . $e->getMessage();
 	}
-
-
-
-	
 }else{
         
 	$result = "PostPays:".$_POST["PostPays"].", PostLocation:".$_POST["PostLocation"].", dateActualite:".$_POST["dateActualite"].", PostMenace:".$_POST["PostMenace"].", PostTag:".$_POST["PostTag"].", TitreFr:".$_POST["TitreFr"].", DetailFr:".$_POST["DetailFr"].", TitreEn:".$_POST["TitreEn"].", DetailEn:".$_POST["DetailEn"];
 	echo "Parametres manquants : ".$result;
 }
 
-header('Location: ../manageWeeklies.php');
+header('Location: ../editWeekly.php?id='.$IdActualiteEN);
 
 
  
