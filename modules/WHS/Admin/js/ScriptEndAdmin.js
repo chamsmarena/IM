@@ -1,12 +1,6 @@
 $(document).ready(function(){
-
-    
     var today = new Date();
     getActualite(today.getFullYear()+"/01/01",today.getFullYear()+"/12/31","","");
-    
-    
-
-    
     
     $.fn.datepicker.defaults.format = "dd/mm/yyyy";
     $( "#dateStart" ).datepicker('update', "01/01/"+today.getFullYear());
@@ -32,7 +26,9 @@ $(document).ready(function(){
         });
     });
 
-
+	
+	 $('#tableLieuxSansAdmin').DataTable();
+	
 	ResizeBlocs();
 });
 

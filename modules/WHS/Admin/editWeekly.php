@@ -70,6 +70,7 @@ if(isset($_SESSION["USER"])){
     <link rel="stylesheet" href="../datatable/jquery.dataTables.css"/>
     
     <link rel="stylesheet" href="../jqueryUI/jquery-ui.min.css"/>
+	<link rel="stylesheet" href="../css/css2.css"/>
     <link rel="stylesheet" href="css/css.css"/>
     <link rel="stylesheet" href="../ionIcons/css/ionicons.css"/>
 

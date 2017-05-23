@@ -1,18 +1,12 @@
 $(document).ready(function(){
 
 
-    $.fn.datepicker.defaults.format = "dd/mm/yyyy";
-    $( "#dateActualite" ).datepicker();
-    
-	FilterTagsOneActualite();
-	
-	
 	
 	//LIVE SEARCH
 	$( "#results" ).hide();
     $("#PostLocation").on('keyup',function () {
+		
         var key = $(this).val();
-
         $.ajax({
             url:'fetch.php',
             type:'GET',

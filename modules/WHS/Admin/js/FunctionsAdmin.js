@@ -135,7 +135,6 @@ function ShowActualiteDetails(){
             
             AfficherBoutons();
             
-            
             //AFFICHAGE DES LIGNES DETAILS DES ACTUALITES
             $(".zoneDetailsTableau").html("");
 			$(".enteteDetail").html("");

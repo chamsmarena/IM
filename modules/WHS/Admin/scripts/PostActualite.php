@@ -35,17 +35,24 @@ if
 	$arrayDateActualite = explode('/', $dateActualite);
 	$dateActualite = $arrayDateActualite[2]."".$arrayDateActualite[1]."".$arrayDateActualite[0];
 	
+	$message = "";
 	
 	//RECUPERATION DE L'ID DE LA MENACE
 	$requete = "SELECT ID_MENACE FROM menaces WHERE CODE_MENACE=?";
 	$stmt = $db->prepare($requete);
 	$idMenace = "";
 	
-	if ($stmt->execute(array($PostMenace))){
-		while ($row = $stmt->fetch()){
-			$idMenace = $row['ID_MENACE'];
+	try {
+		if ($stmt->execute(array($PostMenace))){
+			while ($row = $stmt->fetch()){
+				$idMenace = $row['ID_MENACE'];
+			}
 		}
+	}catch (PDOException $e){
+		$message .= " #SelectMenaces:".$e->getMessage();
 	}
+	
+	
 	
 
 	//RECUPERATION DE L'ID DE LA CATEGORIE D'ACTU
@@ -53,11 +60,16 @@ if
 	$stmt = $db->prepare($requete);
 	$idCategActualite = "";
 	
-	if ($stmt->execute(array($PostTypeActu))){
-		while ($row = $stmt->fetch()){
-			$idCategActualite = $row['ID_CATEG_ACTU'];
+	try {
+		if ($stmt->execute(array($PostTypeActu))){
+			while ($row = $stmt->fetch()){
+				$idCategActualite = $row['ID_CATEG_ACTU'];
+			}
 		}
+	} catch (PDOException $e) {
+		$message .= " #SelectCategorieActu:".$e->getMessage();
 	}
+
 	
 	
     //GET L'ID DU LIEU DEJA EXISTANT OU CREER UN NOUVEAU LIEU
@@ -67,20 +79,25 @@ if
 	$idLieu = "";
 	$idAdmin1 = 99999999999;
 	
-	if ($stmt->execute(array($PostPays,$PostLocation))){
-		while ($row = $stmt->fetch()){
-			//var_dump($row);
-			$idLieu = $row['ID_LIEU'];
-			$idAdmin1 = $row['ID_A1'];
-			$lieuExiste = true;
+	try{
+		if($stmt->execute(array($PostPays,$PostLocation))){
+			while ($row = $stmt->fetch()){
+				$idLieu = $row['ID_LIEU'];
+				$idAdmin1 = $row['ID_A1'];
+				$lieuExiste = true;
+			}
 		}
+	}catch (PDOException $e){
+		$message .= " #SelectLocalisation:".$e->getMessage();
 	}
+	
+	
+	
 	
 	if($lieuExiste){
 		//echo "le lieu existe:".$idLieu;
 	}else{
 		//LE LIEU N'EXISTE PAS ON RECUPERE LA CAPITALE ET ON CREE LE LIEU
-		//echo "le lieu n'existe pas existe:".$PostLocation;
 		$requete = "SELECT ID_A1 FROM capitales where ID_A0=?";
 		$stmt = $db->prepare($requete);
 		$idDefaultAdmin1 = 99999999999;
@@ -88,11 +105,17 @@ if
 		$codeLieu = "";
 		$hasAdmin = 0;
 		
-		if ($stmt->execute(array($PostPays))){
-			while ($row = $stmt->fetch()) {
-				$idDefaultAdmin1 = intval( $row['ID_A1']);
+		try {
+			if ($stmt->execute(array($PostPays))){
+				while ($row = $stmt->fetch()) {
+					$idDefaultAdmin1 = intval( $row['ID_A1']);
+				}
 			}
+		} catch (PDOException $e) {
+			$message .= " #SelectCapitales:".$e->getMessage();
 		}
+		
+		
 		
 		$idAdmin1 = $idDefaultAdmin1;
 		
@@ -177,17 +200,13 @@ if
 	} catch (PDOException $e) {
 		echo 'Creation des actualites erreur insert : ' . $e->getMessage();
 	}
-
-
-
-	
 }else{
         
 	$result = "PostPays:".$_POST["PostPays"].", PostLocation:".$_POST["PostLocation"].", dateActualite:".$_POST["dateActualite"].", PostMenace:".$_POST["PostMenace"].", PostTag:".$_POST["PostTag"].", TitreFr:".$_POST["TitreFr"].", DetailFr:".$_POST["DetailFr"].", TitreEn:".$_POST["TitreEn"].", DetailEn:".$_POST["DetailEn"];
 	echo "Parametres manquants : ".$result;
 }
 
-header('Location: ../manageWeeklies.php');
+header('Location: ../manageWeeklies.php?message='.$message);
 
 
  

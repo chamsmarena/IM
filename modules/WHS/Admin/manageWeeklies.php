@@ -168,15 +168,21 @@ if(isset($_SESSION["USER"])){
 						<span class="texteMoyen blocDanger"><span class='ion-ios-location' ></span> Places with unknown Admin1</span>
 					</div>
 					<div class='blocData'>
-						<table class="table table-striped">
-							<tr>
-								<th></th><th>Place</th><th>Country</th>
-							<tr>
+						<table id="tableLieuxSansAdmin" class="display" cellspacing="0" width="100%">
+							<thead>
+								<tr>
+									<th></th>
+									<th>Place</th>
+									<th>Country</th>
+								</tr>
+							</thead>
+							<tbody>
 								<?php
 									for ($i = 0; $i < count($lieuxSansAdmin1); $i++) {
-										echo "<tr><td><a href='editWeekly.php?id=".$lieuxSansAdmin1[$i][0]."'><span class='ion-edit smallIconText' ></span></a></td><td>".$lieuxSansAdmin1[$i][2]."</td><td>".$lieuxSansAdmin1[$i][1]."</td><tr>";
+										echo "<tr><td><a href='ChangeAdminLieu.php?id=".$lieuxSansAdmin1[$i][0]."'><span class='ion-edit smallIconText' ></span></a></td><td>".$lieuxSansAdmin1[$i][2]."</td><td>".$lieuxSansAdmin1[$i][1]."</td></tr>";
 									}
 								?>
+							</tbody>
 						</table>
 					</div>
 				</div>
