@@ -28,7 +28,6 @@ function formattedDate(d) {
 
   return `${year}/${month}/${day}`;
 }
-
 function DateFrToDateEn(d) {
 	d = d.replace("/","");
 	d = d.replace("/","");
@@ -46,8 +45,6 @@ function DateFrToDateEn(d) {
 	}
   return r;
 }
-
-
 function formattedDateFrench(d) {
   let month = String(d.getMonth() + 1);
   let day = String(d.getDate());
@@ -119,7 +116,62 @@ function TwoDateToText(d1,d2) {
 	//////console.log( "+fff+"+monthText1+" "+monthText2);
     return result;
 }
+function ShowCountryAdmin1(listAdmin1Data){
+	
+	$("#blocAdmin1").html("");
+	$("#blocPlaces").html("");
+			
+    var listAdmin1=JSON.parse(listAdmin1Data);
 
+    if(listAdmin1!=null){
+        nbAdmin1 = listAdmin1.length;
+        if(nbAdmin1>0){
+            //AFFICHAGE DES LIGNES DETAILS DES listAdmin1
+
+			
+			
+            //AFFICHAGE DU TABLEAU DES listAdmin1
+            $("#blocAdmin1").append("<table id='tableListAdmin1' class='table' ><thead ><tr><th></th><th>Code</th><th>Caption</th><th>CoordX</th><th>CoordY</th></tr></thead><tbody>");   
+            for(i=0; i < nbAdmin1; i++) {
+                $("#tableListAdmin1").append("<tr onclick=\"getAdmin1Places('"+listAdmin1[i][0]+"')\"><td><a href='EditAdmin1.php?id="+listAdmin1[i][0]+"'><span class='ion-edit smallIconText' ></span></a></td><td>"+listAdmin1[i][2]+"</td><td>"+listAdmin1[i][3]+"</td><td>"+listAdmin1[i][4]+"</td><td>"+listAdmin1[i][5]+"</td></tr>");
+            }
+            $("#blocAdmin1").append("</tbody></table>");
+            $('#tableListAdmin1').DataTable();
+        }else{
+            $("#blocAdmin1").html("No result found.");
+           CacherBoutons();
+        }
+    }else{
+        $("#blocAdmin1").html("Error! can't get datas contact the administrator.");
+        CacherBoutons();
+    }
+}
+function ShowAdmin1Places(listPlacesData){
+    var listPlaces=JSON.parse(listPlacesData);
+$("#blocPlaces").html("");
+    if(listPlaces!=null){
+        nbLieux = listPlaces.length;
+        if(nbLieux>0){
+            //AFFICHAGE DES LIGNES DETAILS DES listPlaces
+
+			
+			
+            //AFFICHAGE DU TABLEAU DES listPlaces
+            $("#blocPlaces").append("<table id='tablelistPlaces' class='table' ><thead ><tr><th></th><th>Code</th><th>Caption</th></tr></thead><tbody>");   
+            for(i=0; i < nbLieux; i++) {
+                $("#tablelistPlaces").append("<tr><td><a href='EditLieu.php?id="+listPlaces[i][0]+"'><span class='ion-edit smallIconText' ></span></a></td><td>"+listPlaces[i][2]+"</td><td>"+listPlaces[i][3]+"</tr>");
+            }
+            $("#blocPlaces").append("</tbody></table>");
+            $('#tablelistPlaces').DataTable();
+        }else{
+            $("#blocPlaces").html("No result found.");
+           CacherBoutons();
+        }
+    }else{
+        $("#blocPlaces").html("Error! can't get datas contact the administrator.");
+        CacherBoutons();
+    }
+}
 function ShowActualiteDetails(){
     auteurDetail = $(".zoneDetails").css("height").replace("px","");
     auteurDetail = auteurDetail-40;
@@ -675,6 +727,42 @@ function getActualite(datestart,dateend, filtrePays, filtreTheme) {
 	
 	//console.log(formattedDate(new Date(datestart)));
 	xhr.send("dateDebut="+datestart+"&dateFin="+dateend+"&filtrePays="+ArrayToVar(filtresPays)+"&filtreTheme="+ArrayToVar(filtreTheme)+"");
+}
+function getCountryAdmin1(id) {
+    
+    var xhr = getXMLHttpRequest();
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+			//data = this.responseText;
+			ShowCountryAdmin1(this.responseText);
+			//******* fin affichage des filtre **********
+		} else if (xhr.readyState < 4) {
+			
+		}
+	};
+
+    
+	xhr.open("POST", "scripts/GetCountryAdmin1.php", true);
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+	xhr.send("idAdmin0="+id+"");
+}
+function getAdmin1Places(id) {
+    var xhr = getXMLHttpRequest();
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+			//data = this.responseText;
+			ShowAdmin1Places(this.responseText);
+			//******* fin affichage des filtre **********
+		} else if (xhr.readyState < 4) {
+			
+		}
+	};
+
+	xhr.open("POST", "scripts/getAdmin1Places.php", true);
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+	xhr.send("idAdmin1="+id+"");
 }
 function postActualite() {
     var xhr = getXMLHttpRequest();

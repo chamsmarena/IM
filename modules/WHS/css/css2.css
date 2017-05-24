@@ -21,6 +21,8 @@ body {
 	margin-left:5px;
 }
 .filtre{
+	position:relative;
+	display:inline-block;
 }
 /* TEXTE */
 .titrepageGros{
@@ -229,6 +231,10 @@ body {
 	background-position: right;
 	background-repeat: no-repeat;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	/*background: -webkit-linear-gradient(141deg, #0a7eca 0%, #0a7eca 51%, #2cb5e8 75%);
+    background: -o-linear-gradient(141deg, #0a7eca 0%, #0a7eca 51%, #2cb5e8 75%);
+    background: -moz-linear-gradient(141deg, #0a7eca 0%, #0a7eca 51%, #2cb5e8 75%);
+    background: linear-gradient(141deg, #0a7eca 0%, #0a7eca 51%, #2cb5e8 75%);*/
 }
 .menuItem{
     font-size: 20px;
@@ -254,10 +260,9 @@ body {
 }
 .blocNbResult{
 	font-size:14px;
-	position:absolute;
 	color:#969696;
-	margin-top:5px;
 	margin-left:10px;
+	display:inline-block;
 }
 
 
@@ -459,6 +464,12 @@ body {
 /* POLICE */
 .texteMoyen{
 	font-size:18px;
+	margin:5px;
+	font-family: 'Avenir Next','arial';
+	font-weight:normal;
+}
+.texteGrand{
+	font-size:24px;
 	margin:5px;
 	font-family: 'Avenir Next','arial';
 	font-weight:normal;

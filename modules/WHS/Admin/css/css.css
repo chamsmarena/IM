@@ -370,14 +370,23 @@ margin-top:5px;
     cursor: pointer;
 }
 
+
+/* LINK */
 .lien{
-	font-size:30px;
+	font-size:12px;
 	font-weight:normal;
 	color:#0a7eca;
 	margin:5px;
+	font-family: 'Avenir Next','arial';
+	text-decoration:none;
+	padding:5px;
+	border-radius:5px;
 }
 .lien:hover{
-	color:#969696;
+	color:#ffffff;
+	background-color:#ff0066;
+	text-decoration:none;
+	
 }
 .pointerText:hover{
     cursor: pointer;

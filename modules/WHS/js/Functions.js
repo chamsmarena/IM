@@ -544,11 +544,11 @@ function ShowActualiteDetails(){
             
             AfficherBoutons();
             
-            
+            $(".blocNbResult").html("<span class='textDownload texteGrand'>"+listeActualites.length+"</span> entries found");
             //AFFICHAGE DES LIGNES DETAILS DES ACTUALITES
             $(".zoneDetailsTableau").html("");
 			$(".enteteDetail").html("");
-			$(".enteteDetail").append("<div class='blocNbResult'>"+listeActualites.length+" entries found</div>");
+			//$(".enteteDetail").append("<div class='blocNbResult'>"+listeActualites.length+" entries found</div>");
             //GESTION DES DETAILS
 			/*
             for(i=0; i < nbActualite; i++) {

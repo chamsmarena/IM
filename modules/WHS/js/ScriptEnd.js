@@ -23,7 +23,17 @@ $(document).ready(function(){
 
     
     var today = new Date();
-    getActualite(today.getFullYear()+"/01/01",today.getFullYear()+"/12/31","","");
+	
+	var days=7; // Days you want to subtract
+	var date = new Date();
+	var last = new Date(date.getTime() - (days * 24 * 60 * 60 * 1000));
+	var day =last.getDate();
+	var month=last.getMonth()+1;
+	var year=last.getFullYear();
+	console.log(last);
+	
+	
+    getActualite(today.getFullYear()+"/"+(last.getMonth()+1)+"/"+last.getDate(),today.getFullYear()+"/"+(today.getMonth()+1)+"/"+today.getDate(),"","");
     
     
     //$("#dateEnd").hide();
@@ -32,8 +42,8 @@ $(document).ready(function(){
     
     
     $.fn.datepicker.defaults.format = "dd/mm/yyyy";
-    $( "#dateStart" ).datepicker('update', "01/01/"+today.getFullYear());
-    $( "#dateEnd" ).datepicker('update', "31/12/"+today.getFullYear());
+    $( "#dateStart" ).datepicker('update', last.getDate()+"/"+(last.getMonth()+1)+"/"+last.getFullYear());
+    $( "#dateEnd" ).datepicker('update', today.getDate()+"/"+(today.getMonth()+1)+"/"+today.getFullYear());
     $( "#dateActualite" ).datepicker('update', today);
     
     $("#carte").draggable();
