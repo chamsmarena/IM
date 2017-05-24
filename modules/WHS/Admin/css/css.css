@@ -388,6 +388,27 @@ margin-top:5px;
 	text-decoration:none;
 	
 }
+
+.lien2{
+	font-size:12px;
+	font-weight:normal;
+	color:#ffffff;
+	margin:5px;
+	font-family: 'Avenir Next','arial';
+	text-decoration:none;
+	padding:5px;
+	border-radius:5px;
+	display:inline-block;
+}
+.lien2:hover{
+	color:#ffffff;
+	background-color:#ff0066;
+	text-decoration:none;
+	
+}
+
+
+
 .pointerText:hover{
     cursor: pointer;
 }

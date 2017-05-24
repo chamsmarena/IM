@@ -150,11 +150,13 @@ if(isset($_SESSION["USER"])){
 		
 		<!-- DATAS -->
         <div class="row dataBar">
-			
+			<div class='col-lg-12'>
+				<a class='lien2' href='addWeekly.php'>Add Weekly</a>
+			</div>
 			<div class='col-lg-8'>
 				<div class='blocData'>
 					<div>
-						<span class="texteMoyen blocDanger"><span class='ion-social-rss' ></span> Events</span>
+						<span class="texteMoyen blocDanger"><span class='ion-social-rss' ></span> Weeklies</span>
 					</div>
 					<div class='zoneDetails'>
 						<div class='zoneDetailsTableau'>
