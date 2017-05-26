@@ -50,7 +50,7 @@ $(document).ready(function(){
     $("#Admin1").hide();
     $("#LabelsAdmin1").hide();
     $("#Admin1 polygon").css({"stroke":"#ccebff","stroke-width":0.2});
-	$("#carte").css('transform', 'scale(2)');
+	$("#carte").css('transform', 'scale(1)');
 
     $("#carte").fadeIn("slow");
     

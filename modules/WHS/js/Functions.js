@@ -875,35 +875,43 @@ function FiltrerActualite(){
 ResizeBlocs();	
 }
 function HoverPaysFiltred(){
-    $('svg g polygon').css({"fill":"#ffffff"});
-    $('svg g polyline').css({"fill":"#ffffff"});
-    $('svg g path').css({"fill":"#ffffff"});
+	var fondSelected = "#ffe6e6";
+	var colorBordureSelected = "#ff4d4d";
+	var fondNotSelected = "#fff2e6";
+	var colorBordureNotSelected = "#ffbd80";
 	
-	$('svg #Afrique polygon').css({"fill":"#cccccc"});
-	$('svg #Afrique polyline').css({"fill":"#cccccc"});
-	$('svg #Afrique path').css({"fill":"#cccccc"});
-	$('svg #Afrique polygon polyline').css({"fill":"#cccccc"});
-	$('svg #Afrique polygon polygon').css({"fill":"#cccccc"});
+    $('svg g polygon').css({"fill":fondNotSelected,"stroke":colorBordureNotSelected});
+    $('svg g polyline').css({"fill":fondNotSelected,"stroke":colorBordureNotSelected});
+    $('svg g path').css({"fill":fondNotSelected,"stroke":colorBordureNotSelected});
+	
+	$('svg #Afrique polygon').css({"fill":"#ffffff","stroke":"#ffffff"});
+	$('svg #Afrique polyline').css({"fill":"#ffffff","stroke":"#ffffff"});
+	$('svg #Afrique path').css({"fill":"#ffffff","stroke":"#ffffff"});
+	$('svg #Afrique polygon polyline').css({"fill":"#ffffff","stroke":"#ffffff"});
+	$('svg #Afrique polygon polygon').css({"fill":"#ffffff","stroke":"#ffffff"});
     //$('svg g path').css({"fill":"#ffffff"});
     
     // ////console.log(filtresPays);
     
     for(i=0; i < filtresPays.length; i++) {
-        $('svg g #'+filtresPays[i]+' path').css({"fill":"#ffccaa"});
-        $('svg #Admin0 #'+filtresPays[i]).css({"fill":"#ffccaa"});
-        $('svg #Admin0 #'+filtresPays[i]+' polyline').css({"fill":"#ffccaa"});
-        $('svg #Admin0 #'+filtresPays[i]+' polygon').css({"fill":"#ffccaa"});
+        $('svg g #'+filtresPays[i]+' path').css({"fill":fondSelected,"stroke":colorBordureSelected});
+        $('svg #Admin0 #'+filtresPays[i]).css({"fill":fondSelected,"stroke":colorBordureSelected});
+        $('svg #Admin0 #'+filtresPays[i]+' polyline').css({"fill":fondSelected,"stroke":colorBordureSelected});
+        $('svg #Admin0 #'+filtresPays[i]+' polygon').css({"fill":fondSelected,"stroke":colorBordureSelected});
     }
     
     // ////console.log($('svg g g path'));
 }
 function ColorierLesPays(){
-	$('#carte g polygon path').css({"fill":"#ffccaa"});
-	$('#carte #Admin0 polygon').css({"fill":"#ffccaa"});
-	$('#carte #Admin0 polyline').css({"fill":"#ffccaa"});
-	$('#carte #Admin0 path').css({"fill":"#ffccaa"});
-	$('#carte #Admin0 polygon polyline').css({"fill":"#ffccaa"});
-	$('#carte #Admin0 polygon polygon').css({"fill":"#ffccaa"});
+	var fondSelected = "#ffe6e6";
+	var colorBordureSelected = "#ff4d4d";
+	
+	$('#carte g polygon path').css({"fill":fondSelected,"stroke":colorBordureSelected});
+	$('#carte #Admin0 polygon').css({"fill":fondSelected,"stroke":colorBordureSelected});
+	$('#carte #Admin0 polyline').css({"fill":fondSelected,"stroke":colorBordureSelected});
+	$('#carte #Admin0 path').css({"fill":fondSelected,"stroke":colorBordureSelected});
+	$('#carte #Admin0 polygon polyline').css({"fill":fondSelected,"stroke":colorBordureSelected});
+	$('#carte #Admin0 polygon polygon').css({"fill":fondSelected,"stroke":colorBordureSelected});
 	
 	
 

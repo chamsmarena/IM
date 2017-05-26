@@ -169,7 +169,8 @@ body {
 }
 .zoneCarte{
     overflow: hidden;
-	background-color: #ebf6fc;
+	background-color: #a3ccff;
+	background-image: url("../images/seaf.png");
 }
 .lgPetit{
     width:50px;
@@ -378,10 +379,8 @@ body {
 
 /* CARTE */
 #carte{
-   /*width:842px;
-    height: 595px;*/
 	transform: scale(1, 1);
-    /*position:fixed;*/
+
 }
 
 #carte polygon:hover{
