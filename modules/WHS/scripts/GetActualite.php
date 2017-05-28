@@ -22,6 +22,7 @@ if(isset($_POST['dateDebut']) && isset($_POST['dateFin']))
         $dateFin = $_POST['dateFin'];
         $filterPays = "";
         $filterTheme = "";
+        $filterKeyWord = "";
         
         $Pays = explode("_", $_POST['filtrePays']);
         $Themes = explode("_", $_POST['filtreTheme']);
@@ -50,9 +51,13 @@ if(isset($_POST['dateDebut']) && isset($_POST['dateFin']))
                 }
             }
         }
+		
+        if($_POST['keyWord']!=""){
+            $filterKeyWord = " and (DETAIL_ACTUALITE like '%".$_POST['keyWord']."%' OR TITRE_ACTUALITE like '%".$_POST['keyWord']."%') ";
+        }
         
 		//$cols = array('CODE_A0','CODE_A1','COORD_X_A1',' CODE_A1Lieu','COORD_X_A1Lieu','COORD_Y_A1Lieu');
-        $requete = "SELECT distinct(ID_ACTUALITE), TYPE_CATEG_ACTU, TITRE_CATEG_ACTU, CODE_A0,CAPTION_A0, COORD_X_A0, COORD_Y_A0, CODE_A1, CAPTION_A1, COORD_X_A1, COORD_Y_A1, TITRE_ACTUALITE, DETAIL_ACTUALITE, DATE_ACTUALITE, ID_LANGUE, VALEUR, ID_A0, ID_CATEG_ACTU, CODE_MENACE, TITRE_MENACE,LIBELLE_LIEU,CAPTION_A0Lieu,COORD_X_A0Lieu,COORD_Y_A0Lieu,CODE_A1Lieu,CAPTION_A1Lieu,COORD_X_A1Lieu,COORD_Y_A1Lieu FROM listeactualite where DATE_ACTUALITE BETWEEN ? and ? and ID_LANGUE=1 ".$filterPays.$filterTheme." order by CODE_A0, CODE_A1Lieu,COORD_X_A1Lieu,COORD_Y_A1Lieu,CODE_A1,COORD_X_A1 asc";
+        $requete = "SELECT distinct(ID_ACTUALITE), TYPE_CATEG_ACTU, TITRE_CATEG_ACTU, CODE_A0,CAPTION_A0, COORD_X_A0, COORD_Y_A0, CODE_A1, CAPTION_A1, COORD_X_A1, COORD_Y_A1, TITRE_ACTUALITE, DETAIL_ACTUALITE, DATE_ACTUALITE, ID_LANGUE, VALEUR, ID_A0, ID_CATEG_ACTU, CODE_MENACE, TITRE_MENACE,LIBELLE_LIEU,CAPTION_A0Lieu,COORD_X_A0Lieu,COORD_Y_A0Lieu,CODE_A1Lieu,CAPTION_A1Lieu,COORD_X_A1Lieu,COORD_Y_A1Lieu FROM listeactualite where DATE_ACTUALITE BETWEEN ? and ? and ID_LANGUE=1 ".$filterPays.$filterTheme.$filterKeyWord." order by CODE_A0, CODE_A1Lieu,COORD_X_A1Lieu,COORD_Y_A1Lieu,CODE_A1,COORD_X_A1 asc";
         
 		
 		

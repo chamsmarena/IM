@@ -730,13 +730,46 @@ function MouseMoveOnPinGroup(e){
 //FILTRES
 function RemoveFilterPays(){
     id=$(this).attr("id");
-    for(i=0; i < filtresPays.length; i++) {
-        if(filtresPays[i]==id){
-            filtresPays.splice(i,1);
-            //filtresPays[i]="";
-            $(".filtrePays #"+id).remove();
-        }
-    }
+    
+	
+	
+	
+	if(Pays == 'LCB'){
+		nbPays = 4;
+		k=0;
+		while (k < nbPays) {
+			for(i=0; i < filtresPays.length; i++) {
+				if((filtresPays[i]=='NER') || (filtresPays[i]=='NGA') || (filtresPays[i]=='CMR') || (filtresPays[i]=='TCD')){
+					filtresPays.splice(i,1);
+				}
+			}
+			k++;
+		}
+	}
+	
+	if(Pays == 'SHL'){
+		nbPays = 8;
+		k=0;
+		while (k < nbPays) {
+			for(i=0; i < filtresPays.length; i++) {
+				if((filtresPays[i]=='SEN') || (filtresPays[i]=='MRT') || (filtresPays[i]=='MLI') || (filtresPays[i]=='BFA') || (filtresPays[i]=='NER') || (filtresPays[i]=='NGA') || (filtresPays[i]=='CMR') || (filtresPays[i]=='TCD')){
+					filtresPays.splice(i,1);
+				}
+			}
+			k++;
+		}
+	}
+	
+	for(i=0; i < filtresPays.length; i++) {
+		if(filtresPays[i]==id){
+			filtresPays.splice(i,1);
+			$(".filtrePays #"+id).remove();
+		}
+	}
+	
+	
+	console.log(filtresPays);
+	
 	HoverPaysFiltred();
 	
 	if(filtresPays.length==0){
@@ -754,7 +787,6 @@ function RemoveFilterTheme(){
     for(i=0; i < filtresThemes.length; i++) {
         if(filtresThemes[i]==id){
             filtresThemes.splice(i,1);
-            //filtresThemes[i]="";
             $(".filtreTheme #"+id).remove();
         }
     }
@@ -790,6 +822,23 @@ function FiltrerPays(){
 			}
 		}
 		
+		if(Pays == 'LCB'){
+			filtresPays.push('NER');
+			filtresPays.push('NGA');
+			filtresPays.push('CMR');
+			filtresPays.push('TCD');
+		}
+		if(Pays == 'SHL'){
+			filtresPays.push('SEN');
+			filtresPays.push('MRT');
+			filtresPays.push('MLI');
+			filtresPays.push('BFA');
+			filtresPays.push('NER');
+			filtresPays.push('NGA');
+			filtresPays.push('CMR');
+			filtresPays.push('TCD');
+		}
+		
 		if(!filtered){
 			$(".filtrePays").append("<button type='button' id='"+Pays+"' class='buttonFiltrePays btn btn-default btn-xs'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span> "+LibellePays+"</button>");
 			fPays = document.getElementById(Pays)
@@ -797,7 +846,7 @@ function FiltrerPays(){
 			filtresPays.push(Pays);
 		}
 		
-		
+		console.log(filtresPays);
 		HoverPaysFiltred();
 	}
 	
@@ -838,6 +887,7 @@ function FiltrerTheme(){
 function FiltrerActualite(){
 	var dateDebutFormat = DateFrToDateEn($("#dateStart").val());
     var dateFinFormat = DateFrToDateEn($("#dateEnd").val());
+    var keyWord = $("#keyword").val();
 	
 	var dateDebut= new Date(dateDebutFormat);
     var dateFin= new Date(dateFinFormat);
@@ -863,7 +913,7 @@ function FiltrerActualite(){
     else
     {
         if(!isNaN(dateDebut.getTime())&&!isNaN(dateFin.getTime())){    
-			getActualite(dateDebutFormat,dateFinFormat,filtresPays, filtresThemes);
+			getActualite(dateDebutFormat,dateFinFormat,filtresPays, filtresThemes,keyWord);
 			AfficherBoutons();
 		}else{
 			$(".zoneDetailsTableau").html("Please select two dates!");
@@ -943,6 +993,8 @@ function handle(delta,mouseX,mouseY) {
 	if(zoom>0 && zoom<10){
 		console.log(zoom);
 		$( "#carte" ).css('transform', 'scale('+zoom+')');
+		
+		
 		ShowHideOnZooming();
 	}
 	////console.log("zoom"+zoom);
@@ -979,11 +1031,19 @@ function ShowHideOnZooming(){
         $("#LabelsAdmin0").fadeIn("slow");
 		$("#Admin0").css({ opacity: 1 });
         $("#Admin1").fadeOut("slow");
+		
+		p0 = 12/zoom;
+		$( "#carte #LabelsAdmin0 text" ).css('font-size', p0);
     }else{
         $("#Admin1").fadeIn("slow");
         $("#Admin0").css({ opacity: 0.5 });
         $("#LabelsAdmin1").fadeIn("slow");
         $("#LabelsAdmin0").fadeOut("slow");
+		
+		
+		p1 = 12/zoom;
+		$( "#carte #LabelsAdmin1 text" ).css('font-size', p1);
+		
     }
 }
 function ZoomParDefaut(){
@@ -1039,7 +1099,7 @@ function getActualite(datestart,dateend) {
 	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	xhr.send("dateDebut="+datestart+"&dateFin="+dateend+"");
 }
-function getActualite(datestart,dateend, filtrePays, filtreTheme) {
+function getActualite(datestart,dateend, filtrePays, filtreTheme,keyWord) {
     
     var xhr = getXMLHttpRequest();
 	xhr.onreadystatechange = function() {
@@ -1062,7 +1122,7 @@ function getActualite(datestart,dateend, filtrePays, filtreTheme) {
 	//dateend = formattedDate(new Date(dateend));
 	
 	//console.log(formattedDate(new Date(datestart)));
-	xhr.send("dateDebut="+datestart+"&dateFin="+dateend+"&filtrePays="+ArrayToVar(filtresPays)+"&filtreTheme="+ArrayToVar(filtreTheme)+"");
+	xhr.send("dateDebut="+datestart+"&dateFin="+dateend+"&filtrePays="+ArrayToVar(filtresPays)+"&filtreTheme="+ArrayToVar(filtreTheme)+"&keyWord="+keyWord+"");
 }
 function postActualite() {
     var xhr = getXMLHttpRequest();
