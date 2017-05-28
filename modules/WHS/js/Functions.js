@@ -179,12 +179,6 @@ function ShowActualiteOnMap(){
     //console.log("data");
     //console.log(data);
     var actualites=JSON.parse(data);
-	// //console.log(actualites);
-    
-	// actualites.sort(function(a, b) { 
-		// return a[22] > b[22] ? 1 : -1;
-	// });
-    // //console.log(actualites);
     
     
     $('.pinImage').remove();
@@ -192,15 +186,12 @@ function ShowActualiteOnMap(){
     if(actualites!=null){
         nbActualite = actualites.length;
         if(nbActualite>0){
-            //$("#alertDates").html("");
-            //$("#alertDates").hide();
             
             //DETECTION DES REGIONS A PLUSIEURS ACTUALITES
-			 array1 = actualites;
-			 array2 = actualites;
+			array1 = actualites;
+			array2 = actualites;
             
             var tempArray = [];
-            var arrayInit = ["found","found","found","found","found","found","found","found","0","0","found","found","0000-00-00","0"];
             var uniqueActualite = [];
             var multiActualite = [];
             var haveDuplicate = false;
@@ -245,8 +236,8 @@ function ShowActualiteOnMap(){
 			}
 			
             
-			////console.log(multiActualite);
-			////console.log(uniqueActualite);
+			//console.log(multiActualite);
+			//console.log(uniqueActualite);
 
 
             //SHOW UNIQUE INCIDENT ON REGION
@@ -292,6 +283,8 @@ function ShowActualiteOnMap(){
             var arrayDetailGroup = [];
             var lastIndex = 0;
             var lastIndexDetail = 0;
+            var lastIndexDetailPin = 0;
+			var id = "";
 			
 
             
@@ -322,12 +315,6 @@ function ShowActualiteOnMap(){
                     svgimg.setAttributeNS(null,'id',"pinImageGroup"+i);
                     svgimg.setAttributeNS(null, 'visibility', 'visible');
 
-                    //EVENEMENTS
-                    svgimg.addEventListener("click", ClickOnPinGroup);
-                    svgimg.addEventListener("mouseover", MouseOverkOnPinGroup);
-                    svgimg.addEventListener("mouseleave", MouseLeaveOnPinGroup);
-                    svgimg.addEventListener("mousemove", MouseMoveOnPinGroup);
-
                     $('#Pins').append(svgimg);
                     lastIndex = i;
                     //$("#pinImageGroup"+i).data('actualie', multiActualite[i]);
@@ -336,13 +323,9 @@ function ShowActualiteOnMap(){
                     arrayDetailGroup.push(multiActualite[i]);
                 }
                 
-                
                 if(i<(multiActualite.length-1)){
                     if(newRegion!=multiActualite[i+1][indexSearched]){
                         $("#pinImageGroup"+lastIndex).data('actualite', arrayDetailGroup);
-                        
-                        
-                        
                         
                         //AFFICHER LES SOUS ICONES
                         for(j=0; j < arrayDetailGroup.length; j++) {
@@ -350,7 +333,6 @@ function ShowActualiteOnMap(){
                                 coorXss = parseFloat(arrayDetailGroup[j][8])+4.7-(j*14);
                                 coorYss = parseFloat(arrayDetailGroup[j][9]-28);
                             }
-                            
                             if(arrayDetailGroup.length==3){
                                 if(j<2){
                                     coorXss = parseFloat(arrayDetailGroup[j][8])+4.7-(j*14);
@@ -360,7 +342,6 @@ function ShowActualiteOnMap(){
                                     coorYss = parseFloat(arrayDetailGroup[j][9]-30);
                                 }
                             }
-                            
                             if(arrayDetailGroup.length==4){
                                 if(j<2){
                                     coorXss = parseFloat(arrayDetailGroup[j][8])+4.7-(j*14);
@@ -382,22 +363,30 @@ function ShowActualiteOnMap(){
                                     }
                                 }
                             }
-                            
                             if(j<4){
+								
                                 var svgimgDetail = document.createElementNS('http://www.w3.org/2000/svg','image');
 
                                 //ATTRIBUTS
-
+								id = "pinImageGroupDetail"+lastIndexDetail.toString();
                                 svgimgDetail.setAttributeNS(null,'height','15.65');
                                 svgimgDetail.setAttributeNS(null,'width','15.87');
                                 svgimgDetail.setAttributeNS('http://www.w3.org/1999/xlink','href', 'images/events/'+arrayDetailGroup[j][0]+arrayDetailGroup[j][13]+'Group.svg');
                                 svgimgDetail.setAttributeNS(null,'x',coorXss);
                                 svgimgDetail.setAttributeNS(null,'y',coorYss);
                                 svgimgDetail.setAttributeNS(null,'class',"pinImage");
-                                svgimgDetail.setAttributeNS(null,'id',"pinImageGroupDetail"+(lastIndexDetail+j));
+                                svgimgDetail.setAttributeNS(null,'id',id);
                                 svgimgDetail.setAttributeNS(null, 'visibility', 'visible');
+								
+								//EVENEMENTS
+								svgimgDetail.addEventListener("click", ClickOnPin);
+								svgimgDetail.addEventListener("mouseover", MouseOverkOnPin);
+								svgimgDetail.addEventListener("mouseleave", MouseLeaveOnPin);
+								svgimgDetail.addEventListener("mousemove", MouseMoveOnPin);
 
                                 $('#Pins').append(svgimgDetail);
+								
+								$("#"+id).data('actualie', arrayDetailGroup[j]);
                             }else{
                                 //SHOW ICONE MORE
                                 if(j==4){
@@ -412,14 +401,13 @@ function ShowActualiteOnMap(){
                                     svgimgMore.setAttributeNS(null,'x',coorXss);
                                     svgimgMore.setAttributeNS(null,'y',coorYss);
                                     svgimgMore.setAttributeNS(null,'class',"pinImage");
-                                    svgimgMore.setAttributeNS(null,'id',"pinMore"+(lastIndexDetail+j));
+                                    //svgimgMore.setAttributeNS(null,'id',"pinMore"+(lastIndexDetail+j));
+                                    svgimgMore.setAttributeNS(null,'id',"pinMore"+lastIndexDetailPin);
                                     svgimgMore.setAttributeNS(null, 'visibility', 'visible');
 
                                     $('#Pins').append(svgimgMore);
                                 }
                             }
-                            
-                            
                             
                             lastIndexDetail++;
                         }
@@ -429,16 +417,18 @@ function ShowActualiteOnMap(){
                 //$("#pinImageGroup"+i).data('actualie', multiActualite[i]);
                 
             }
+			
             $("#pinImageGroup"+lastIndex).data('actualite', arrayDetailGroup);
             //////console.log(arrayDetailGroup);
             
             //AFFICHER LES SOUS ICONES
+			
+			
             for(j=0; j < arrayDetailGroup.length; j++) {
                 if(arrayDetailGroup.length==2){
                     coorXss = parseFloat(arrayDetailGroup[j][8])+4.7-(j*14);
                     coorYss = parseFloat(arrayDetailGroup[j][9]-32);
                 }
-
                 if(arrayDetailGroup.length==3){
                     if(j<2){
                         coorXss = parseFloat(arrayDetailGroup[j][8])+4.7-(j*14);
@@ -448,7 +438,6 @@ function ShowActualiteOnMap(){
                         coorYss = parseFloat(arrayDetailGroup[j][9]-29);
                     }
                 }
-
                 if(arrayDetailGroup.length==4){
                     if(j<2){
                         coorXss = parseFloat(arrayDetailGroup[j][8])+4.7-(j*14);
@@ -459,7 +448,6 @@ function ShowActualiteOnMap(){
                         coorYss = parseFloat(arrayDetailGroup[j][9]-29);
                     }
                 }
-                
                 if(arrayDetailGroup.length>4){
                     if(j<=4){
                         if(j<2){
@@ -470,22 +458,31 @@ function ShowActualiteOnMap(){
                             coorYss = parseFloat(arrayDetailGroup[j][9]-29);
                         }
                     }
-
                 }
-                
                 if(j<4){
                     var svgimgDetail = document.createElementNS('http://www.w3.org/2000/svg','image');
 
                     //ATTRIBUTS
-
+					id = "pinImageGroupDetail2"+lastIndexDetail.toString();
                     svgimgDetail.setAttributeNS(null,'height','15.65');
                     svgimgDetail.setAttributeNS(null,'width','15.87');
                     svgimgDetail.setAttributeNS('http://www.w3.org/1999/xlink','href', 'images/events/'+arrayDetailGroup[j][0]+arrayDetailGroup[j][13]+'Group.svg');
                     svgimgDetail.setAttributeNS(null,'x',coorXss);
                     svgimgDetail.setAttributeNS(null,'y',coorYss);
                     svgimgDetail.setAttributeNS(null,'class',"pinImage");
-                    svgimgDetail.setAttributeNS(null,'id',"pinImageGroupDetail"+(lastIndexDetail+j));
+                    //svgimgDetail.setAttributeNS(null,'id',"pinImageGroupDetail"+(lastIndexDetail+j));
+                    svgimgDetail.setAttributeNS(null,'id',id);
                     svgimgDetail.setAttributeNS(null, 'visibility', 'visible');
+					
+					//EVENEMENTS
+					svgimgDetail.addEventListener("click", ClickOnPin);
+					svgimgDetail.addEventListener("mouseover", MouseOverkOnPin);
+					svgimgDetail.addEventListener("mouseleave", MouseLeaveOnPin);
+					svgimgDetail.addEventListener("mousemove", MouseMoveOnPin);
+
+					$('#Pins').append(svgimgDetail);
+					
+					$("#"+id).data('actualie', arrayDetailGroup[j]);
 
                     $('#Pins').append(svgimgDetail);
                 }else{
@@ -502,12 +499,13 @@ function ShowActualiteOnMap(){
                         svgimgMore.setAttributeNS(null,'x',coorXss);
                         svgimgMore.setAttributeNS(null,'y',coorYss);
                         svgimgMore.setAttributeNS(null,'class',"pinImage");
-                        svgimgMore.setAttributeNS(null,'id',"pinMore"+(lastIndexDetail+j));
+                        svgimgMore.setAttributeNS(null,'id',"pinMore"+lastIndexDetailPin);
                         svgimgMore.setAttributeNS(null, 'visibility', 'visible');
 
                         $('#Pins').append(svgimgMore);
                     }
                 }
+				lastIndexDetail++;
             }
             
             
@@ -668,6 +666,10 @@ function AfficherBoutons(){
 
 //UNIQUE EVENT
 function ClickOnPin(e){
+	var actualite = $(this).data("actualie");
+	alert(actualite);
+	
+	/*
     var actualite = $(this).data("actualie");
     var elementExists = document.getElementById("EventDetail"+$(this).attr("id"));
     if(elementExists==null){
@@ -676,8 +678,7 @@ function ClickOnPin(e){
         $( "#EventDetail"+$(this).attr("id")).resizable();
     }else{
         $("#EventDetail"+$(this).attr("id")).remove();
-
-    }
+    }*/
 }
 function MouseOverkOnPin(){
     var actualite = $(this).data("actualie");
