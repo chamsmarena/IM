@@ -290,7 +290,8 @@ function ShowActualiteOnMap(){
             
             for(i=0; i < multiActualite.length; i++) {
                 
-                newRegion = multiActualite[i][indexSearched];
+                newRegion = multiActualite[i][6]+multiActualite[i][19];
+				//console.log ("FF "+multiActualite.length+" "+newRegion+" "+oldRegion);
                 if(oldRegion!=newRegion){
                     oldRegion=newRegion;
                     arrayDetailGroup = [];
@@ -322,49 +323,67 @@ function ShowActualiteOnMap(){
                 }else{
                     arrayDetailGroup.push(multiActualite[i]);
                 }
+				
                 
-                if(i<(multiActualite.length-1)){
+                if(i<(multiActualite.length-2)){
                     if(newRegion!=multiActualite[i+1][indexSearched]){
                         $("#pinImageGroup"+lastIndex).data('actualite', arrayDetailGroup);
                         
                         //AFFICHER LES SOUS ICONES
                         for(j=0; j < arrayDetailGroup.length; j++) {
+							var X=0;
+							var Y=0;
+							if(arrayDetailGroup[j][14]==undefined){
+								X = parseFloat(arrayDetailGroup[j][8]);
+								Y = parseFloat(arrayDetailGroup[j][9]);
+							}else{
+								X = parseFloat(arrayDetailGroup[j][20]);
+								Y = parseFloat(arrayDetailGroup[j][21]);
+							}
+							
+							
                             if(arrayDetailGroup.length==2){
-                                coorXss = parseFloat(arrayDetailGroup[j][8])+4.7-(j*14);
-                                coorYss = parseFloat(arrayDetailGroup[j][9]-28);
+                                coorXss = X+4.7-(j*14);
+                                coorYss = parseFloat(Y-28);
                             }
                             if(arrayDetailGroup.length==3){
                                 if(j<2){
-                                    coorXss = parseFloat(arrayDetailGroup[j][8])+4.7-(j*14);
-                                    coorYss = parseFloat(arrayDetailGroup[j][9]-40);
+                                    coorXss = X+4.7-(j*14);
+                                    coorYss = parseFloat(Y-40);
                                 }else{
-                                    coorXss = parseFloat(arrayDetailGroup[j][8])+4.7-((j/3)*12.7);
-                                    coorYss = parseFloat(arrayDetailGroup[j][9]-30);
+                                    coorXss = X+4.7-((j/3)*12.7);
+                                    coorYss = parseFloat(Y-30);
                                 }
                             }
                             if(arrayDetailGroup.length==4){
                                 if(j<2){
-                                    coorXss = parseFloat(arrayDetailGroup[j][8])+4.7-(j*14);
-                                    coorYss = parseFloat(arrayDetailGroup[j][9]-40);
+                                    coorXss = X+4.7-(j*14);
+                                    coorYss = parseFloat(Y-40);
                                 }else{
                                     
-                                    coorXss = parseFloat(arrayDetailGroup[j][8])+4.7-((j-2)*14);
-                                    coorYss = parseFloat(arrayDetailGroup[j][9]-29);
+                                    coorXss = X+4.7-((j-2)*14);
+                                    coorYss = parseFloat(Y-29);
                                 }
                             }
                             if(arrayDetailGroup.length>4){
                                 if(j<=4){
                                     if(j<2){
-                                        coorXss = parseFloat(arrayDetailGroup[j][8])+4.7-(j*14);
-                                        coorYss = parseFloat(arrayDetailGroup[j][9]-40);
+                                        coorXss = X+4.7-(j*14);
+                                        coorYss = parseFloat(Y-40);
                                     }else{
-                                        coorXss = parseFloat(arrayDetailGroup[j][8])+4.7-((j-2)*14);
-                                        coorYss = parseFloat(arrayDetailGroup[j][9]-29);
+                                        coorXss = X+4.7-((j-2)*14);
+                                        coorYss = parseFloat(Y-29);
                                     }
                                 }
                             }
                             if(j<4){
-								
+								if(j<2){
+                                        coorXss = X+4.7-(j*14);
+                                        coorYss = parseFloat(Y-40);
+                                    }else{
+                                        coorXss = X+4.7-((j-2)*14);
+                                        coorYss = parseFloat(Y-29);
+                                    }
                                 var svgimgDetail = document.createElementNS('http://www.w3.org/2000/svg','image');
 
                                 //ATTRIBUTS
@@ -419,43 +438,53 @@ function ShowActualiteOnMap(){
             }
 			
             $("#pinImageGroup"+lastIndex).data('actualite', arrayDetailGroup);
-            //////console.log(arrayDetailGroup);
-            
-            //AFFICHER LES SOUS ICONES
-			
+
+            console.log(arrayDetailGroup);
+            console.log(arrayDetailGroup);
+            //AFFICHER LES SOUS ICONES EN DERNIERE POSITION
 			
             for(j=0; j < arrayDetailGroup.length; j++) {
+				var X=0;
+				var Y=0;
+				if(arrayDetailGroup[j][14]==undefined){
+					X = parseFloat(arrayDetailGroup[j][8]);
+					Y = parseFloat(arrayDetailGroup[j][9]);
+				}else{
+					X = parseFloat(arrayDetailGroup[j][20]);
+					Y = parseFloat(arrayDetailGroup[j][21]);
+				}
+				
                 if(arrayDetailGroup.length==2){
-                    coorXss = parseFloat(arrayDetailGroup[j][8])+4.7-(j*14);
-                    coorYss = parseFloat(arrayDetailGroup[j][9]-32);
+                    coorXss = X+4.7-(j*14);
+                    coorYss = parseFloat(Y-32);
                 }
                 if(arrayDetailGroup.length==3){
                     if(j<2){
-                        coorXss = parseFloat(arrayDetailGroup[j][8])+4.7-(j*14);
-                        coorYss = parseFloat(arrayDetailGroup[j][9]-20);
+                        coorXss = X+4.7-(j*14);
+                        coorYss = Y-40;
                     }else{
-                        coorXss = parseFloat(arrayDetailGroup[j][8])+4.7-((j/3)*12.7);
-                        coorYss = parseFloat(arrayDetailGroup[j][9]-29);
+                        coorXss = X+4.7-((j/3)*12.7);
+                        coorYss = parseFloat(Y-29);
                     }
                 }
                 if(arrayDetailGroup.length==4){
                     if(j<2){
-                        coorXss = parseFloat(arrayDetailGroup[j][8])+4.7-(j*14);
-                        coorYss = parseFloat(arrayDetailGroup[j][9]-40);
+                        coorXss = X+4.7-(j*14);
+                        coorYss = parseFloat(Y-40);
                     }else{
 
-                        coorXss = parseFloat(arrayDetailGroup[j][8])+4.7-((j-2)*14);
-                        coorYss = parseFloat(arrayDetailGroup[j][9]-29);
+                        coorXss = X+4.7-((j-2)*14);
+                        coorYss = parseFloat(Y-29);
                     }
                 }
                 if(arrayDetailGroup.length>4){
                     if(j<=4){
                         if(j<2){
-                            coorXss = parseFloat(arrayDetailGroup[j][8])+4.7-(j*14);
-                            coorYss = parseFloat(arrayDetailGroup[j][9]-40);
+                            coorXss = X+4.7-(j*14);
+                            coorYss = parseFloat(Y-40);
                         }else{
-                            coorXss = parseFloat(arrayDetailGroup[j][8])+4.7-((j-2)*14);
-                            coorYss = parseFloat(arrayDetailGroup[j][9]-29);
+                            coorXss = X+4.7-((j-2)*14);
+                            coorYss = parseFloat(Y-29);
                         }
                     }
                 }
@@ -536,6 +565,9 @@ function ShowActualiteDetails(){
     var actualites=JSON.parse(data);
     listeActualites = actualites;
     //////console.log(actualites);
+	
+	
+	$(".blocNbResult").html("");
     if(actualites!=null){
         nbActualite = actualites.length;
         if(nbActualite>0){
@@ -935,11 +967,15 @@ function HoverPaysFiltred(){
     $('svg g polyline').css({"fill":fondNotSelected,"stroke":colorBordureNotSelected});
     $('svg g path').css({"fill":fondNotSelected,"stroke":colorBordureNotSelected});
 	
-	$('svg #Afrique polygon').css({"fill":"#ffffff","stroke":"#ffffff"});
-	$('svg #Afrique polyline').css({"fill":"#ffffff","stroke":"#ffffff"});
-	$('svg #Afrique path').css({"fill":"#ffffff","stroke":"#ffffff"});
-	$('svg #Afrique polygon polyline').css({"fill":"#ffffff","stroke":"#ffffff"});
-	$('svg #Afrique polygon polygon').css({"fill":"#ffffff","stroke":"#ffffff"});
+	$('svg #Afrique polygon').css({"fill":"#f2f0eb","stroke":"#f2f0eb"});
+	$('svg #Afrique polyline').css({"fill":"#f2f0eb","stroke":"#f2f0eb"});
+	$('svg #Afrique path').css({"fill":"#f2f0eb","stroke":"#f2f0eb"});
+	$('svg #Afrique polygon polyline').css({"fill":"#f2f0eb","stroke":"#f2f0eb"});
+	$('svg #Afrique polygon polygon').css({"fill":"#f2f0eb","stroke":"#f2f0eb"});
+	
+	$("#Admin1 polygon").css({"stroke":"#ffbd80","stroke-width":0.2,"stroke-dasharray":"2,2"});
+	$("#Admin1 polyline").css({"stroke":"#ffbd80","stroke-width":0.2,"stroke-dasharray":"2,2"});
+	$("#Admin1 path").css({"stroke":"#ffbd80","stroke-width":0.2,"stroke-dasharray":"2,2"});
     //$('svg g path').css({"fill":"#ffffff"});
     
     // ////console.log(filtresPays);
@@ -970,28 +1006,22 @@ function ColorierLesPays(){
 }
 
 
-function handle(delta) {
-  
-	zoomx = zoomx+5;
-	zoomy = zoomy+5;
-	////console.log(zoomx);
-	$( "#carte" ).animate({
-			transform: "scale("+zoomx+", "+zoomy+")"
-		}, 50,"easeInQuad", function() {
-		// Animation complete.
-		});
-    //$("#carte").css({"width":actualWidth+"px","height":actualHeight+"px"});
-    
-    ShowHideOnZooming();
-}
 function handle(delta,mouseX,mouseY) {
 	
 	if(delta<0){
-		zoom = zoom-0.2;
+		if(zoom<1){
+			zoom = 1;
+		}else{
+			zoom = zoom-0.2;
+		}
 	}else{
-		zoom = zoom+0.2;
+		if(zoom>10){
+			zoom = 10;
+		}else{
+			zoom = zoom+0.2;
+		}
 	}
-	if(zoom>0 && zoom<10){
+	if(zoom>=1 && zoom<10){
 		console.log(zoom);
 		$( "#carte" ).css('transform', 'scale('+zoom+')');
 		
@@ -1020,6 +1050,12 @@ function wheel(event){
             event.preventDefault();
 	event.returnValue = false;
 }
+function CacherAdmin1(){
+	$("#LabelsAdmin1").hide();
+	$("#LabelsAdmin0").show();
+	$("#Admin0").css({ opacity: 1 });
+	$("#Admin1").hide();
+}
 function ShowHideOnZooming(){
     // actualWidth = Math.round($("#carte").css("width").replace("px",""));
     // scale = Math.round($("#carte").css("width").replace("px",""));
@@ -1034,10 +1070,13 @@ function ShowHideOnZooming(){
         $("#Admin1").fadeOut("slow");
 		
 		p0 = 12/zoom;
+		L0 = 50;
 		$( "#carte #LabelsAdmin0 text" ).css('font-size', p0);
+		$( "#carte #LabelsAdmin0 text" ).css('left', L0);
     }else{
         $("#Admin1").fadeIn("slow");
         $("#Admin0").css({ opacity: 0.5 });
+		//$("#Admin0").fadeOut("slow");
         $("#LabelsAdmin1").fadeIn("slow");
         $("#LabelsAdmin0").fadeOut("slow");
 		
@@ -1054,6 +1093,7 @@ function ZoomParDefaut(){
 	$("#LabelsAdmin1").fadeOut("slow");
 	$("#LabelsAdmin0").fadeIn("slow");
 	$("#Admin0").css({ opacity: 1 });
+	$( "#carte #LabelsAdmin0 text" ).css('font-size', 12);
 }
 function ZoomParDefautKeepingAdmin(){
 

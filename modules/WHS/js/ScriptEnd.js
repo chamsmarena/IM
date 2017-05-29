@@ -49,7 +49,7 @@ $(document).ready(function(){
     $("#carte").draggable();
     $("#Admin1").hide();
     $("#LabelsAdmin1").hide();
-    $("#Admin1 polygon").css({"stroke":"#ccebff","stroke-width":0.2});
+    //$("#Admin1 polygon").css({"stroke":"#ccebff","stroke-width":0.2});
 	$("#carte").css('transform', 'scale(1)');
 
     $("#carte").fadeIn("slow");
@@ -149,7 +149,8 @@ $("#buttonExportExcel").click(function(){
 $("#buttonExportPdf").click(function(){
     var nbPages = 0;
     
-    
+	CacherAdmin1();
+    ZoomParDefaut();
     
     //ZOOM CARTE POUR AVOIR PLUS DE QUALITE
 	widthOrigin = $('#carte').css("width").replace('px','');
@@ -200,7 +201,7 @@ $("#buttonExportPdf").click(function(){
 			
 			imgData= canvas.toDataURL('image/png');
             doc.addImage(imgData, 'png', 10, 45, 190,heightCarte);
-            pos = 40+heightCarte;
+            pos = 55+heightCarte;
 
       
             
@@ -433,6 +434,8 @@ $("#buttonExportPdf").click(function(){
 			$("#carte").attr({"width":widthOrigin+"px","height":heightOrigin+"px"});
 			$("#carte").attr({"viewBox":"0 0 "+widthOrigin+" "+heightOrigin});
 			
+			CacherAdmin1();
+			ZoomParDefaut();
 			$('#carte').show();
         },
     background:"#ffffff",
