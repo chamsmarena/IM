@@ -24,7 +24,7 @@ if(isset($_SESSION["USER"])){
 	}
 	
 	//RECUPERATION DE LA LISTE DES ADMIN1 DU ADMIN0
-	$requete = "SELECT ID_A1, CAPTION_A1 FROM admin_1 WHERE ID_A0 = ?";
+	$requete = "SELECT ID_A1, CAPTION_A1 FROM ADMIN_1 WHERE ID_A0 = ?";
 	$idAdmin0 = $InfoLieu[5];
 	$listAdmin1 = array();
 	$stmt = $db->prepare($requete);

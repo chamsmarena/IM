@@ -6,7 +6,7 @@ session_start();
 if(isset($_SESSION["USER"])){
     
 	//RECUPERATION ACTUALITE ANGLAISE
-	$requete = "SELECT ID_A0, CODE_A0, CAPTION_A0 FROM admin_0";
+	$requete = "SELECT ID_A0, CODE_A0, CAPTION_A0 FROM ADMIN_0";
 	$listPays = array();
 	$stmt = $db->prepare($requete);
 	try{

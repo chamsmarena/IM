@@ -10,7 +10,7 @@ if(isset($_SESSION["USER"])){
 
 	
 	//RECUPERATION ACTUALITE ANGLAISE
-	$requete = "SELECT ID_A1,CODE_A1, CAPTION_A1, COORD_X_A1, COORD_Y_A1, EST_CAPITALE FROM admin_1 WHERE ID_A1 =?";
+	$requete = "SELECT ID_A1,CODE_A1, CAPTION_A1, COORD_X_A1, COORD_Y_A1, EST_CAPITALE FROM ADMIN_1 WHERE ID_A1 =?";
 	$infoAdmin1 = null;
 
 	$stmt = $db->prepare($requete);

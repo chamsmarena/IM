@@ -1,6 +1,6 @@
 <?php
 
-include("../connectDB.php");
+include("connectDB.php");
 session_start();
 
 $requete = "SELECT * FROM localisation WHERE ID_A0='".$filterPays."' order by LIBELLE_LIEU asc";

@@ -8,7 +8,7 @@ if
         isset($_POST["coordx"])
 	)
 {
-	include("../scripts/connectDB.php");
+	include("connectDB.php");
     session_start();
 
 	$code=$_POST["code"];
@@ -17,7 +17,7 @@ if
 	$idAdmin1=$_POST["idAdmin1"];
 	$coordx=$_POST["coordx"];
 	
-	$stmt = $db->prepare("UPDATE admin_1 SET CODE_A1=?,CAPTION_A1=?,COORD_X_A1=?,COORD_Y_A1=? WHERE ID_A1=?");
+	$stmt = $db->prepare("UPDATE ADMIN_1 SET CODE_A1=?,CAPTION_A1=?,COORD_X_A1=?,COORD_Y_A1=? WHERE ID_A1=?");
 	$stmt->bindParam(1, $code);
 	$stmt->bindParam(2, $caption);
 	$stmt->bindParam(3, $coordx);

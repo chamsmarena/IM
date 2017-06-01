@@ -10,7 +10,7 @@ if(isset($_POST['idAdmin0']))
         
         $idAdmin0 = $_POST['idAdmin0'];
         
-        $requete = "SELECT ID_A1, ID_A0, CODE_A1, CAPTION_A1, COORD_X_A1, COORD_Y_A1, EST_CAPITALE FROM admin_1 WHERE ID_A0 = ?";
+        $requete = "SELECT ID_A1, ID_A0, CODE_A1, CAPTION_A1, COORD_X_A1, COORD_Y_A1, EST_CAPITALE FROM ADMIN_1 WHERE ID_A0 = ?";
         
 		
 		

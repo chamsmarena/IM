@@ -100,7 +100,7 @@ if(isset($_SESSION["USER"])){
 											<option value=''>---</option>
 											<?php
 											if(isset($_SESSION["USER"])){
-												$stmt = $db->prepare("SELECT ID_A0,CAPTION_A0 FROM admin_0");
+												$stmt = $db->prepare("SELECT ID_A0,CAPTION_A0 FROM ADMIN_0");
 												$id = 0;
 												if ($stmt->execute()) {
 													while ($row = $stmt->fetch()) {
@@ -160,7 +160,7 @@ if(isset($_SESSION["USER"])){
 											<option value=''>---</option>
 											<?php
 											if(isset($_SESSION["USER"])){
-												$stmt = $db->prepare("SELECT TYPE_CATEG_ACTU, TITRE_CATEG_ACTU FROM categorie_actualite");
+												$stmt = $db->prepare("SELECT TYPE_CATEG_ACTU, TITRE_CATEG_ACTU FROM CATEGORIE_ACTUALITE");
 												$id = 0;
 												if ($stmt->execute()) {
 													while ($row = $stmt->fetch()) {
@@ -189,7 +189,7 @@ if(isset($_SESSION["USER"])){
 											<option value=''>---</option>
 											<?php
 											if(isset($_SESSION["USER"])){
-												$stmt = $db->prepare("SELECT CODE_MENACE, TITRE_MENACE FROM menaces");
+												$stmt = $db->prepare("SELECT CODE_MENACE, TITRE_MENACE FROM MENACES");
 												$id = 0;
 												if ($stmt->execute()) {
 													while ($row = $stmt->fetch()) {
@@ -214,7 +214,7 @@ if(isset($_SESSION["USER"])){
                                 <option value=''>---</option>
                                 <?php
                                 if(isset($_SESSION["USER"])){
-                                    $stmt = $db->prepare("SELECT ID_TAG,LIBELLE_TAG FROM tag");
+                                    $stmt = $db->prepare("SELECT ID_TAG,LIBELLE_TAG FROM TAG");
                                     $id = 0;
                                     if ($stmt->execute()) {
                                         while ($row = $stmt->fetch()) {

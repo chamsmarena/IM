@@ -14,7 +14,7 @@ if
 		isset($_POST["PostDetailEn"])
 	)
 {
-	include("../scripts/connectDB.php");
+	include("connectDB.php");
     session_start();
 
 	$PostPays=$_POST["PostPays"];
@@ -38,7 +38,7 @@ if
 	$message = "";
 	
 	//RECUPERATION DE L'ID DE LA MENACE
-	$requete = "SELECT ID_MENACE FROM menaces WHERE CODE_MENACE=?";
+	$requete = "SELECT ID_MENACE FROM MENACES WHERE CODE_MENACE=?";
 	$stmt = $db->prepare($requete);
 	$idMenace = "";
 	
@@ -49,14 +49,14 @@ if
 			}
 		}
 	}catch (PDOException $e){
-		$message .= " #SelectMenaces:".$e->getMessage();
+		$message .= " #SelectMENACES:".$e->getMessage();
 	}
 	
 	
 	
 
 	//RECUPERATION DE L'ID DE LA CATEGORIE D'ACTU
-	$requete = "SELECT ID_CATEG_ACTU FROM categorie_actualite WHERE TYPE_CATEG_ACTU=?";
+	$requete = "SELECT ID_CATEG_ACTU FROM CATEGORIE_ACTUALITE WHERE TYPE_CATEG_ACTU=?";
 	$stmt = $db->prepare($requete);
 	$idCategActualite = "";
 	
@@ -119,7 +119,7 @@ if
 		
 		$idAdmin1 = $idDefaultAdmin1;
 		
-		$requete = "INSERT INTO lieu(ID_LIEU, ID_A1, CODE_LIEU, LIBELLE_LIEU, HAS_ADMIN1) VALUES (?,?,?,?,?)";
+		$requete = "INSERT INTO LIEU(ID_LIEU, ID_A1, CODE_LIEU, LIBELLE_LIEU, HAS_ADMIN1) VALUES (?,?,?,?,?)";
 		$stmt = $db->prepare($requete);
 		$stmt->bindParam(1, $idLieu);
 		$stmt->bindParam(2, $idDefaultAdmin1);
@@ -141,7 +141,7 @@ if
 	var_dump ($arrayTags);
 	for ($i = 1; $i < count($arrayTags); $i++) {
 		if(count($arrayTags[$i])!=0){
-			$requete = "INSERT INTO r_actualite_avoir_tag (ID_ACTUALITE, ID_TAG) VALUES (?,?)";
+			$requete = "INSERT INTO R_ACTUALITE_AVOIR_TAG (ID_ACTUALITE, ID_TAG) VALUES (?,?)";
 			$stmt = $db->prepare($requete);
 			
 			$idTag = $arrayTags[$i];
@@ -165,7 +165,7 @@ if
 	}
 	
 	//INSERER LA NEWS FRANCAISE
-	$ID_LANGUE =1;
+	$ID_LANGUE =0;
 	$ID_actualite = $IdActualiteFR;
 	$TITRE_ACTUALITE = $PostTitreFr;
     $DETAIL_ACTUALITE = $PostDetailFr;
@@ -190,7 +190,7 @@ if
 		 $result = $stmt->execute();
 		 
 		// EXECUTION DE LA REQUETE AVEC LA LANQUE ANGLAISE
-		$ID_LANGUE = 0;
+		$ID_LANGUE = 1;
 		$ID_actualite = $IdActualiteEN;
 		$TITRE_ACTUALITE = $PostTitreEn;
 		$DETAIL_ACTUALITE = $PostDetailEn;

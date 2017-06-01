@@ -15,7 +15,7 @@ if
 		isset($_POST["PostDetailEn"])
 	)
 {
-	include("../scripts/connectDB.php");
+	include("connectDB.php");
     session_start();
 
 	$idActualite=$_POST["idActualite"];
@@ -39,7 +39,7 @@ if
 	
 	
 	//RECUPERATION DE L'ID DE LA MENACE
-	$requete = "SELECT ID_MENACE FROM menaces WHERE CODE_MENACE=?";
+	$requete = "SELECT ID_MENACE FROM MENACES WHERE CODE_MENACE=?";
 	$stmt = $db->prepare($requete);
 	$idMenace = "";
 	
@@ -51,7 +51,7 @@ if
 	
 
 	//RECUPERATION DE L'ID DE LA CATEGORIE D'ACTU
-	$requete = "SELECT ID_CATEG_ACTU FROM categorie_actualite WHERE TYPE_CATEG_ACTU=?";
+	$requete = "SELECT ID_CATEG_ACTU FROM CATEGORIE_ACTUALITE WHERE TYPE_CATEG_ACTU=?";
 	$stmt = $db->prepare($requete);
 	$idCategActualite = "";
 	
@@ -98,7 +98,7 @@ if
 		
 		$idAdmin1 = $idDefaultAdmin1;
 		
-		$requete = "INSERT INTO lieu(ID_LIEU, ID_A1, CODE_LIEU, LIBELLE_LIEU, HAS_ADMIN1) VALUES (?,?,?,?,?)";
+		$requete = "INSERT INTO LIEU (ID_LIEU, ID_A1, CODE_LIEU, LIBELLE_LIEU, HAS_ADMIN1) VALUES (?,?,?,?,?)";
 		$stmt = $db->prepare($requete);
 		$stmt->bindParam(1, $idLieu);
 		$stmt->bindParam(2, $idDefaultAdmin1);
@@ -117,7 +117,7 @@ if
 	
 	//UPDATE DES TAGS
 	//SUPRESSION DES ANCIENNES
-	$requete = "DELETE FROM r_actualite_avoir_tag WHERE ID_ACTUALITE = ? OR ID_ACTUALITE = ?";
+	$requete = "DELETE FROM R_ACTUALITE_AVOIR_TAG WHERE ID_ACTUALITE = ? OR ID_ACTUALITE = ?";
 	$stmt = $db->prepare($requete);
 	$stmt->bindParam(1, $IdActualiteFR);
 	$stmt->bindParam(2, $IdActualiteEN);
@@ -133,7 +133,7 @@ if
 	var_dump ($arrayTags);
 	for ($i = 1; $i < count($arrayTags); $i++) {
 		if(count($arrayTags[$i])!=0){
-			$requete = "INSERT INTO r_actualite_avoir_tag (ID_ACTUALITE, ID_TAG) VALUES (?,?)";
+			$requete = "INSERT INTO R_ACTUALITE_AVOIR_TAG (ID_ACTUALITE, ID_TAG) VALUES (?,?)";
 			$stmt = $db->prepare($requete);
 			
 			$idTag = $arrayTags[$i];
@@ -162,7 +162,7 @@ if
 	$TITRE_ACTUALITE = $PostTitreFr;
     $DETAIL_ACTUALITE = $PostDetailFr;
 	
-    $stmt = $db->prepare("UPDATE actualite SET ID_LANGUE=?, ID_LIEU=?, IDUSER=?, ID_A1=?, ID_MENACE=?, ID_CATEG_ACTU=?, TITRE_ACTUALITE=?, DETAIL_ACTUALITE=?, DATE_ACTUALITE=? WHERE ID_ACTUALITE=?");
+    $stmt = $db->prepare("UPDATE ACTUALITE SET ID_LANGUE=?, ID_LIEU=?, IDUSER=?, ID_A1=?, ID_MENACE=?, ID_CATEG_ACTU=?, TITRE_ACTUALITE=?, DETAIL_ACTUALITE=?, DATE_ACTUALITE=? WHERE ID_ACTUALITE=?");
 	
     $stmt->bindParam(1, $ID_LANGUE);
     $stmt->bindParam(2, $idLieu);

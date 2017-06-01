@@ -8,7 +8,7 @@ if
         isset($_POST["idLieu"])
 	)
 {
-	include("../scripts/connectDB.php");
+	include("connectDB.php");
     session_start();
 
 	$idAdmin1=$_POST["PostAdmin1"];
@@ -36,7 +36,7 @@ if
 	
 	if($lieuExiste){
 		//METTRE A JOUR LE LIEU DE L'ACTUALITE
-		$stmt = $db->prepare("UPDATE actualite set ID_LIEU=? WHERE ID_LIEU=?");
+		$stmt = $db->prepare("UPDATE ACTUALITE set ID_LIEU=? WHERE ID_LIEU=?");
 		$stmt->bindParam(1, $idLieuNew);
 		$stmt->bindParam(2, $idLieu);
 		$result = false;
@@ -45,7 +45,7 @@ if
 			 
 			 //SI L'ANCIEN LIEU EST DIFFERENT DU NOUVEAU LIEU ON SUPPRIME L'ANCIEN
 			if($idLieu!=$idLieuNew){
-				$stmt = $db->prepare("DELETE FROM lieu WHERE ID_LIEU=?");
+				$stmt = $db->prepare("DELETE FROM LIEU WHERE ID_LIEU=?");
 				$stmt->bindParam(1, $idLieu);
 				$result = $stmt->execute();
 			}
@@ -56,7 +56,7 @@ if
 		
 		
 		//METTRE A JOUR LE LIEU DE L'ACTUALITE
-		$stmt = $db->prepare("UPDATE lieu set CODE_LIEU=?, LIBELLE_LIEU=?, HAS_ADMIN1=? WHERE ID_LIEU=?");
+		$stmt = $db->prepare("UPDATE LIEU set CODE_LIEU=?, LIBELLE_LIEU=?, HAS_ADMIN1=? WHERE ID_LIEU=?");
 		$stmt->bindParam(1, $codeLieu);
 		$stmt->bindParam(2, $PostLocation);
 		$stmt->bindParam(3, $hasAdmin);
@@ -74,7 +74,7 @@ if
 		
 	}else{
 		//LE LIEU N'EXISTE PAS ON CREE LE LIEU
-		$requete = "INSERT INTO lieu(ID_LIEU, ID_A1, CODE_LIEU, LIBELLE_LIEU, HAS_ADMIN1) VALUES (?,?,?,?,?)";
+		$requete = "INSERT INTO LIEU (ID_LIEU, ID_A1, CODE_LIEU, LIBELLE_LIEU, HAS_ADMIN1) VALUES (?,?,?,?,?)";
 		$idLieuNew = date('YmdHis').rand (0, 9999);
 		
 		$stmt = $db->prepare($requete);
@@ -88,7 +88,7 @@ if
 			$result = $stmt->execute();
 			
 			//METTRE A JOUR LE LIEU DE L'ACTUALITE
-			$stmt = $db->prepare("UPDATE actualite set ID_LIEU=? WHERE ID_LIEU=?");
+			$stmt = $db->prepare("UPDATE ACTUALITE set ID_LIEU=? WHERE ID_LIEU=?");
 			$stmt->bindParam(1, $idLieuNew);
 			$stmt->bindParam(2, $idLieu);
 			$result = false;
@@ -97,7 +97,7 @@ if
 				 
 				 //SI L'ANCIEN LIEU EST DIFFERENT DU NOUVEAU LIEU ON SUPPRIME L'ANCIEN
 				if($idLieu!=$idLieuNew){
-					$stmt = $db->prepare("DELETE FROM lieu WHERE ID_LIEU=?");
+					$stmt = $db->prepare("DELETE FROM LIEU WHERE ID_LIEU=?");
 					$stmt->bindParam(1, $idLieu);
 					$result = $stmt->execute();
 				}

@@ -6,7 +6,7 @@ session_start();
 if(isset($_SESSION["USER"])){
     
 	//RECUPERATION ACTUALITE ANGLAISE
-	$requete = "SELECT ID_LIEU, CODE_A0, LIBELLE_LIEU FROM lieuxsansadmin1";
+	$requete = "SELECT ID_LIEU, CODE_A0, LIBELLE_LIEU FROM LieuxSansAdmin1";
 	$lieuxSansAdmin1 = array();
 	$stmt = $db->prepare($requete);
 	try{
@@ -93,7 +93,7 @@ if(isset($_SESSION["USER"])){
 						  <option value='all'>All</option>
 							<?php
 								
-								$stmt = $db->prepare("SELECT CODE_A0,CAPTION_A0 FROM admin_0 order by CAPTION_A0 asc");
+								$stmt = $db->prepare("SELECT CODE_A0,CAPTION_A0 FROM ADMIN_0 order by CAPTION_A0 asc");
 								$id = 0;
 								if ($stmt->execute()) {
 									while ($row = $stmt->fetch()) {
@@ -111,7 +111,7 @@ if(isset($_SESSION["USER"])){
 						<select name='TypeActu' id='typeActu' class='form-control pointer'  onchange="FiltrerTheme()" style='font-size:14px;font-family: "Avenir Next","arial";'>
 							<option value='all'>All</option>
 							<?php
-								$stmt = $db->prepare("SELECT ID_TAG, LIBELLE_TAG FROM tag  order by LIBELLE_TAG asc");
+								$stmt = $db->prepare("SELECT ID_TAG, LIBELLE_TAG FROM TAG  order by LIBELLE_TAG asc");
 								$id = 0;
 								if ($stmt->execute()) {
 									while ($row = $stmt->fetch()) {
